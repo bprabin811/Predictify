@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-    const accessToken = true; 
+    const accessToken = false; 
 
     const LoggedInUserNotAccessPath = ['/', '/auth/login', '/auth/register'];
     const isProtectedPath = ['/profile', '/workspace', '/workspace/analytics','/workspace/view'];
