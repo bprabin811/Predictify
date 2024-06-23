@@ -165,12 +165,12 @@ const dummyData = [
 ];
 
 // Generate columns dynamically from data keys
-const generateColumns = (data) => {
+const generateColumns = (data: any[]) => {
   if (!data || !data.length) return [];
   return Object.keys(data[0]).map((key) => ({
     accessorKey: key,
     header: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' '),
-    cell: (info) => info.getValue(),
+    cell: (info: any) => info.getValue(),
     enableSorting: true,
     enableFiltering: true,
   }));

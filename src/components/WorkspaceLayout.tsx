@@ -1,29 +1,21 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Settings, Search, FolderPlus, ChevronRight, BrainCircuit } from 'lucide-react';
+import { Search, FolderPlus, ChevronRight, BrainCircuit, Sparkles, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useRouter, usePathname } from 'next/navigation';
-
-import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
-import { useTheme } from 'next-themes';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Badge } from './ui/badge';
+import SettingsMenu from './SettingsMenu';
 
 const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
-  const { setTheme } = useTheme();
   const router = useRouter();
   const pathname = usePathname();
   const query = new URLSearchParams(window.location.search);
 
   const [workspaces, setWorkspaces] = useState([
-    { id: 1, name: 'First Workspace' },
+    { id: 1, name: 'Default Workspace' },
     { id: 2, name: "Prabin's Workspace" },
   ]);
   const [showInput, setShowInput] = useState(false);
@@ -33,12 +25,16 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
     setShowInput(true);
   };
 
-  const handleWorkspaceNameChange = (event) => {
+  const handleWorkspaceNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewWorkspaceName(event.target.value);
   };
 
-  const HandleWorkspaceName = (id :number,name: string) => {
-    router.push(`${pathname}?wid=${id}&wsn=${name}&`, { shallow: true });
+  const HandleWorkspaceName = (id: number, name: string) => {
+    router.push(`${pathname}?wid=${id}&wsn=${name}&`);
+  };
+
+  const HandleModelTestButton = () => {
+    router.push(`/features/model`);
   };
 
   const handleAddNewWorkspace = () => {
@@ -79,38 +75,38 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                     <FolderPlus size={16} className="cursor-pointer" onClick={handleAddWorkspace} />
                   </Button>
                 </div>
-
-                {workspaces.map((workspace) => (
-                  <Button
-                    key={workspace.id}
-                    variant={'ghost'}
-                    onClick={() => HandleWorkspaceName(workspace.id,workspace.name)}
-                    // href={`/?id=${workspace.id}&workspace=${encodeURIComponent(workspace.name)}`}
-                    className="p-2 flex items-center justify-start gap-4 border rounded-md cursor-pointer">
-                    <ChevronRight size={16} />
-                    <h3 className="font-normal">{workspace.name}</h3>
-                  </Button>
-                ))}
-
-                {showInput && (
-                  <div className="relative flex items-center">
-                    <input
-                      type="text"
-                      className="pl-10 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:border-transparent font-normal"
-                      placeholder="Untitled Workspace"
-                      value={newWorkspaceName}
-                      onChange={handleWorkspaceNameChange}
-                      onBlur={handleAddNewWorkspace}
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter') {
-                          handleAddNewWorkspace();
-                        }
-                      }}
-                    />
-                  </div>
-                )}
+                <ScrollArea className="h-56">
+                  {showInput && (
+                    <div className="relative flex items-center mb-2">
+                      <input
+                        type="text"
+                        className="pl-10 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:border-transparent font-normal"
+                        placeholder="Untitled Workspace"
+                        value={newWorkspaceName}
+                        onChange={handleWorkspaceNameChange}
+                        onBlur={handleAddNewWorkspace}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            handleAddNewWorkspace();
+                          }
+                        }}
+                      />
+                    </div>
+                  )}
+                  {workspaces.map((workspace) => (
+                    <Button
+                      key={workspace.id}
+                      variant={'ghost'}
+                      onClick={() => HandleWorkspaceName(workspace.id, workspace.name)}
+                      className="p-2 mb-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
+                      <ChevronRight size={16} />
+                      <h3 className="font-normal">{workspace.name}</h3>
+                    </Button>
+                  ))}
+                </ScrollArea>
               </aside>
             </div>
+
             <div className="mt-auto p-4">
               <Card x-chunk="dashboard-02-chunk-0" className="border-none">
                 <CardHeader className="p-2 pt-0 md:p-4">
@@ -126,23 +122,19 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                 </CardContent>
               </Card>
             </div>
-            <div className="m-4 p-2 flex items-center justify-start gap-4 border rounded-md cursor-pointer">
-              {/* <Settings size={16} />
-              <h2 className="font-normal">Settings</h2> */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="icon">
-                    <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                    <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                    <span className="sr-only">Toggle theme</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            <div className="px-4">
+              <Button
+                variant={'outline'}
+                onClick={HandleModelTestButton}
+                className="p-2 mb-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
+                <Sparkles size={16} />
+                <h3 className="font-normal">
+                  Model Test <Badge className="py-0 ml-2">New</Badge>
+                </h3>
+              </Button>
+            </div>
+            <div className="px-4 mb-4">
+              <SettingsMenu />
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
     const accessToken = false; 
 
     const LoggedInUserNotAccessPath = ['/', '/auth/login', '/auth/register'];
-    const isProtectedPath = ['/profile', '/workspace', '/workspace/analytics','/workspace/view'];
+    const isProtectedPath = ['/profile', '/workspace', '/workspace/analytics','/workspace/view','/((?!_next/static|favicon.ico).*)'];
 
     const pathname = request.nextUrl.pathname.toLowerCase(); 
 
@@ -24,5 +24,5 @@ export function middleware(request: NextRequest) {
 
 // Matcher configuration
 export const config = {
-    matcher: ['/', '/auth/login', '/auth/register', '/profile', '/workspace', '/workspace/analytics','/workspace/view'],
+    matcher: ['/', '/auth/login', '/auth/register', '/profile', '/workspace', '/workspace/analytics','/workspace/view','/((?!_next/static|favicon.ico).*)'],
 };

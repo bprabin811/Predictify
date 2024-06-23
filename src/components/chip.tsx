@@ -1,9 +1,15 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 
-const Chip = ({ label, onClick, selected }) => (
+interface ChipProps {
+  label: string;
+  onClick: () => void;
+  selected: boolean;
+}
+
+const Chip: React.FC<ChipProps> = ({ label, onClick, selected }) => (
   <Button
-    variant={selected ? 'solid' : 'outline'}
+    variant={selected ? 'default' : 'outline'}
     className={` ${selected ? 'bg-primary border-[#4a4b4b]' : ''}`}
     onClick={onClick}>
     {label}

@@ -25,9 +25,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useRouter } from 'next/navigation';
-import DataAnalytics from '@/components/processes/analytics';
+// import DataAnalytics from '@/components/processes/analytics';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
-export function ProcessLayout() {
+const ProcessLayout = () => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -39,11 +41,12 @@ export function ProcessLayout() {
       <div className="p-5 w-full">
         <Tabs defaultValue="data" className="w-full">
           <div className="flex items-center justify-between py-2">
-            <div
-              className="font-bold flex items-center gap-2 cursor-pointer text-xl text-primary"
-              onClick={handleClick}>
-              <BrainCircuit size={24} />
-              Predictify
+            <div className="font-bold flex items-center gap-2 cursor-pointer text-xl text-primary">
+              <div onClick={handleClick} className="flex items-center gap-2">
+                <BrainCircuit size={24} />
+                Predictify
+              </div>
+              <Badge variant={'outline'}>Beta</Badge>
             </div>
             <TabsList className="bg-transparent  border-none flex gap-4 items-center justify-start">
               <TabsTrigger
@@ -93,9 +96,9 @@ export function ProcessLayout() {
             </TabsList>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <div className="flex items-center justify-center  p-2 rounded-sm  cursor-pointer">
+                <Button variant={'ghost'}>
                   <Settings size={16} />
-                </div>
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="p-4 rounded-md shadow-lg">
                 <DropdownMenuLabel className=" flex items-center gap-2">
@@ -130,7 +133,7 @@ export function ProcessLayout() {
             <ViewDataTable />
           </TabsContent>
           <TabsContent value="visualize" className="w-full  p-4">
-            <DataAnalytics />
+            {/* <DataAnalytics /> */}
           </TabsContent>
           <TabsContent value="engineering" className=" p-4">
             This is your engineering.
@@ -145,6 +148,6 @@ export function ProcessLayout() {
       </div>
     </main>
   );
-}
+};
 
 export default ProcessLayout;

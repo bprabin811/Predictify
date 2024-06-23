@@ -14,7 +14,6 @@ import { Label } from '@/components/ui/label';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import useAuthStore from '@/store/auth/AuthStore';
 import { useToast } from '@/components/ui/use-toast';
 import { useEffect } from 'react';
 import Navbar from '@/components/NavBar';
@@ -25,16 +24,8 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required('Password is required'),
 });
 
-export function LoginForm() {
+const LoginPage = () => {
   const { toast } = useToast();
-  const { isSuccess, isLoading, login, isLoggedIn } = useAuthStore();
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      console.log('Logged In');
-      window.location.href = '/workspace';
-    }
-  }, [isLoggedIn]);
 
   return (
     <div className="min-h-screen flex items-center">
@@ -49,8 +40,8 @@ export function LoginForm() {
               initialValues={{ username: '', password: '' }}
               validationSchema={LoginSchema}
               onSubmit={(values) => {
-                const response = login(values.username, values.password);
-                console.log(response, 'ppp');
+                // const response = login(values.username, values.password);
+                // console.log(response, 'ppp');
                 toast({
                   title: 'You have been logged in successfully.',
                   description: new Date().getUTCDate(),
@@ -156,6 +147,6 @@ export function LoginForm() {
       </MaxWidthWrapper>
     </div>
   );
-}
+};
 
-export default LoginForm;
+export default LoginPage;

@@ -3,36 +3,21 @@ import Link from 'next/link';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import { buttonVariants } from './ui/button';
 import { ChevronRight, GanttChart, LogOut, LogIn } from 'lucide-react';
-import useAuthStore from '@/store/auth/AuthStore';
-import usePlanStore from '@/store/plan/planStore';
-import { useEffect } from 'react';
 import { Separator } from './ui/separator';
+import Image from 'next/image';
 
 export function Navbar() {
-  const { isLoggedIn, logout } = useAuthStore();
-  const user = isLoggedIn;
-  const isAdmin = undefined;
-
-  const { checkPlan, plan, remainingDays, isLoading, error } = usePlanStore();
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      checkPlan();
-    }
-  }, [isLoggedIn, checkPlan]);
-
-  console.log(plan);
 
   return (
     <nav className="sticky z-[100] h-20 inset-x-0 top-0 w-full border-b border-[#ddd] dark:border-[#666] backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
         <div className="flex h-20 items-center justify-between">
           <Link href="/" className="flex z-40 font-semibold">
-            <img src="/logo.png" alt="Logo" className="w-10" />
+            <Image src="/logo.png" alt="Logo" className="w-10" />
             Predictify
           </Link>
           <div className="h-full flex items-center space-x-4">
-            {user ? (
+            {true ? (
               <>
                 <Link
                   href="/auth/login"
@@ -40,11 +25,11 @@ export function Navbar() {
                     size: 'sm',
                     variant: 'ghost',
                   })}
-                  onClick={() => logout()}>
+                  onClick={() => {}}>
                   <LogOut className="mr-1.5 h-5 w-5" />
                   Sign out
                 </Link>
-                {isAdmin && (
+                {false && (
                   <Link
                     href="/dashboard"
                     className={buttonVariants({
@@ -75,7 +60,7 @@ export function Navbar() {
                   <LogIn className="mr-1.5 h-5 w-5" />
                   Login
                 </Link>
-                <Separator orientation='vertical' className='h-8'/>
+                <Separator orientation="vertical" className="h-8" />
 
                 <Link
                   href="/auth/login"

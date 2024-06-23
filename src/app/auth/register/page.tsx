@@ -1,7 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,9 +16,8 @@ import {
 } from '@/components/ui/card';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { useToast } from '@/components/ui/use-toast';
-import useAuthStore from '@/store/auth/AuthStore';
 import Link from 'next/link';
-import { LockKeyhole, ShieldCheck, UserPlus } from 'lucide-react';
+import { LockKeyhole, ShieldCheck } from 'lucide-react';
 
 const EmailSchema = Yup.object().shape({
   username: Yup.string().required('Username is required'),
@@ -39,35 +38,44 @@ const SignupSchema = Yup.object().shape({
     .required('Password is required'),
 });
 
+interface FormValues {
+  email: string;
+  code: string;
+  username: string;
+  password: string;
+}
+
 export default function SignupForm() {
   const router = useRouter();
   const pathname = usePathname();
-  const query = new URLSearchParams(window.location.search);
-  const stepParam = query.get('step');
-  const [step, setStep] = useState(Number(stepParam) || 1);
+  const [step, setStep] = useState<number>(1);
   const { toast } = useToast();
 
   useEffect(() => {
-    if (stepParam) {
-      setStep(Number(stepParam));
+    if (typeof window !== 'undefined') {
+      const query = new URLSearchParams(window.location.search);
+      const stepParam = query.get('step');
+      if (stepParam) {
+        setStep(Number(stepParam));
+      }
     }
-  }, [stepParam]);
+  }, []);
 
-  const handleSubmit = (values, actions) => {
+  const handleSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
     if (step === 1) {
       // Handle email submission
       setStep(2);
-      router.push(`${pathname}?step=2`, { shallow: true });
+      router.push(`${pathname}?step=2`);
       actions.setSubmitting(false);
     } else if (step === 2) {
       // Handle verification code submission
       setStep(3);
-      router.push(`${pathname}?step=3`, { shallow: true });
+      router.push(`${pathname}?step=3`);
       actions.setSubmitting(false);
     } else if (step === 3) {
       toast({
         title: 'You have been signed up successfully.',
-        description: new Date().getUTCDate(),
+        description: new Date().toString(),
       });
       window.location.href = '/workspace';
     }
@@ -79,7 +87,6 @@ export default function SignupForm() {
         <Card className="max-w-sm border-none">
           <CardHeader>
             <CardTitle className="text-2xl mb-2">
-              {/* {step === 1 && 'Log in'} */}
               {step === 2 && (
                 <div className="bg-gray-100 dark:bg-gray-600 h-10 w-10 flex items-center justify-center rounded-full">
                   <ShieldCheck className="rotate-[-30deg]" />
@@ -113,7 +120,7 @@ export default function SignupForm() {
                 <Form className="grid gap-4">
                   {step === 1 && (
                     <>
-                      <Button variant="outline" className="w-full flex gap-2 ">
+                      <Button variant="outline" className="w-full flex gap-2">
                         <div>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
