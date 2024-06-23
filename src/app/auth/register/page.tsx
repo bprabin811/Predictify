@@ -83,7 +83,11 @@ export default function SignupForm() {
 
   return (
     <div className="min-h-screen flex items-center">
-      <MaxWidthWrapper className="p-20 flex items-center justify-evenly">
+      <MaxWidthWrapper className="p-20 flex items-center justify-center flex-col gap-10">
+        <Link href="/" className="max-w-sm flex z-40 font-semibold gap-2">
+          <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
+          Predictify
+        </Link>
         <Card className="max-w-sm border-none">
           <CardHeader>
             <CardTitle className="text-2xl mb-2">
