@@ -20,7 +20,7 @@ import Link from 'next/link';
 import { LockKeyhole, ShieldCheck } from 'lucide-react';
 
 const EmailSchema = Yup.object().shape({
-  username: Yup.string().required('Username is required'),
+  name: Yup.string().required('Name is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
 });
 
@@ -41,7 +41,7 @@ const SignupSchema = Yup.object().shape({
 interface FormValues {
   email: string;
   code: string;
-  username: string;
+  name: string;
   password: string;
 }
 
@@ -113,7 +113,7 @@ export default function SignupForm() {
               initialValues={{
                 email: '',
                 code: '',
-                username: '',
+                name: '',
                 password: '',
               }}
               validationSchema={
@@ -155,17 +155,17 @@ export default function SignupForm() {
                         <hr className="flex-1 border-t" />
                       </div>
                       <div className="grid gap-2">
-                        <Label htmlFor="username">Username</Label>
+                        <Label htmlFor="name">Name</Label>
                         <Field
                           as={Input}
-                          id="username"
-                          name="username"
+                          id="name"
+                          name="name"
                           type="text"
                           placeholder="John Doe"
                           className="border border-[#555]"
                         />
                         <ErrorMessage
-                          name="username"
+                          name="name"
                           component="div"
                           className="text-red-500 text-sm"
                         />

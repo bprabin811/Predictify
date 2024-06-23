@@ -112,7 +112,7 @@ const ModelSpaceLayout: React.FC = () => {
           <div className="flex h-full max-h-screen flex-col gap-4">
             <div className="mt-4 flex h-14 items-center px-4 lg:h-[60px] lg:px-6">
               <Link href="/" className="flex z-40 font-semibold gap-4">
-                <Sparkles />
+                <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
                 Model Test <Badge className="py-0 ml-2">New</Badge>
               </Link>
             </div>

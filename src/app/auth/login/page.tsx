@@ -18,11 +18,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useToast } from '@/components/ui/use-toast';
 import { useEffect } from 'react';
-import Navbar from '@/components/NavBar';
-import Footer from '@/components/Footer';
 
 const LoginSchema = Yup.object().shape({
-  username: Yup.string().required('Username is required'),
+  email: Yup.string().email('Please enter a valid email').required('Email is required'),
   password: Yup.string().required('Password is required'),
 });
 
@@ -50,7 +48,7 @@ const LoginPage = () => {
           </CardHeader>
           <CardContent>
             <Formik
-              initialValues={{ username: '', password: '' }}
+              initialValues={{ email: '', password: '' }}
               validationSchema={LoginSchema}
               onSubmit={(values) => {
                 // Simulate login success
@@ -95,17 +93,17 @@ const LoginPage = () => {
                     <hr className="flex-1 border-t" />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="username">Username</Label>
+                    <Label htmlFor="email">Email</Label>
                     <Field
                       as={Input}
-                      id="username"
-                      name="username"
-                      type="username"
-                      placeholder="usertest09"
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="youremail@example.com"
                       className="border border-[#555]"
                     />
                     <ErrorMessage
-                      name="username"
+                      name="email"
                       component="div"
                       className="text-red-500 text-sm"
                     />
