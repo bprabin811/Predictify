@@ -12,7 +12,6 @@ import SettingsMenu from './SettingsMenu';
 const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const query = new URLSearchParams(window.location.search);
 
   const [workspaces, setWorkspaces] = useState([
     { id: 1, name: 'Default Workspace' },
