@@ -16,29 +16,33 @@ import {
   Settings,
   User,
   Shield,
-  Bell,
+  Braces,
   Palette,
   LogOut,
   Moon,
   Sun,
   LaptopMinimal,
-  Braces,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 const SettingsMenu: React.FC = () => {
   const { setTheme } = useTheme();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    Cookies.remove('isLogin');
+    router.push('/auth/login');
+  };
 
   return (
     <div className="">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          {/* <Button variant={'ghost'}>
-            <Settings size={20} />
-          </Button> */}
           <Button
             variant={'outline'}
-            onClick={() => {}}
             className="p-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
             <Settings size={16} />
             Settings
@@ -83,7 +87,7 @@ const SettingsMenu: React.FC = () => {
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="flex items-center gap-3">
+          <DropdownMenuItem className="flex items-center gap-3" onClick={handleLogout}>
             <LogOut size={15} />
             Logout
           </DropdownMenuItem>

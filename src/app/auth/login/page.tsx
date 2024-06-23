@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import Cookies from 'js-cookie';
 import {
   Card,
   CardContent,
@@ -20,12 +22,19 @@ import Navbar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 
 const LoginSchema = Yup.object().shape({
-  username: Yup.string().required('username is required'),
+  username: Yup.string().required('Username is required'),
   password: Yup.string().required('Password is required'),
 });
 
 const LoginPage = () => {
   const { toast } = useToast();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (sessionStorage.getItem('isLogin') === 'true') {
+      router.push('/workspace');
+    }
+  }, [router]);
 
   return (
     <div className="min-h-screen flex items-center">
@@ -36,7 +45,7 @@ const LoginPage = () => {
         </Link>
         <Card className="max-w-sm border-none">
           <CardHeader>
-            <CardTitle className="text-2xl ">Log in</CardTitle>
+            <CardTitle className="text-2xl">Log in</CardTitle>
             <CardDescription>Enter your information below to login to your account</CardDescription>
           </CardHeader>
           <CardContent>
@@ -44,12 +53,14 @@ const LoginPage = () => {
               initialValues={{ username: '', password: '' }}
               validationSchema={LoginSchema}
               onSubmit={(values) => {
-                // const response = login(values.username, values.password);
-                // console.log(response, 'ppp');
+                // Simulate login success
+                sessionStorage.setItem('isLogin', 'true');
+                Cookies.set('isLogin', 'true', { expires: 1 });
                 toast({
                   title: 'You have been logged in successfully.',
                   description: new Date().getUTCDate(),
                 });
+                router.push('/workspace');
               }}>
               {({ isSubmitting }) => (
                 <Form className="grid gap-4">
@@ -102,8 +113,6 @@ const LoginPage = () => {
                   <div className="grid gap-2">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="password">Password</Label>
-                      {/* <Link href="#" className="ml-auto inline-block text-sm underline">
-                      </Link> */}
                       <Button variant={'link'} className="m-0 p-0">
                         Forgot your password?
                       </Button>

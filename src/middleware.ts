@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-    const accessToken = false; 
+    const isLoginCookie = request.cookies.get('isLogin');
+    const accessToken = isLoginCookie && isLoginCookie.value === 'true';
 
     const LoggedInUserNotAccessPath = ['/', '/auth/login', '/auth/register'];
     const isProtectedPath = ['/profile', '/workspace', '/workspace/analytics','/workspace/view','/((?!_next/static|favicon.ico).*)'];
