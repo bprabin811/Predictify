@@ -8,6 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useRouter, usePathname } from 'next/navigation';
 import { Badge } from './ui/badge';
 import SettingsMenu from './SettingsMenu';
+import { DemoReportAnIssue } from './org/report-issues';
 
 const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -51,11 +52,11 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="grid min-h-screen w-full md:grid-cols-[18vw_80vw] lg:grid-cols-[18vw_80vw]">
         <div className="hidden border-r md:block">
           <div className="flex h-full max-h-screen flex-col gap-2">
-            <div className="mt-4 flex h-14 items-center px-4 lg:h-[60px] lg:px-6">
-              <Link href="/" className="flex z-40 font-semibold gap-4">
+            <div className="flex z-40 font-semibold text-xl gap-4 h-[60px] items-center px-4 lg:h-[60px] lg:px-6">
+              <Link href="/">
                 <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
-                Workspaces
               </Link>
+              Predictify<Badge className="py-0">Beta</Badge>
             </div>
             <div className="flex-1 pt-4">
               <aside className="grid items-start px-2 gap-5 text-sm font-medium lg:px-4">
@@ -79,7 +80,7 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                     <div className="relative flex items-center mb-2">
                       <input
                         type="text"
-                        className="pl-10 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:border-transparent font-normal"
+                        className="pl-10 pr-4 py-2 w-full border rounded-md focus:outline-none focus:border-transparent font-normal"
                         placeholder="Untitled Workspace"
                         value={newWorkspaceName}
                         onChange={handleWorkspaceNameChange}
@@ -128,13 +129,11 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                 className="p-2 mb-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
                 <Sparkles size={16} />
                 <h3 className="font-normal">
-                  Model Test <Badge className="py-0 ml-2">New</Badge>
+                  Model Test
                 </h3>
               </Button>
             </div>
-            <div className="px-4 mb-4">
-              <SettingsMenu />
-            </div>
+            <DemoReportAnIssue/>
           </div>
         </div>
         <div className="flex flex-col">

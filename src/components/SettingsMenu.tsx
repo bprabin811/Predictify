@@ -26,8 +26,13 @@ import {
 import { useTheme } from 'next-themes';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-const SettingsMenu: React.FC = () => {
+interface SettingsMenuProps {
+  isLabel: boolean;
+}
+
+const SettingsMenu: React.FC<SettingsMenuProps> = ({ isLabel }) => {
   const { setTheme } = useTheme();
   const router = useRouter();
 
@@ -45,14 +50,16 @@ const SettingsMenu: React.FC = () => {
             variant={'outline'}
             className="p-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
             <Settings size={16} />
-            Settings
+            {isLabel && 'Settings'}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="flex flex-col gap-2">
-          <DropdownMenuItem className="flex items-center gap-3">
-            <User size={15} />
-            Account Settings
-          </DropdownMenuItem>
+          <Link href={'/settings'}>
+            <DropdownMenuItem className="flex items-center gap-3">
+              <User size={15} />
+              Account Settings
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex items-center gap-3">
             <Shield size={15} />

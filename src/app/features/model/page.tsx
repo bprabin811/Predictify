@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
-import { Code2, MoveDown, MoveRight, Paperclip, Share2, Sparkles } from 'lucide-react';
+import { Code2, MoveDown, MoveRight, Paperclip, Link as LinkShare, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -23,6 +23,9 @@ import APIIntegrationDialog from '@/components/DeveloperAPI';
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import Loader from '@/components/Loader';
+import { PresetShare } from '../components/share';
+import { PresetSave } from '../components/save';
 
 interface FieldSchema {
   name: string;
@@ -108,13 +111,13 @@ const ModelSpaceLayout: React.FC = () => {
   return (
     <div className="w-full flex flex-col md:flex-row gap-5 min-h-screen mx-auto px-5 md:px-5">
       <div className="grid min-h-screen w-full md:grid-cols-[18vw_80vw] lg:grid-cols-[18vw_80vw]">
-        <div className="border-r w-[18vw]">
+        <div className="border-r w-[18vw] ">
           <div className="flex h-full max-h-screen flex-col gap-4">
-            <div className="mt-4 flex h-14 items-center px-4 lg:h-[60px] lg:px-6">
-              <Link href="/" className="flex z-40 font-semibold gap-4">
+            <div className="flex z-40 font-semibold text-xl gap-4 h-[60px] items-center px-4 lg:h-[60px] lg:px-6">
+              <Link href="/">
                 <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
-                Model Test <Badge className="py-0 ml-2">New</Badge>
               </Link>
+              Model Test
             </div>
             <div className="flex-1 pt-4 ">
               <aside className="grid items-start px-4 gap-6 text-sm font-medium lg:px-6">
@@ -166,13 +169,13 @@ const ModelSpaceLayout: React.FC = () => {
             </div>
 
             <div className="px-4 mb-4">
-              <SettingsMenu />
+              <SettingsMenu isLabel={true} />
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-between w-full">
-          <div className="flex h-[10vh] w-full border-b">
+          <div className="flex h-[60px] w-full border-b">
             <div className="flex items-center justify-between w-full px-4">
               {isEditing ? (
                 <input
@@ -181,11 +184,11 @@ const ModelSpaceLayout: React.FC = () => {
                   onChange={handleTitleChange}
                   onBlur={handleTitleBlur}
                   placeholder="Untitled"
-                  className="text-lg font-semibold focus:outline-none"
+                  className="font-semibold focus:outline-none"
                   autoFocus
                 />
               ) : (
-                <h1 className="text-lg font-semibold" onClick={handleTitleClick}>
+                <h1 className=" font-semibold" onClick={handleTitleClick}>
                   {title || 'Untitled'}
                 </h1>
               )}
@@ -203,17 +206,15 @@ const ModelSpaceLayout: React.FC = () => {
                     <APIIntegrationDialog />
                   </Dialog>
                 </div>
-                <Button variant={'outline'}>Save</Button>
-                <Button variant={'ghost'} className="flex gap-2">
-                  <Share2 size={16} />
-                  Share
-                </Button>
+
+                <PresetSave />
+                <PresetShare />
               </div>
             </div>
           </div>
-          <div className="relative w-full h-[90vh] p-4">
-            <main className="w-full h-full flex items-start justify-between">
-              <Card className="shadow-none w-[60%] flex flex-col">
+          <div className="relative w-full h-[90vh] p-4 ">
+            <main className="w-full h-full flex items-start justify-between ">
+              <Card className=" shadow-none w-[60%] flex flex-col">
                 <Formik
                   initialValues={{ name: '', age: '', height: '' }}
                   validationSchema={getDynamicSchema(dataSetExample.input_fields)}

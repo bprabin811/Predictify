@@ -7,10 +7,11 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuSub,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { CircleHelp, Sparkles, MessageCircle, Headset, BookOpen, Settings } from 'lucide-react'; 
+import { CircleHelp, Sparkles, MessageCircle, Headset, BookOpen, Settings } from 'lucide-react';
 
 const HelpMenu: React.FC = () => {
   return (
@@ -28,10 +29,6 @@ const HelpMenu: React.FC = () => {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex items-center gap-3">
-            <MessageCircle size={15} />
-            Send Feedback
-          </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center gap-3">
             <Headset size={15} />
             Contact Support
           </DropdownMenuItem>
@@ -39,10 +36,6 @@ const HelpMenu: React.FC = () => {
           <DropdownMenuItem className="flex items-center gap-3">
             <BookOpen size={15} />
             Documentation
-          </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center gap-3">
-            <Settings size={15} />
-            Settings
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
