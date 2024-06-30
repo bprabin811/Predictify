@@ -8,8 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Bell, Braces, CircleUser, Palette, Receipt } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Forms',
-  description: 'Advanced form example using react-hook-form and Zod.',
+  title: 'Settings',
+  description: 'Manage your account settings, billing plans, API keys, notifications, and appearance settings.',
 };
 
 const sidebarNavItems = [

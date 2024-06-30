@@ -84,8 +84,8 @@ export default function SettingsProfilePage() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="flex gap-10">
-              <div className='flex flex-col gap-4'>
-                <FormLabel>Email Notifications</FormLabel>
+              <div className="flex flex-col gap-4">
+                <FormLabel className="font-semibold">Email Notifications</FormLabel>
                 <div className="space-y-4">
                   <FormField
                     control={form.control}
@@ -167,7 +167,7 @@ export default function SettingsProfilePage() {
                 name="type"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
-                    <FormLabel>Notify me about</FormLabel>
+                    <FormLabel className="font-semibold">Notify me about</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}

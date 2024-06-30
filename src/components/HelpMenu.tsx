@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { CircleHelp, Sparkles, MessageCircle, Headset, BookOpen, Settings } from 'lucide-react';
+import Link from 'next/link';
 
 const HelpMenu: React.FC = () => {
   return (
@@ -23,10 +24,18 @@ const HelpMenu: React.FC = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="flex flex-col gap-2">
-          <DropdownMenuItem className="flex items-center gap-3">
-            <Sparkles size={15} />
-            Feature Request
-          </DropdownMenuItem>
+          <Link href={'/feedbacks'}>
+            <DropdownMenuItem className="flex items-center gap-3">
+              <Sparkles size={15} />
+              Feature Request
+            </DropdownMenuItem>
+          </Link>
+          <Link href={'/settings'}>
+            <DropdownMenuItem className="flex items-center gap-3">
+              <Settings size={15} />
+              Settings
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex items-center gap-3">
             <Headset size={15} />

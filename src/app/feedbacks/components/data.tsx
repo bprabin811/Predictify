@@ -1,0 +1,145 @@
+export const dummyFeatureData = [
+  {
+    id: "FR-0000010",
+    title: 'Lorem, ipsum dolor.',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis tenetur quos tempore sunt error, quo consequuntur voluptate saepe sit quas dolore quam consectetur unde blanditiis labore repellendus placeat, veritatis officiis.',
+    views: 12,
+    votes: 5,
+    date: '2022-12-12',
+    status: 'completed',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000020",
+    title: 'Another Feature Request',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 8,
+    votes: 3,
+    date: '2022-12-12',
+    status: 'new',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000030",
+    title: 'Feature Request #3',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 5,
+    votes: 2,
+    date: '2022-12-12',
+    status: 'new',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000040",
+    title: 'Feature Request #4',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 3,
+    votes: 1,
+    date: '2022-12-12',
+    status: 'in progress',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000050",
+    title: 'Feature Request #5',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 2,
+    votes: 1,
+    date: '2022-12-12',
+    status: 'new',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000060",
+    title: 'Feature Request #6',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 1,
+    votes: 0,
+    date: '2022-12-12',
+    status: 'new',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000070",
+    title: 'Feature Request #7',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 1,
+    votes: 0,
+    date: '2022-12-12',
+    status: 'completed',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000080",
+    title: 'Feature Request #8',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 1,
+    votes: 0,
+    date: '2022-12-12',
+    status: 'new',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000090",
+    title: 'Feature Request #9',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 1,
+    votes: 0,
+    date: '2022-12-12',
+    status: 'new',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000010",
+    title: 'Feature Request #10',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 1,
+    votes: 0,
+    date: '2022-12-12',
+    status: 'completed',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000011",
+    title: 'Feature Request #11',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 1,
+    votes: 0,
+    date: '2022-12-12',
+    status: 'new',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000012",
+    title: 'Feature Request #12',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 1,
+    votes: 0,
+    date: '2022-12-12',
+    status: 'new',
+    created_by: 'John doe',
+  },
+  {
+    id: "FR-0000013",
+    title: 'Feature Request #13',
+    description:
+      'This is another example of a feature request. Please provide detailed information about your needs and use case.',
+    views: 1,
+    votes: 0,
+    date: '2022-12-1',
+    status: 'in progress',
+    created_by: 'John doe',
+  },
+];

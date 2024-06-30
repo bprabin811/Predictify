@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useRouter, usePathname } from 'next/navigation';
 import { Badge } from './ui/badge';
 import SettingsMenu from './SettingsMenu';
-import { DemoReportAnIssue } from './org/report-issues';
+import { ReportAnIssue } from './org/report-issues';
 
 const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -128,12 +128,10 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                 onClick={HandleModelTestButton}
                 className="p-2 mb-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
                 <Sparkles size={16} />
-                <h3 className="font-normal">
-                  Model Test
-                </h3>
+                <h3 className="font-normal">Model Test</h3>
               </Button>
             </div>
-            <DemoReportAnIssue/>
+            <ReportAnIssue />
           </div>
         </div>
         <div className="flex flex-col">
