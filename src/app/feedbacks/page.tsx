@@ -28,7 +28,7 @@ const FeedBackPage = () => {
     // Handle cancel logic here
   };
 
-  const viewRequest = (id: number) => {
+  const viewRequest = (id: string) => {
     router.push(`/feedbacks/request?id=${id}`);
   };
 

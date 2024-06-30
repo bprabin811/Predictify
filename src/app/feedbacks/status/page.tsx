@@ -61,7 +61,7 @@ export type RequestData = {
   created_by: string;
 };
 
-export const columns: ColumnDef<RequestData>[] = [
+const columns: ColumnDef<RequestData>[] = [
   {
     accessorKey: 'id',
     header: 'ID',
