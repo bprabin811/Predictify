@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
     const accessToken = isLoginCookie && isLoginCookie.value === 'true';
 
     const LoggedInUserNotAccessPath = ['/', '/auth/login', '/auth/register'];
-    const isProtectedPath = ['/profile', '/workspace', '/workspace/analytics','/workspace/view','/((?!_next/static|favicon.ico).*)'];
+    const isProtectedPath = ['/profile', '/workspace', '/workspace/analytics','/workspace/view','/settings','/settings/account','/settings/apikeys','/settings/appearance','/settings/notifications','/settings/plans','/feedbacks','/feedbacks/status','/feedbacks/request','/((?!_next/static|favicon.ico).*)'];
 
     const pathname = request.nextUrl.pathname.toLowerCase(); 
 
@@ -25,5 +25,5 @@ export function middleware(request: NextRequest) {
 
 // Matcher configuration
 export const config = {
-    matcher: ['/', '/auth/login', '/auth/register', '/profile', '/workspace', '/workspace/analytics','/workspace/view','/((?!_next/static|favicon.ico).*)'],
+    matcher: ['/', '/auth/login', '/auth/register', '/profile', '/workspace', '/workspace/analytics','/workspace/view','/settings','/settings/account','/settings/apikeys','/settings/appearance','/settings/notifications','/settings/plans','/feedbacks','/feedbacks/status','/feedbacks/request','/((?!_next/static|favicon.ico).*)'],
 };
