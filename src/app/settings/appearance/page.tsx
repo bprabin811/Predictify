@@ -36,11 +36,11 @@ const SettingsProfilePage = () => {
         </p>
       </div>
       <Separator />
-      <div className="flex space-x-4 ">
+      <div className="flex items-center justify-start w-full gap-4">
         <Card
           onClick={() => handleThemeChange('light')}
           className={
-            activeTheme === 'light' ? 'border border-primary w-[300px]' : 'w-[300px] shadow-none'
+            activeTheme === 'light' ? 'border border-primary w-[250px] ' : 'w-[250px] shadow-none '
           }>
           <CardHeader className="h-[150px]">
             <CardTitle className="text-xl font-semibold">Light Mode</CardTitle>
@@ -68,7 +68,7 @@ const SettingsProfilePage = () => {
         <Card
           onClick={() => handleThemeChange('dark')}
           className={
-            activeTheme === 'dark' ? 'border border-primary w-[300px] ' : 'w-[300px] shadow-none'
+            activeTheme === 'dark' ? 'border border-primary w-[250px] ' : 'w-[250px] shadow-none '
           }>
           <CardHeader className="h-[150px]">
             <CardTitle className="text-xl font-semibold">Dark Mode</CardTitle>
@@ -96,7 +96,7 @@ const SettingsProfilePage = () => {
         <Card
           onClick={() => handleThemeChange('system')}
           className={
-            activeTheme === 'system' ? 'border border-primary w-[300px]' : 'w-[300px] shadow-none'
+            activeTheme === 'system' ? 'border border-primary w-[250px] ' : 'w-[250px] shadow-none '
           }>
           <CardHeader className="h-[150px]">
             <CardTitle className="text-xl font-semibold">System Preference</CardTitle>

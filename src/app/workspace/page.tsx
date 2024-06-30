@@ -1,8 +1,20 @@
 'use client';
-import React, { useState, useEffect, ChangeEvent, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import WorkSpaceLayout from '@/components/WorkspaceLayout';
 import { Button } from '@/components/ui/button';
-import { Upload, Settings2, FilePenLine, Trash, CopyX, Share2, Link } from 'lucide-react';
+import {
+  Upload,
+  Settings2,
+  FilePenLine,
+  Trash,
+  Share2,
+  Link,
+  FileSpreadsheet,
+  Ellipsis,
+  Move,
+  EyeIcon,
+  Copy,
+} from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -23,17 +35,28 @@ import HelpMenu from '@/components/HelpMenu';
 import SettingsMenu from '@/components/SettingsMenu';
 import Loader from '@/components/Loader';
 import { LinkShare } from '@/components/ShareLink';
+import { Card } from '@/components/ui/card';
+import { ScrollArea } from '@radix-ui/react-scroll-area';
+import { Dataset } from './components/data';
 
 const UserDashboard: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [workspace, setWorkspace] = useState<string>('Default Workspace');
+  const [filteredDataset, setFilteredDataset] = useState<typeof Dataset>(
+    Dataset.filter((dataset) => dataset.wid === 1),
+  );
 
   useEffect(() => {
     const workspaceParam = searchParams.get('wsn');
     if (workspaceParam) {
       setWorkspace(workspaceParam);
+    }
+    const widParam = searchParams.get('wid');
+    if (widParam) {
+      const filtered = Dataset.filter((dataset) => dataset.wid === parseInt(widParam));
+      setFilteredDataset(filtered);
     }
   }, [searchParams]);
 
@@ -61,11 +84,15 @@ const UserDashboard: React.FC = () => {
                     <Share2 size={16} />
                     Share
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem className="flex items-center gap-3">
-                    <Trash size={16} />
-                    Archive
-                  </DropdownMenuItem>
+                  {workspace != 'Default Workspace' && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem className="flex items-center gap-3">
+                        <Trash size={16} className="text-red-500" />
+                        Archive
+                      </DropdownMenuItem>
+                    </>
+                  )}
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -110,37 +137,57 @@ const UserDashboard: React.FC = () => {
               </Dialog>
             </div>
           </div>
-          <div className="mt-4 flex font-normal gap-4 flex-wrap">
-            <div className="h-[60vh] w-full flex items-center justify-center">
-              <Loader /> {' Loading datasets...'}
-            </div>
-            <div className="w-full hidden items-center justify-center flex-col gap-4">
-              <div className=" bg-red-100 dark:bg-gray-600 h-20 w-20 flex items-center justify-center rounded-full ">
-                <CopyX
-                  size={40}
-                  style={{
-                    animation: 'rotateIcon 3s infinite',
-                  }}
-                />
-                <style>{`
-                    @keyframes rotateIcon {
-                      0% {
-                        transform: rotate(0deg);
-                      }
-                      50% {
-                        transform: rotate(30deg);
-                      }
-                      100% {
-                        transform: rotate(0deg);
-                      }
-                    }
-                  `}</style>
-              </div>
-              <span className="text-md text-muted-foreground tracking-tight">
-                You have no datasets
-              </span>
-            </div>
-          </div>
+          <ScrollArea className="w-full mt-4 grid grid-cols-3 gap-x-2 gap-y-2 max-h-[75vh] p-2">
+            {filteredDataset.map((dataset, index) => (
+              <Card className="h-[100px] shadow-none flex items-start justify-between" key={index}>
+                <div className="w-[15%] h-full  flex items-start py-4 justify-center ">
+                  <FileSpreadsheet />
+                </div>
+                <div className="w-[85%] flex flex-col px-2 py-2 items-start">
+                  <div className="w-full flex items-center justify-between">
+                    <Button variant={'link'} className="p-0 m-0">
+                      {dataset.name}.csv
+                    </Button>
+
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant={'ghost'} className="py-0 px-2">
+                          <Ellipsis size={16} />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="flex flex-col">
+                        <DropdownMenuItem className="flex items-center gap-3">
+                          <EyeIcon size={15} />
+                          View
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="flex items-center gap-3">
+                          <FilePenLine size={15} />
+                          Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="flex items-center gap-3">
+                          <Move size={15} />
+                          Move
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem className="flex items-center gap-3">
+                          <Copy size={15} />
+                          Duplicate
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="flex items-center gap-3">
+                          <Trash size={15} className="text-red-500" />
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                  <span className="text-xs">{dataset.comments}</span>
+                  <span className="text-muted-foreground text-xs">
+                    {new Date(dataset.created_at).toLocaleDateString()}
+                  </span>
+                </div>
+              </Card>
+            ))}
+          </ScrollArea>
         </div>
         <HelpMenu />
       </div>

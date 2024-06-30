@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Search, FolderPlus, ChevronRight, BrainCircuit, Sparkles, Palette } from 'lucide-react';
+import { Search, FolderPlus, ChevronRight, BrainCircuit, Sparkles, Palette, Brackets, Folder } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -99,7 +99,7 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                       variant={'ghost'}
                       onClick={() => HandleWorkspaceName(workspace.id, workspace.name)}
                       className="p-2 mb-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
-                      <ChevronRight size={16} />
+                      <Folder size={16} />
                       <h3 className="font-normal">{workspace.name}</h3>
                     </Button>
                   ))}
