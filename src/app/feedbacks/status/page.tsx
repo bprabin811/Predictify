@@ -43,7 +43,17 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ArrowUp, Plus, Check, CircleDashed, ClipboardPlus, Edit, Trash, View } from 'lucide-react';
+import {
+  ArrowUp,
+  Plus,
+  Check,
+  CircleDashed,
+  ClipboardPlus,
+  Edit,
+  Trash,
+  View,
+  Search,
+} from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { dummyFeatureData } from '../components/data';
 import { useRouter } from 'next/navigation';
@@ -83,7 +93,7 @@ const columns: ColumnDef<RequestData>[] = [
             : row.getValue('status') === 'in progress'
             ? 'bg-yellow-200'
             : 'bg-blue-200'
-        } dark:bg-opacity-50 py-1 px-4 rounded-lg uppercase`}>
+        } dark:bg-opacity-40 py-1 px-2 rounded-lg uppercase text-xs`}>
         {row.getValue('status')}
       </span>
     ),
@@ -188,7 +198,7 @@ const StatusPage = () => {
   return (
     <ScrollArea className="w-full h-[85vh] flex gap-6 py-4 flex-col">
       <div className="flex-1 flex flex-col gap-4">
-        <h1 className="font-semibold">Status Update</h1>
+        {/* <h1 className="font-semibold">Status Update</h1> */}
 
         <div className="w-full flex gap-4">
           {stats.map((stat) => (
@@ -212,12 +222,16 @@ const StatusPage = () => {
       <div className="flex items-center justify-between gap-4">
         <div className="w-full">
           <div className="flex items-center py-4">
-            <Input
-              placeholder="Filter by title..."
-              value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('title')?.setFilterValue(event.target.value)}
-              className="max-w-sm"
-            />
+            <div className="relative flex items-center">
+              <Search size={16} className="absolute left-3" />
+              <input
+                type="text"
+                className="pl-10 pr-4 py-2 w-full border rounded-md focus:outline-none focus:border-transparent font-normal"
+                placeholder="Search by title"
+                value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('title')?.setFilterValue(event.target.value)}
+              />
+            </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="ml-auto">
