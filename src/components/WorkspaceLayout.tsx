@@ -1,7 +1,16 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Search, FolderPlus, ChevronRight, BrainCircuit, Sparkles, Palette, Brackets, Folder } from 'lucide-react';
+import {
+  Search,
+  FolderPlus,
+  ChevronRight,
+  BrainCircuit,
+  Sparkles,
+  Palette,
+  Brackets,
+  Folder,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -116,9 +125,11 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                  <Button size="sm" className="w-full">
-                    Upgrade
-                  </Button>
+                  <Link href={'/settings/plans'}>
+                    <Button size="sm" className="w-full">
+                      Upgrade
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             </div>

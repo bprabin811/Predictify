@@ -38,6 +38,8 @@ import { LinkShare } from '@/components/ShareLink';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { Dataset } from './components/data';
+import NotificationsCard from '@/components/org/Notifications';
+import moment from 'moment';
 
 const UserDashboard: React.FC = () => {
   const router = useRouter();
@@ -110,7 +112,10 @@ const UserDashboard: React.FC = () => {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              <div className="">
+              <div>
+                <NotificationsCard />
+              </div>
+              <div>
                 <SettingsMenu isLabel={false} />
               </div>
             </div>
@@ -191,7 +196,7 @@ const UserDashboard: React.FC = () => {
                   </div>
                   <span className="text-xs">{dataset.comments}</span>
                   <span className="text-muted-foreground text-xs">
-                    {new Date(dataset.created_at).toLocaleDateString()}
+                    {moment(dataset.created_at).fromNow()}
                   </span>
                 </div>
               </Card>

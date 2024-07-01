@@ -1,4 +1,5 @@
 'use client';
+import Loader from '@/components/Loader';
 import SettingsMenu from '@/components/SettingsMenu';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -22,7 +23,10 @@ const FeatureEngineering = () => {
             </div>
           </div>
         </div>
-        <div className="p-2"></div>
+        <div className="p-4 flex h-[80vh] items-center justify-center gap-2">
+          <Loader />
+          <span>Loading</span>
+        </div>
       </div>
     </div>
   );

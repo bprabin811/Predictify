@@ -22,6 +22,7 @@ import {
   Moon,
   Sun,
   LaptopMinimal,
+  Receipt,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Cookies from 'js-cookie';
@@ -61,14 +62,18 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({ isLabel }) => {
             </DropdownMenuItem>
           </Link>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="flex items-center gap-3">
-            <Shield size={15} />
-            Privacy
-          </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center gap-3">
-            <Braces size={15} />
-            API Token
-          </DropdownMenuItem>
+          <Link href={'/settings/plans'}>
+            <DropdownMenuItem className="flex items-center gap-3">
+              <Receipt size={15} />
+              Billing Plan
+            </DropdownMenuItem>
+          </Link>
+          <Link href={'/settings/apikeys'}>
+            <DropdownMenuItem className="flex items-center gap-3">
+              <Braces size={15} />
+              API Token
+            </DropdownMenuItem>
+          </Link>
 
           <DropdownMenuSub>
             <DropdownMenuSubTrigger className="flex items-center gap-3">
