@@ -145,7 +145,12 @@ const UserDashboard: React.FC = () => {
                 </div>
                 <div className="w-[85%] flex flex-col px-2 py-2 items-start">
                   <div className="w-full flex items-center justify-between">
-                    <Button variant={'link'} className="p-0 m-0">
+                    <Button
+                      variant={'link'}
+                      className="p-0 m-0"
+                      onClick={() => {
+                        router.push(`/workspace/datasets?id=${dataset.id}&tab=ONE`);
+                      }}>
                       {dataset.name}.csv
                     </Button>
 
@@ -156,7 +161,11 @@ const UserDashboard: React.FC = () => {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="flex flex-col">
-                        <DropdownMenuItem className="flex items-center gap-3">
+                        <DropdownMenuItem
+                          className="flex items-center gap-3"
+                          onClick={() => {
+                            router.push(`/workspace/datasets?id=${dataset.id}&tab=ONE`);
+                          }}>
                           <EyeIcon size={15} />
                           View
                         </DropdownMenuItem>

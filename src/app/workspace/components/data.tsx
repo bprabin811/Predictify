@@ -29,7 +29,7 @@ export const Dataset = [
     created_by: 'Bob Brown',
     created_at: '2024-06-30T15:00:00Z',
     comments: 'Dataset for analysis',
-    wid: 3,
+    wid: 1,
   },
   {
     id: 5,

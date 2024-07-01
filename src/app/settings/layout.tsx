@@ -7,9 +7,12 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Bell, Braces, CircleUser, Palette, Receipt } from 'lucide-react';
 
+
+
 export const metadata: Metadata = {
   title: 'Settings',
-  description: 'Manage your account settings, billing plans, API keys, notifications, and appearance settings.',
+  description:
+    'Manage your account settings, billing plans, API keys, notifications, and appearance settings.',
 };
 
 const sidebarNavItems = [
@@ -45,10 +48,11 @@ interface SettingsLayoutProps {
 }
 
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
+  
   return (
     <div className="w-full flex flex-col md:flex-row gap-5 min-h-screen mx-auto px-5 md:px-5">
       <div className="grid min-h-screen w-full md:grid-cols-[18vw_80vw] lg:grid-cols-[18vw_80vw]">
-        <aside className=" w-[18vw] ">
+        <aside className=" w-[18vw]">
           <div className="flex z-40 font-semibold text-xl gap-4 h-[60px] items-center px-4 lg:h-[60px] lg:px-6">
             <Link href="/">
               <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
