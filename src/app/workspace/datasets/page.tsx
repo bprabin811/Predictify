@@ -5,7 +5,7 @@ import NotificationsCard from '@/components/org/Notifications';
 import ViewDataTable from '@/components/processes/view';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Binary, CaseSensitive, File, Info, Rows } from 'lucide-react';
+import { Binary, CaseSensitive, File, Info, Rows, ShieldQuestion } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import VerticalBarChart from '../components/verticalChart';
@@ -235,14 +235,12 @@ const ProcessLayout = () => {
         <div className="px-4 ">
           <ViewDataTable dataset={dummyData} />
         </div>
-        <div className="p-4 w-full flex items-start flex-col gap-10 pb-20">
+        <div className="w-full p-4 flex items-start flex-col gap-10 pb-20">
           <div className="w-full flex gap-4">
             {stats.map((stat) => (
-              <Card
-                key={stat.id}
-                className="w-[30%] h-[120px] shadow-none ">
+              <Card key={stat.id} className="w-[30%] h-[120px] shadow-none ">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className={`text-sm font-medium text-${stat.color}`}>
+                  <CardTitle className={`text-sm font-medium text-${stat.color} uppercase`}>
                     {stat.title}
                   </CardTitle>
                   <stat.icon size={20} className="" />
@@ -255,7 +253,7 @@ const ProcessLayout = () => {
               </Card>
             ))}
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             {Columns.map((column, index) => (
               <Chip
                 key={index}
@@ -363,8 +361,8 @@ const ProcessLayout = () => {
             )}
           </div>
           <Alert className="bg-red-50 dark:bg-opacity-10">
-            <Info className="h-4 w-4" />
-            <AlertTitle>Comments</AlertTitle>
+            <ShieldQuestion className="h-4 w-4" />
+            <AlertTitle className="uppercase">Comment</AlertTitle>
             <AlertDescription className="text-muted-foreground">
               Please note that pricing and billing terms are subject to change. Predictify reserves
               the right to discontinue or modify pricing plans, features, or billing cycles at any
