@@ -28,6 +28,7 @@ import { useTheme } from 'next-themes';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { ReportAnIssue } from './org/report-issues';
 
 interface SettingsMenuProps {
   isLabel: boolean;
@@ -99,6 +100,9 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({ isLabel }) => {
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuSeparator />
+          {/* <DropdownMenuItem className="flex items-center gap-3" onClick={handleLogout}>
+            <ReportAnIssue />
+          </DropdownMenuItem> */}
           <DropdownMenuItem className="flex items-center gap-3" onClick={handleLogout}>
             <LogOut size={15} />
             Logout

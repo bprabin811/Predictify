@@ -167,10 +167,6 @@ const ModelSpaceLayout: React.FC = () => {
               </div>
             </aside>
           </div>
-
-          <div className="mb-4">
-            <SettingsMenu isLabel={true} />
-          </div>
         </ScrollArea>
       </div>
 
@@ -209,6 +205,7 @@ const ModelSpaceLayout: React.FC = () => {
 
               <PresetSave />
               <PresetShare />
+              <SettingsMenu isLabel={false} />
             </div>
           </div>
         </div>

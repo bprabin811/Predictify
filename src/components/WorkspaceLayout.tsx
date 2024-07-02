@@ -4,11 +4,6 @@ import Link from 'next/link';
 import {
   Search,
   FolderPlus,
-  ChevronRight,
-  BrainCircuit,
-  Sparkles,
-  Palette,
-  Brackets,
   Folder,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -16,8 +11,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useRouter, usePathname } from 'next/navigation';
 import { Badge } from './ui/badge';
-import SettingsMenu from './SettingsMenu';
-import { ReportAnIssue } from './org/report-issues';
 
 const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -42,9 +35,7 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
     router.push(`${pathname}?wid=${id}&wsn=${name}&`);
   };
 
-  const HandleModelTestButton = () => {
-    router.push(`/features/model`);
-  };
+
 
   const handleAddNewWorkspace = () => {
     const newWorkspace = {
@@ -83,7 +74,7 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                   <FolderPlus size={16} className="cursor-pointer" onClick={handleAddWorkspace} />
                 </Button>
               </div>
-              <ScrollArea className="h-[30vh]">
+              <ScrollArea className="h-[50vh]">
                 {showInput && (
                   <div className="relative flex items-center mb-2">
                     <input
@@ -115,7 +106,7 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
             </aside>
           </div>
 
-          <div className="mt-auto">
+          <div className="hidden mt-auto">
             <Card x-chunk="dashboard-02-chunk-0" className="border-none">
               <CardHeader className="p-2 pt-0 md:p-4">
                 <CardTitle>Upgrade to Pro</CardTitle>
@@ -132,16 +123,6 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
               </CardContent>
             </Card>
           </div>
-          <div className="mt-2">
-            <Button
-              variant={'outline'}
-              onClick={HandleModelTestButton}
-              className="p-2 mb-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
-              <Sparkles size={16} />
-              <h3 className="font-normal">Model Test</h3>
-            </Button>
-          </div>
-          <ReportAnIssue />
         </ScrollArea>
       </div>
       <ScrollArea className="h-[100vh] w-[80%]">{children}</ScrollArea>

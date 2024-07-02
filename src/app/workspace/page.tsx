@@ -14,6 +14,7 @@ import {
   Move,
   EyeIcon,
   Copy,
+  Sparkles,
 } from 'lucide-react';
 import {
   Dialog,
@@ -61,6 +62,10 @@ const UserDashboard: React.FC = () => {
       setFilteredDataset(filtered);
     }
   }, [searchParams]);
+
+  const HandleModelTestButton = () => {
+    router.push(`/features/model`);
+  };
 
   return (
     <WorkSpaceLayout>
@@ -120,29 +125,35 @@ const UserDashboard: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="mt-4 w-full flex items-center justify-end px-2 pr-4">
-            <div>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <div className="relative flex items-center">
-                    <Upload size={16} className="absolute left-3" />
-                    <Button variant="secondary" className="pl-10">
-                      Upload dataset
-                    </Button>
-                  </div>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px] border-none">
-                  <DialogHeader>
-                    <DialogTitle>Upload Dataset</DialogTitle>
-                    <DialogDescription>
-                      {"Make changes to your dataset here. Click save when you're done."}
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
-            </div>
+          <div className="mt-4 w-full flex items-center justify-between px-2 pr-4">
+            <Button
+              variant={'default'}
+              onClick={HandleModelTestButton}
+              className="p-2 flex items-center justify-start gap-4 border rounded-md cursor-pointer">
+              <Sparkles size={16} />
+              <h3 className="font-normal">Model Test</h3>
+            </Button>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="relative flex items-center">
+                  <Upload size={16} className="absolute left-3" />
+                  <Button variant="secondary" className="pl-10">
+                    Upload dataset
+                  </Button>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px] border-none">
+                <DialogHeader>
+                  <DialogTitle>Upload Dataset</DialogTitle>
+                  <DialogDescription>
+                    {"Make changes to your dataset here. Click save when you're done."}
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
           </div>
-          <div className="w-full grid grid-cols-3 gap-x-2 gap-y-2 px-2 pr-4">
+          <div className="w-full grid grid-cols-3 gap-x-2 gap-y-2 px-2 pr-4 mt-4">
             {filteredDataset.map((dataset, index) => (
               <Card className="h-[100px] shadow-none flex items-start justify-between" key={index}>
                 <div className="w-[15%] h-full  flex items-start py-4 justify-center ">
