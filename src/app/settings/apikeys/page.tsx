@@ -25,7 +25,7 @@ const apiKeyData = [
 
 export default function SettingsProfilePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-2 pr-4">
       <div className="mt-2">
         <h3 className="text-lg font-medium">API keys</h3>
         <p className="text-sm text-muted-foreground">

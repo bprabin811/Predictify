@@ -64,9 +64,9 @@ const UserDashboard: React.FC = () => {
 
   return (
     <WorkSpaceLayout>
-      <div className="flex flex-1 gap-3 flex-col">
-        <div className="flex-[7] flex flex-col gap-3">
-          <div className="flex h-[60px] w-full items-center justify-between border-b px-2">
+      <div className="flex w-full mb-10">
+        <div className="w-full flex flex-col gap-3">
+          <div className="flex h-[60px] w-full items-center justify-between border-b px-2 pr-4">
             <div className="flex items-center gap-4">
               <h1 className="flex-1 shrink-0 whitespace-nowrap font-semibold tracking-tight sm:grow-0">
                 {workspace}
@@ -120,7 +120,7 @@ const UserDashboard: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="mt-4 w-full flex items-center justify-end px-2">
+          <div className="mt-4 w-full flex items-center justify-end px-2 pr-4">
             <div>
               <Dialog>
                 <DialogTrigger asChild>
@@ -142,7 +142,7 @@ const UserDashboard: React.FC = () => {
               </Dialog>
             </div>
           </div>
-          <ScrollArea className="w-full mt-4 grid grid-cols-3 gap-x-2 gap-y-2 max-h-[75vh] p-2">
+          <div className="w-full grid grid-cols-3 gap-x-2 gap-y-2 px-2 pr-4">
             {filteredDataset.map((dataset, index) => (
               <Card className="h-[100px] shadow-none flex items-start justify-between" key={index}>
                 <div className="w-[15%] h-full  flex items-start py-4 justify-center ">
@@ -201,7 +201,7 @@ const UserDashboard: React.FC = () => {
                 </div>
               </Card>
             ))}
-          </ScrollArea>
+          </div>
         </div>
         <HelpMenu />
       </div>

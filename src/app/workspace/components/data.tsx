@@ -63,4 +63,12 @@ export const Dataset = [
     comments: 'Final review pending',
     wid: 2,
   },
+  {
+    id: 9,
+    name: 'ProductCatalog.csv',
+    created_by: 'Sarah Anderson',
+    created_at: '2024-06-30T20:00:00Z',
+    comments: 'Updated with new products',
+    wid: 2,
+  },
 ];

@@ -13,14 +13,12 @@ export function ReportAnIssue() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="px-4">
-          <Button
-            variant={'outline'}
-            className="p-2 mb-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
-            <MessageCircle size={16} />
-            <h3 className="font-normal">Send Feedback</h3>
-          </Button>
-        </div>
+        <Button
+          variant={'outline'}
+          className="p-2 mb-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
+          <MessageCircle size={16} />
+          <h3 className="font-normal">Send Feedback</h3>
+        </Button>
       </DialogTrigger>
       <DialogContent className="w-[520px]">
         <div>
