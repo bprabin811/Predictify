@@ -69,7 +69,7 @@ const sidebarNavItems = [
 
 export default function MLLayout({ children }: SettingsLayoutProps) {
   return (
-    <div className="w-full flex flex-col md:flex-row gap-5 min-h-screen mx-auto px-5 md:px-5">
+    <div className="w-screen flex flex-col  gap-5 min-h-screen">
       <div className="grid min-h-screen w-full ">
         <div className="flex flex-col">
           <main>

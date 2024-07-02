@@ -214,7 +214,7 @@ const largeDataset = Array.from({ length: 10 }, (_, index) => ({
 const ProcessLayout = () => {
   const [selectedChip, setSelectedChip] = useState(Columns[0]);
   return (
-    <div>
+    <div className="w-full px-5">
       <div className="flex flex-1 gap-3 flex-col">
         <div className="flex-[7] flex flex-col gap-3">
           <div className="flex h-[60px] w-full items-center justify-between border-b px-0">
@@ -226,7 +226,7 @@ const ProcessLayout = () => {
                 Predictify<Badge className="py-0">Beta</Badge>
               </div>
             </div>
-            <div className="px-0 flex gap-2">
+            <div className="px-4 flex gap-2">
               <NotificationsCard />
               <SettingsMenu isLabel={false} />
             </div>
