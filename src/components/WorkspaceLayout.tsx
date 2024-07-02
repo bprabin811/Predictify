@@ -1,11 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import {
-  Search,
-  FolderPlus,
-  Folder,
-} from 'lucide-react';
+import { Search, FolderPlus, Folder, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -35,8 +31,6 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
     router.push(`${pathname}?wid=${id}&wsn=${name}&`);
   };
 
-
-
   const handleAddNewWorkspace = () => {
     const newWorkspace = {
       id: workspaces.length + 1,
@@ -47,10 +41,12 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
     setNewWorkspaceName('');
   };
 
+  const [isProActive, setIsProActive] = useState(true);
+
   return (
     <div className="flex h-screen w-screen">
-      <div className="border-r h-full w-[20%]">
-        <ScrollArea className="w-full flex h-full justify-between gap-2 px-4">
+      <div className=" border-r h-full w-[20%]">
+        <ScrollArea className=" w-full flex h-full justify-between gap-2 px-4">
           <div className="h-[60px] flex z-40 font-semibold text-xl gap-4 items-center">
             <Link href="/">
               <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
@@ -106,23 +102,33 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
             </aside>
           </div>
 
-          <div className="hidden mt-auto">
-            <Card x-chunk="dashboard-02-chunk-0" className="border-none">
-              <CardHeader className="p-2 pt-0 md:p-4">
-                <CardTitle>Upgrade to Pro</CardTitle>
-                <CardDescription>
-                  Unlock all features and get unlimited access to our support team.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                <Link href={'/settings/plans'}>
-                  <Button size="sm" className="w-full">
-                    Upgrade
+          {isProActive && (
+            <div className="z-40 fixed bottom-4 w-[17.66vw] left-4">
+              <Card x-chunk="dashboard-02-chunk-0" className="border-none relative">
+                <CardHeader className="p-2 pt-0 md:p-4">
+                  <Button
+                    variant={'ghost'}
+                    className="absolute right-0 top-0 w-10 h-10 p-0 rounded-full"
+                    onClick={() => {
+                      setIsProActive(!isProActive);
+                    }}>
+                    <X size={16} className="text-red-500" />
                   </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          </div>
+                  <CardTitle>Upgrade to Pro</CardTitle>
+                  <CardDescription>
+                    Unlock all features and get unlimited access to our support team.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+                  <Link href={'/settings/plans'}>
+                    <Button size="sm" className="w-full">
+                      Upgrade
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </ScrollArea>
       </div>
       <ScrollArea className="h-[100vh] w-[80%]">{children}</ScrollArea>
