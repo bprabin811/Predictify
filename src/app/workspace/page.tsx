@@ -66,7 +66,7 @@ const UserDashboard: React.FC = () => {
     <WorkSpaceLayout>
       <div className="flex flex-1 gap-3 flex-col">
         <div className="flex-[7] flex flex-col gap-3">
-          <div className="flex h-[60px] w-full items-center justify-between border-b px-4">
+          <div className="flex h-[60px] w-full items-center justify-between border-b px-2">
             <div className="flex items-center gap-4">
               <h1 className="flex-1 shrink-0 whitespace-nowrap font-semibold tracking-tight sm:grow-0">
                 {workspace}
@@ -120,7 +120,7 @@ const UserDashboard: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="mt-4 w-full flex items-center justify-end">
+          <div className="mt-4 w-full flex items-center justify-end px-2">
             <div>
               <Dialog>
                 <DialogTrigger asChild>

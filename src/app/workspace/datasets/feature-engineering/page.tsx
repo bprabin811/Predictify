@@ -1,6 +1,7 @@
 'use client';
 import Loader from '@/components/Loader';
 import SettingsMenu from '@/components/SettingsMenu';
+import NotificationsCard from '@/components/org/Notifications';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 
@@ -18,7 +19,8 @@ const FeatureEngineering = () => {
                 Predictify<Badge className="py-0">Beta</Badge>
               </div>
             </div>
-            <div className="px-4">
+            <div className="px-0 flex gap-2">
+              <NotificationsCard />
               <SettingsMenu isLabel={false} />
             </div>
           </div>
