@@ -13,7 +13,7 @@ const Chip: React.FC<ChipProps> = ({ label, onClick, selected, leadingIcon }) =>
     variant={selected ? 'default' : 'outline'}
     className={` ${
       selected ? 'bg-primary border-[#4a4b4b] flex items-center gap-2' : 'flex items-center gap-2'
-    }`}
+    }` }
     onClick={onClick}>
     {leadingIcon}
     {label}

@@ -9,6 +9,7 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import Loader from '@/components/Loader';
 import { Badge } from '@/components/ui/badge';
+import React from 'react';
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
@@ -44,9 +45,8 @@ export function SidebarComponent({ className, items, ...props }: SidebarNavProps
     <div className="my-1 mx-4">
       <nav className={cn('flex space-x-2 items-center gap-2', className)} {...props}>
         {items.map((item, index) => (
-          <>
+          <React.Fragment key={index}>
             <Button
-              key={index}
               variant={item.tab === tabData ? 'default' : 'link'}
               onClick={() => {
                 router.push(`${item.href}?id=${dataId}&tab=${item.tab}`);
@@ -57,7 +57,7 @@ export function SidebarComponent({ className, items, ...props }: SidebarNavProps
             </Button>
             {index > 2 && <Badge>Pro</Badge>}
             {index < 4 && <Separator orientation="vertical" className="h-10" />}
-          </>
+          </React.Fragment>
         ))}
       </nav>
     </div>

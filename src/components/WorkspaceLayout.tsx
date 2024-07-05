@@ -11,6 +11,8 @@ import { Badge } from './ui/badge';
 const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const [isProActive, setIsProActive] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const [workspaces, setWorkspaces] = useState([
     { id: 1, name: 'Default Workspace' },
@@ -41,10 +43,12 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
     setNewWorkspaceName('');
   };
 
-  const [isProActive, setIsProActive] = useState(true);
+  const filteredWorkspaces = workspaces.filter((workspace) =>
+    workspace.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   return (
-    <div className="flex h-screen w-screen">
+    <div className="flex h-screen w-screen ">
       <div className=" border-r h-full w-[20%]">
         <ScrollArea className=" w-full flex h-full justify-between gap-2 px-4">
           <div className="h-[60px] flex z-40 font-semibold text-xl gap-4 items-center">
@@ -61,6 +65,8 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                   type="text"
                   className="pl-10 pr-4 py-2 w-full border rounded-md focus:outline-none focus:border-transparent font-normal"
                   placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
 
@@ -88,12 +94,12 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                     />
                   </div>
                 )}
-                {workspaces.map((workspace) => (
+                {filteredWorkspaces.map((workspace) => (
                   <Button
                     key={workspace.id}
-                    variant={'ghost'}
+                    variant={'outline'}
                     onClick={() => HandleWorkspaceName(workspace.id, workspace.name)}
-                    className="p-2 mb-2 w-full flex items-center justify-start gap-4 border rounded-md cursor-pointer">
+                    className="p-2 mb-2 w-full flex items-center justify-start gap-4 rounded-md cursor-pointer">
                     <Folder size={16} />
                     <h3 className="font-normal">{workspace.name}</h3>
                   </Button>
