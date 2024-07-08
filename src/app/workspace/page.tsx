@@ -4,7 +4,6 @@ import WorkSpaceLayout from '@/components/WorkspaceLayout';
 import { Button } from '@/components/ui/button';
 import {
   Upload,
-  Settings2,
   FilePenLine,
   Trash,
   Share2,
@@ -15,6 +14,7 @@ import {
   EyeIcon,
   Copy,
   Sparkles,
+  EllipsisVertical,
 } from 'lucide-react';
 import {
   Dialog,
@@ -71,7 +71,7 @@ const UserDashboard: React.FC = () => {
     <WorkSpaceLayout>
       <div className="flex w-full mb-10">
         <div className="w-full flex flex-col gap-3">
-          <div className="flex h-[60px] w-full items-center justify-between border-b px-2 pr-4">
+          <div className="flex h-[60px] w-full items-center justify-between border-b px-2 pr-4 bg-[#fbfafa] dark:bg-[#111]">
             <div className="flex items-center gap-4">
               <h1 className="flex-1 shrink-0 whitespace-nowrap font-semibold tracking-tight sm:grow-0">
                 {workspace}
@@ -79,7 +79,7 @@ const UserDashboard: React.FC = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="rounded-sm cursor-pointer">
-                    <Settings2 size={16} />
+                    <EllipsisVertical size={16} />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="flex flex-col">
@@ -131,7 +131,7 @@ const UserDashboard: React.FC = () => {
               onClick={HandleModelTestButton}
               className="p-2 flex items-center justify-start gap-4 border rounded-md cursor-pointer">
               <Sparkles size={16} />
-              <h3 className="font-normal">Model Test</h3>
+              <h3 className="font-normal">Predict</h3>
             </Button>
 
             <Dialog>
@@ -155,7 +155,9 @@ const UserDashboard: React.FC = () => {
           </div>
           <div className="w-full grid grid-cols-3 gap-x-2 gap-y-2 px-2 pr-4 mt-4">
             {filteredDataset.map((dataset, index) => (
-              <Card className="h-[100px] shadow-none flex items-start justify-between" key={index}>
+              <div
+                className="h-[100px] shadow-sm flex items-start justify-between rounded-[.4rem] border dark:bg-[#111]"
+                key={index}>
                 <div className="w-[15%] h-full  flex items-start py-4 justify-center ">
                   <FileSpreadsheet />
                 </div>
@@ -210,7 +212,7 @@ const UserDashboard: React.FC = () => {
                     {moment(dataset.created_at).fromNow()}
                   </span>
                 </div>
-              </Card>
+              </div>
             ))}
           </div>
         </div>

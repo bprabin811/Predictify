@@ -69,8 +69,8 @@ const sidebarNavItems = [
 
 export default function MLLayout({ children }: SettingsLayoutProps) {
   return (
-    <div className="w-screen h-screen ">
-      <ScrollArea className="h-[100vh] w-full ">{children}</ScrollArea>
+    <div className="w-screen h-screen flex items-center justify-center ">
+      <div className="h-[100vh] w-full ">{children}</div>
       <div className="fixed bottom-4 w-full gap-2 flex items-center justify-center ">
         <Card className="shadow-none">
           <Suspense fallback={<Loader />}>

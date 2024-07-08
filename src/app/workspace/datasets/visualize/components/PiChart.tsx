@@ -4,9 +4,9 @@ import { EChartsOption } from 'echarts';
 
 const PieChart = () => {
   const option: EChartsOption = {
-    title: {
-      text: 'Pie Chart Example',
-    },
+    // title: {
+    //   text: 'Pie Chart Example',
+    // },
     tooltip: {
       trigger: 'item',
     },
@@ -26,7 +26,11 @@ const PieChart = () => {
     ],
   };
 
-  return <ReactECharts option={option} />;
+  return (
+    <div className="h-full w-full flex items-center justify-center">
+      <ReactECharts option={option} className="h-full w-full" />
+    </div>
+  );
 };
 
 export default PieChart;
