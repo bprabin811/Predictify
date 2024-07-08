@@ -12,7 +12,7 @@ import VerticalBarChart from '../components/verticalChart';
 import HorizontalBarChart from '../components/horizontalChart';
 import { Columns, dummyData, insights, largeDataset, stats } from './components/data';
 import DataCleaning from './components/DataClean';
-import VersionControl from './components/VersionControl';
+import { Separator } from '@/components/ui/separator';
 
 interface Version {
   id: number;
@@ -94,6 +94,7 @@ const ProcessLayout = () => {
               </Card>
             ))}
           </div>
+          <Separator />
           <div className="flex gap-4 flex-wrap">
             {Columns.map((column, index) => (
               <Chip
@@ -146,18 +147,8 @@ const ProcessLayout = () => {
               ))}
             </div>
           </div>
-
+          <Separator />
           <DataCleaning dataset={dataset} applyChanges={applyChanges} />
-
-          <div className="w-full flex gap-2 items-center justify-between">
-            <div className="flex-1">
-              <VersionControl
-                versions={versions}
-                createVersion={createVersion}
-                restoreVersion={restoreVersion}
-              />
-            </div>
-          </div>
         </div>
       </div>
     </div>
