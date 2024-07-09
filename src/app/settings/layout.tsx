@@ -59,6 +59,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
         <SidebarNav items={sidebarNavItems} />
       </aside>
       <ScrollArea className="h-full w-[80%]">{children}</ScrollArea>
+      
     </div>
   );
 }

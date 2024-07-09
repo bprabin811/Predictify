@@ -77,9 +77,9 @@ const ProcessLayout = () => {
         <div className="w-full flex items-start flex-col gap-10 px-4 pb-20">
           <div className="w-full flex gap-4">
             {stats.map((stat) => (
-              <Card
+              <div
                 key={stat.id}
-                className={`w-[30%] h-[120px] shadow-none bg-${stat.bg}-50 dark:bg-${stat.bg}-950 dark:bg-opacity-30`}>
+                className={`w-[30%] h-[120px] shadow-none dark:bg-[#111] border rounded-[.4rem]`}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className={`text-sm font-medium text-${stat.color} uppercase`}>
                     {stat.title}
@@ -91,7 +91,7 @@ const ProcessLayout = () => {
                     {stat.id === 2 ? `${stat.count} MB` : stat.count}
                   </div>
                 </CardContent>
-              </Card>
+              </div>
             ))}
           </div>
           <Separator />

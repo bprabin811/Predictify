@@ -130,7 +130,6 @@ export const stats = [
     count: 1240,
     color: 'blue-500',
     icon: Rows,
-    bg: 'cyan',
   },
   {
     id: 2,
@@ -138,7 +137,6 @@ export const stats = [
     count: 30,
     color: 'green-500',
     icon: File,
-    bg: 'blue',
   },
 ];
 

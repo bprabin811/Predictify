@@ -10,6 +10,7 @@ import { Separator } from '@/components/ui/separator';
 import Loader from '@/components/Loader';
 import { Badge } from '@/components/ui/badge';
 import React from 'react';
+import { ChevronRight } from 'lucide-react';
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
@@ -39,11 +40,27 @@ export function SidebarComponent({ className, items, ...props }: SidebarNavProps
     }
   }, [searchParams]);
 
-  console.log(pathname);
+  const [isExpand, setIsExpand] = useState(true);
 
   return (
-    <div className="my-1 mx-4">
-      <nav className={cn('flex space-x-2 items-center gap-2', className)} {...props}>
+    <div className="my-1 mx-4 flex items-center gap-2">
+      <Link href="/">
+        <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
+      </Link>
+      <Button
+        variant={'ghost'}
+        onClick={() => {
+          setIsExpand(!isExpand);
+        }}>
+        <ChevronRight size={16} className={cn('transition-transform', { 'rotate-90': isExpand })} />
+      </Button>
+      <nav
+        className={cn(
+          'flex space-x-2 items-center gap-2 transition-all duration-300',
+          { 'max-w-0 overflow-hidden': !isExpand, 'max-w-full': isExpand },
+          className,
+        )}
+        {...props}>
         {items.map((item, index) => (
           <React.Fragment key={index}>
             <Button

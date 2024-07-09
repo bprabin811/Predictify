@@ -23,6 +23,8 @@ import { SidebarComponent } from '../components/sidebar-component';
 import { Card } from '@/components/ui/card';
 import { Suspense } from 'react';
 import Loader from '@/components/Loader';
+import { navBarData } from './components/constants';
+import NavigationBar from './components/NavigationBar';
 
 export const metadata: Metadata = {
   title: 'ML',
@@ -34,50 +36,11 @@ interface SettingsLayoutProps {
   children: React.ReactNode;
 }
 
-const sidebarNavItems = [
-  {
-    title: 'View Data',
-    href: '/workspace/datasets',
-    icon: <Table2 size={16} />,
-    tab: 'ONE',
-  },
-  {
-    title: 'Data Visualizations',
-    href: '/workspace/datasets/visualize',
-    icon: <BarChart3 size={16} />,
-    tab: 'TWO',
-  },
-  {
-    title: 'Feature Engineering',
-    href: '/workspace/datasets/feature-engineering',
-    icon: <Grid2x2Check size={16} />,
-    tab: 'THREE',
-  },
-  {
-    title: 'Train',
-    href: '/workspace/datasets/train',
-    icon: <BrainCircuit size={16} />,
-    tab: 'FOUR',
-  },
-  {
-    title: 'Playground',
-    href: '/workspace/datasets/playground',
-    icon: <BotMessageSquare size={16} />,
-    tab: 'FIVE',
-  },
-];
-
 export default function MLLayout({ children }: SettingsLayoutProps) {
   return (
     <div className="w-screen h-screen flex items-center justify-center ">
       <div className="h-[100vh] w-full ">{children}</div>
-      <div className="fixed bottom-4 w-full gap-2 flex items-center justify-center ">
-        <Card className="shadow-none">
-          <Suspense fallback={<Loader />}>
-            <SidebarComponent items={sidebarNavItems} />
-          </Suspense>
-        </Card>
-      </div>
+      <NavigationBar />
     </div>
   );
 }
