@@ -16,8 +16,8 @@ import { Label } from '@/components/ui/label';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useToast } from '@/components/ui/use-toast';
 import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Please enter a valid email').required('Email is required'),
@@ -25,7 +25,6 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginPage = () => {
-  const { toast } = useToast();
   const router = useRouter();
 
   useEffect(() => {
@@ -54,9 +53,9 @@ const LoginPage = () => {
                 // Simulate login success
                 sessionStorage.setItem('isLogin', 'true');
                 Cookies.set('isLogin', 'true', { expires: 1 });
-                toast({
-                  title: 'You have been logged in successfully.',
-                  description: new Date().getUTCDate(),
+                toast('You have been logged in successfully.', {
+                  position: 'top-right',
+                  duration: 2000,
                 });
                 router.push('/workspace');
               }}>
@@ -102,11 +101,7 @@ const LoginPage = () => {
                       placeholder="youremail@example.com"
                       className="border border-[#555]"
                     />
-                    <ErrorMessage
-                      name="email"
-                      component="div"
-                      className="text-red-500 text-sm"
-                    />
+                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                   </div>
                   <div className="grid gap-2">
                     <div className="flex items-center justify-between">

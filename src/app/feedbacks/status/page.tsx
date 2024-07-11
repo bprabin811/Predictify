@@ -196,7 +196,7 @@ const StatusPage = () => {
   });
 
   return (
-    <ScrollArea className="w-full h-[85vh] flex gap-6 py-4 flex-col">
+    <ScrollArea className="w-full h-[85vh] flex gap-6 py-4 flex-col px-[10%]">
       <div className="flex-1 flex flex-col gap-4">
         {/* <h1 className="font-semibold">Status Update</h1> */}
 

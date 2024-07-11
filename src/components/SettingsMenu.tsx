@@ -29,6 +29,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ReportAnIssue } from './org/report-issues';
+import { toast } from 'sonner';
 
 interface SettingsMenuProps {
   isLabel: boolean;
@@ -42,6 +43,10 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({ isLabel }) => {
     sessionStorage.clear();
     Cookies.remove('isLogin');
     router.push('/auth/login');
+      toast('You have been logged out successfully.', {
+        position: 'top-right',
+        duration: 2000,
+      });
   };
 
   return (

@@ -44,7 +44,7 @@ const RequestDetail = () => {
 
   return (
     <>
-      <ScrollArea className="w-full h-[85vh] flex gap-6 py-4 flex-col">
+      <ScrollArea className="w-full h-[85vh] flex gap-6 py-4 flex-col px-[10%]">
         <h4 className="font-semibold uppercase mb-4">{requestData.title}</h4>
         <div className="flex items-start gap-2">
           <div className="h-[40px] w-[40px] flex items-center bg-green-200 dark:bg-opacity-20 justify-center rounded-full">

@@ -156,7 +156,7 @@ const UserDashboard: React.FC = () => {
           <div className="w-full grid grid-cols-3 gap-x-2 gap-y-2 px-2 pr-4 mt-4">
             {filteredDataset.map((dataset, index) => (
               <div
-                className="h-[100px] shadow-sm flex items-start justify-between rounded-[.4rem] border dark:bg-[#111]"
+                className="h-[100px] shadow-sm flex items-start justify-between rounded-[.4rem] border  dark:bg-[#111]"
                 key={index}>
                 <div className="w-[15%] h-full  flex items-start py-4 justify-center ">
                   <FileSpreadsheet />

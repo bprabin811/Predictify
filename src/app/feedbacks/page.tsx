@@ -33,7 +33,7 @@ const FeedBackPage = () => {
   };
 
   return (
-    <div className="w-full flex gap-6 py-4">
+    <div className="w-full flex gap-6 py-4 items-start justify-center px-[10%]">
       <div className="flex-1 flex flex-col gap-4">
         <h1 className="font-semibold">Feature Request</h1>
 
@@ -62,8 +62,8 @@ const FeedBackPage = () => {
           </Button>
         </div>
       </div>
-      <div className="flex-1 ">
-        <div className="w-full flex items-center justify-between px-4">
+      <div className="flex-1">
+        <div className="w-full flex items-center justify-between ">
           <h1 className="font-semibold">Recent Requests</h1>
           <div className="relative flex items-center">
             <Search size={16} className="absolute left-3" />
@@ -74,7 +74,7 @@ const FeedBackPage = () => {
             />
           </div>
         </div>
-        <ScrollArea className="h-[75vh] w-full p-4">
+        <ScrollArea className="h-[80vh] w-full py-4">
           {dummyFeatureData.map((request) => (
             <Card key={request.id} className="shadow-none w-full p-4 flex gap-2 mb-4">
               <div className="w-10 h-10 flex rounded-full bg-green-200 dark:bg-opacity-10 items-center justify-center">

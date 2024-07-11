@@ -52,16 +52,10 @@ const SettingsProfilePage = () => {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     localStorage.setItem('layout', JSON.stringify(data));
-    // toast('Layout updated successfully.', {
-    //   type: 'success',
-    //   position: 'bottom-left',
-    //   duration: 1000,
-      // description: (
-      //   <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-      //     <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-      //   </pre>
-      // ),
-    // });
+    toast('Layout updated successfully.', {
+      position: 'top-right',
+      duration: 2000,
+    });
   }
 
   return (

@@ -254,7 +254,7 @@ const DataVisualize = () => {
           </div>
         </div>
         <div className="w-full h-[100vh] flex">
-          <div className="w-[300px] h-full flex flex-col gap-4 border-r py-4 pr-4 pb-20 overflow-auto pl-4 ">
+          <div className="w-[300px] h-full flex flex-col gap-4 border-r py-4 pr-4 pb-20 overflow-auto pl-4 bg-[#fbfafa] dark:bg-[#111]">
             <div className="relative flex items-center">
               <Search size={16} className="absolute left-3" />
               <input
@@ -320,7 +320,7 @@ const DataVisualize = () => {
                 </div>
               </div>
             </div>
-            <div className="w-[400px] h-full py-4">
+            <div className="max-w-[400px] h-full py-4 pr-4">
               <SelectColumns />
               <Alert className="bg-cyan-50 dark:bg-cyan-800 mt-4">
                 <ShieldQuestion className="h-4 w-4" />
