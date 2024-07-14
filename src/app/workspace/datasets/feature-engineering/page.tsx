@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import SelectColumns from '../visualize/utils/SelectColumns';
+import SelectColumns from '../visualize/utils/SelectMultipleColumnsInXAndY';
 import SelectColumnsComponent from './component/ColumnSelect';
 import { dummyData } from '../components/data';
 import { FeatureTransformationTools } from './component/data';
@@ -106,16 +106,11 @@ const FeatureEngineering = () => {
                     {feature?.icon}
                     {feature?.name}
                   </span>
-                  {selectedFeature === feature?.name ? (
-                    <CircleCheck size={16} />
-                  ) : (
-                    <CircleX size={16} />
-                  )}
                 </Button>
               ))}
             </div>
           </div>
-          <div className="w-full h-full p-4 flex flex-col gap-4 overflow-auto">
+          <div className="w-full h-full p-4 flex flex-col gap-4 overflow-auto pb-20">
             <div className=" w-full flex gap-4">
               <div className="flex-1 max-w-[500px]">
                 <SelectColumnsComponent

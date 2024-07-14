@@ -67,7 +67,7 @@ export function SidebarComponent({ className, layout, items, ...props }: Sidebar
               onClick={() => {
                 router.push(`${item.href}?id=${dataId}&tab=${item.tab}`);
               }}
-              disabled={index > 2}>
+              disabled={index > 3}>
               <span className="mr-2">{item.icon}</span>
               {item.title}
             </Button>

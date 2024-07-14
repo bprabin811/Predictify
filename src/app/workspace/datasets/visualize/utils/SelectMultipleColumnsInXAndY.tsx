@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import {
@@ -15,15 +15,32 @@ interface Column {
   name: string;
 }
 
-const initialColumns: Column[] = [
-  { id: 'col1', name: 'Col1' },
-  { id: 'col2', name: 'Col2' },
-  { id: 'col3', name: 'Col3' },
-];
-const SelectColumns = () => {
-  const [availableColumns, setAvailableColumns] = useState<Column[]>(initialColumns);
+interface SelectMultipleColumnsInXAndYProps {
+  data: Record<string, any>[];
+  selectedColumns: (columns: { x: Column[]; y: Column[] }) => void; // Callback function
+}
+
+const SelectMultipleColumnsInXAndY = ({
+  data,
+  selectedColumns,
+}: SelectMultipleColumnsInXAndYProps) => {
+  const [availableColumns, setAvailableColumns] = useState<Column[]>([]);
   const [selectedXColumns, setSelectedXColumns] = useState<Column[]>([]);
   const [selectedYColumns, setSelectedYColumns] = useState<Column[]>([]);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      const columns = Object.keys(data[0]).map((key) => ({
+        id: key,
+        name: key,
+      }));
+      setAvailableColumns(columns);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    selectedColumns({ x: selectedXColumns, y: selectedYColumns });
+  }, [selectedXColumns, selectedYColumns, selectedColumns]);
 
   const handleSelectColumn = (columnId: string, axis: 'x' | 'y') => {
     const column = availableColumns.find((col) => col.id === columnId);
@@ -53,15 +70,13 @@ const SelectColumns = () => {
 
   return (
     <div className="w-full border rounded-[.4rem] dark:bg-[#111]">
-      <CardHeader className="border-b">
+      <CardHeader className="border-b py-3">
         <h2 className="font-normal">SELECT COLUMNS</h2>
       </CardHeader>
       <CardContent className="w-full h-full flex flex-col gap-4 py-4">
         <div className="w-full flex flex-col gap-2">
           <h2 className="uppercase font-semibold text-xs">X-axis</h2>
-          <span className="text-xs text-muted-foreground">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-          </span>
+          <span className="text-xs text-muted-foreground">Select columns for the X-axis.</span>
           <div className="w-full flex flex-wrap gap-2">
             {selectedXColumns.map((col) => (
               <span
@@ -92,9 +107,7 @@ const SelectColumns = () => {
 
         <div className="w-full flex flex-col gap-2">
           <h2 className="uppercase font-semibold text-xs">Y-axis</h2>
-          <span className="text-xs text-muted-foreground">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-          </span>
+          <span className="text-xs text-muted-foreground">Select columns for the Y-axis.</span>
           <div className="w-full flex flex-wrap gap-2">
             {selectedYColumns.map((col) => (
               <span
@@ -127,4 +140,4 @@ const SelectColumns = () => {
   );
 };
 
-export default SelectColumns;
+export default SelectMultipleColumnsInXAndY;
