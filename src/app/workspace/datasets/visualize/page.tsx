@@ -98,7 +98,7 @@ const DataVisualize = () => {
     <div className="w-full">
       <div className="flex flex-1 flex-col">
         <div className="flex flex-col gap-3">
-          <div className="flex h-16 w-full items-center justify-between border-b px-4 bg-[#fbfafa] dark:bg-[#111]">
+          <div className="flex h-16 w-full items-center justify-between border-b px-4 bg-[#fbfafa] dark:bg-card">
             <div className="flex z-40 font-semibold text-xl gap-4 items-center">
               <Link href="/">
                 <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-8 w-8"></div>

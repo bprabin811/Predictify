@@ -71,7 +71,7 @@ const UserDashboard: React.FC = () => {
     <WorkSpaceLayout>
       <div className="flex w-full mb-10">
         <div className="w-full flex flex-col gap-3">
-          <div className="flex h-[60px] w-full items-center justify-between border-b px-2 pr-4 bg-[#fbfafa] dark:bg-[#111]">
+          <div className="flex h-[60px] w-full items-center justify-between border-b px-2 pr-4 bg-[#fbfafa] dark:bg-card">
             <div className="flex items-center gap-4">
               <h1 className="flex-1 shrink-0 whitespace-nowrap font-semibold tracking-tight sm:grow-0">
                 {workspace}
@@ -156,7 +156,7 @@ const UserDashboard: React.FC = () => {
           <div className="w-full grid grid-cols-3 gap-x-2 gap-y-2 px-2 pr-4 mt-4">
             {filteredDataset.map((dataset, index) => (
               <div
-                className="h-[100px] shadow-sm flex items-start justify-between rounded-[.4rem] border  dark:bg-[#111]"
+                className="h-[100px] shadow-sm flex items-start justify-between rounded-[.4rem] border  dark:bg-card"
                 key={index}>
                 <div className="w-[15%] h-full  flex items-start py-4 justify-center ">
                   <FileSpreadsheet />

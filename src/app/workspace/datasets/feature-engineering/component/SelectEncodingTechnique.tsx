@@ -49,7 +49,7 @@ const SelectMethods: React.FC<SelectMethodsProps> = ({ methods, feature, selecte
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="w-full border rounded-[.4rem] dark:bg-[#111]">
+    <form onSubmit={formik.handleSubmit} className="w-full border rounded-[.4rem] dark:bg-card">
       <CardHeader className="border-b py-3">
         <h2 className="font-semibold text-sm uppercase">Select {feature} Options</h2>
       </CardHeader>

@@ -103,7 +103,7 @@ const DataCleaning: React.FC<DataCleaningProps> = ({ applyChanges }) => {
     <div className="w-full flex flex-col gap-4 items-start justify-start">
       <div className=" w-full flex flex-col gap-4">
         <div className="flex gap-4">
-          <div className="w-[30%] max-h-[300px] border rounded-[.4rem] dark:bg-[#111]">
+          <div className="w-[30%] max-h-[300px] border rounded-[.4rem] dark:bg-card">
             <CardHeader className="border-b">
               <h2 className="uppercase flex items-center gap-2 font-semibold">
                 <Eraser size={20} className="text-green-500" />
@@ -187,7 +187,7 @@ const DataCleaning: React.FC<DataCleaningProps> = ({ applyChanges }) => {
               </form>
             </CardContent>
           </div>
-          <div className="w-[30%] border rounded-[.4rem] dark:bg-[#111]">
+          <div className="w-[30%] border rounded-[.4rem] dark:bg-card">
             <CardHeader className="border-b">
               <h2 className="font-normal uppercase flex items-center gap-2">
                 <History size={20} className="text-blue-500" />

@@ -69,7 +69,7 @@ const SelectMultipleColumnsInXAndY = ({
   };
 
   return (
-    <div className="w-full border rounded-[.4rem] dark:bg-[#111]">
+    <div className="w-full border rounded-[.4rem] dark:bg-card">
       <CardHeader className="border-b py-3">
         <h2 className="font-normal">SELECT COLUMNS</h2>
       </CardHeader>

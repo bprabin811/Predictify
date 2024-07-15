@@ -22,7 +22,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <div className="flex flex-col gap-5 min-h-screen">
       <div className="flex min-h-screen w-full flex-col">
-        <div className="flex w-full h-[60px] items-center bg-[#FBFAFA] dark:bg-[#111] px-[10%] border-b z-40">
+        <div className="flex w-full h-[60px] items-center bg-[#FBFAFA] dark:bg-card px-[10%] border-b z-40">
           <nav className="flex  font-semibold text-xl gap-4 ">
             <Link href="/">
               <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>

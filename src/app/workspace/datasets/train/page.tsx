@@ -67,7 +67,7 @@ const TrainPage = () => {
     <div className="w-full">
       <div className="flex flex-1 flex-col">
         <div className="flex flex-col gap-3">
-          <div className="flex h-[60px] w-full items-center justify-between border-b px-4 bg-[#fbfafa] dark:bg-[#111]">
+          <div className="flex h-[60px] w-full items-center justify-between border-b px-4 bg-[#fbfafa] dark:bg-card">
             <div className="h-[60px] flex z-40 font-semibold text-xl gap-4 items-center">
               <Link href="/">
                 <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
@@ -101,7 +101,7 @@ const TrainPage = () => {
               <Card
                 className={`shadow-none max-w-[450px] h-[100px] ${
                   item?.key === activeAlgorithm && 'border-primary'
-                } flex dark:bg-opacity-5 hover:bg-green-50 cursor-pointer }`}
+                } flex hover:bg-secondary cursor-pointer }`}
                 key={item?.key}
                 onClick={() => handleNavigation(item?.key)}>
                 <div className="w-[20%] m-4 bg-[#fbfafa] dark:bg-opacity-5 rounded-md flex items-center justify-center space-x-1 space-y-1">
@@ -128,7 +128,7 @@ const TrainPage = () => {
                   Adjust parameters before start to train your model.
                 </p>
               </div>
-              <Card className="w-full p-4 dark:bg-[#111]">
+              <Card className="w-full p-4 ">
                 <div className="w-full grid grid-cols-3 gap-2">
                   <div className="flex flex-col gap-2">
                     <Label>Select column to ignore:</Label>

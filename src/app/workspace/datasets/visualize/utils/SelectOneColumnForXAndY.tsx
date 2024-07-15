@@ -63,7 +63,7 @@ const SelectOneColumnForXAndY = ({ data, selectedColumns }: SelectOneColumnForXA
   };
 
   return (
-    <div className="w-full border rounded-[.4rem] dark:bg-[#111]">
+    <div className="w-full border rounded-[.4rem] dark:bg-card">
       <CardHeader className="border-b">
         <h2 className="font-normal">SELECT COLUMNS</h2>
       </CardHeader>

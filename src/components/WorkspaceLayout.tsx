@@ -50,7 +50,7 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex h-screen w-screen items-center justify-center ">
       <div className="flex w-full h-full">
-        <div className=" border-r h-full w-[300px] bg-[#fbfafa] dark:bg-[#111]">
+        <div className=" border-r h-full w-[300px] bg-[#fbfafa] dark:bg-card">
           <ScrollArea className=" w-full flex h-full justify-between gap-2 px-4">
             <div className="h-[60px] flex z-40 font-semibold text-xl gap-4 items-center">
               <Link href="/">

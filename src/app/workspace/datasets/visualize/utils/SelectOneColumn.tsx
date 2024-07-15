@@ -51,7 +51,7 @@ const SelectOneColumn: React.FC<SelectColumnsProps> = ({ dataset, selectedColumn
   };
 
   return (
-    <div className="w-full border rounded-[.4rem] dark:bg-[#111]">
+    <div className="w-full border rounded-[.4rem] dark:bg-card">
       <CardHeader className="border-b py-3">
         <h2 className="font-semibold text-sm">SELECT COLUMN</h2>
       </CardHeader>
