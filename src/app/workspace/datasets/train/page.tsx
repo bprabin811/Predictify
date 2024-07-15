@@ -55,13 +55,15 @@ const TrainPage = () => {
     }
   }, [searchParams]);
 
-  console.log(activeAlgorithm);
-
   const handleNavigation = (key: string) => {
     const currentUrl = new URL(window.location.href);
     currentUrl.searchParams.set('alg', key);
     router.push(currentUrl.toString());
   };
+
+  const AlgorithmName = Algorithms[activeCategory].find(
+    (algorithm: any) => algorithm.key === activeAlgorithm,
+  )?.name;
 
   return (
     <div className="w-full">
@@ -114,16 +116,10 @@ const TrainPage = () => {
               </Card>
             ))}
           </div>
-          {activeAlgorithm != null && (
+          {AlgorithmName && activeAlgorithm != null && (
             <div className="flex items-start justify-start w-full flex-col gap-10 mt-10 border-t py-4">
               <div>
-                <h1 className="uppercase font-semibold text-green-600">
-                  {
-                    Algorithms[activeCategory].find(
-                      (algorithm: any) => algorithm.key === activeAlgorithm,
-                    )?.name
-                  }
-                </h1>
+                <h1 className="uppercase font-semibold text-green-600">{AlgorithmName}</h1>
                 <p className="text-muted-foreground">
                   Adjust parameters before start to train your model.
                 </p>
