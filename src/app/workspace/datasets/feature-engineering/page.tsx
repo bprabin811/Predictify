@@ -5,6 +5,7 @@ import NotificationsCard from '@/components/org/Notifications';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   BarChart2,
   CircleCheck,
@@ -16,7 +17,7 @@ import {
   Search,
 } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import SelectColumns from '../visualize/utils/SelectMultipleColumnsInXAndY';
 import SelectColumnsComponent from './component/ColumnSelect';
 import { dummyData } from '../components/data';
@@ -26,10 +27,25 @@ import { Separator } from '@/components/ui/separator';
 import SelectMethods from './component/SelectEncodingTechnique';
 
 const FeatureEngineering = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [isColumnsSelected, setIsColumnsSelected] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState('Encoding');
   const [selectedColumns, setSelectedColumns] = useState<any[]>([]);
+
+  useEffect(() => {
+    const FeatureParam = searchParams.get('opt');
+    if (FeatureParam) {
+      setSelectedFeature(FeatureParam);
+    }
+  }, [searchParams]);
+
+  const handleNavigation = (key: string) => {
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('opt', key);
+    router.push(currentUrl.toString());
+  };
 
   const getMethodsAndButtonText = (featureName: string) => {
     const feature = FeatureTransformationTools.find((tool) => tool?.name === featureName);
@@ -99,8 +115,7 @@ const FeatureEngineering = () => {
                     selectedFeature === feature?.name && 'text-primary font-semibold'
                   }`}
                   onClick={() => {
-                    setSelectedFeature(feature?.name);
-                    setIsColumnsSelected(false); // Reset column selection when feature changes
+                    handleNavigation(feature?.name);
                   }}>
                   <span className="flex items-center gap-2">
                     {feature?.icon}
@@ -140,4 +155,10 @@ const FeatureEngineering = () => {
   );
 };
 
-export default FeatureEngineering;
+export default function FeatureEngineeringPage() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <FeatureEngineering />
+    </Suspense>
+  );
+}

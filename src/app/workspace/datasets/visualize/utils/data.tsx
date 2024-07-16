@@ -20,12 +20,22 @@ export const ChartsDataset = [
   {
     key: 'bar',
     label: 'Bar Chart',
-    component: <BarChart />,
+    component: (
+      <BarChart
+        xAxisData={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+        yAxisData={[120, 200, 150, 80, 70, 110, 130]}
+      />
+    ),
   },
   {
     key: 'line',
     label: 'Line Chart',
-    component: <LineChart />,
+    component: (
+      <LineChart
+        xAxisData={['Apples', 'Bananas', 'Cherries', 'Dates', 'Elderberries']}
+        yAxisData={[5, 20, 36, 10, 10]}
+      />
+    ),
   },
   {
     key: 'scatter',
