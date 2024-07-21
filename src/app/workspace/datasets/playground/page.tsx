@@ -13,10 +13,78 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { X } from 'lucide-react';
+import { MoveDown, MoveRight, X } from 'lucide-react';
 import Link from 'next/link';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
+import { Input } from '@/components/ui/input';
+import { useState } from 'react';
+
+interface FieldSchema {
+  name: string;
+  type: 'string' | 'int' | 'float';
+}
+interface DataSetExample {
+  input_fields: FieldSchema[];
+  target_field: FieldSchema;
+}
+
+const getDynamicSchema = (fields: FieldSchema[]) => {
+  const shape: Record<string, any> = {};
+  fields.forEach((field) => {
+    if (field.type === 'string') {
+      shape[field.name] = Yup.string().required('Required field');
+    } else {
+      shape[field.name] = Yup.number().required('Required field');
+    }
+  });
+  return Yup.object().shape(shape);
+};
+
+const dataSetExample: DataSetExample = {
+  input_fields: [
+    {
+      name: 'Pclass',
+      type: 'int',
+    },
+    {
+      name: 'Sex',
+      type: 'string',
+    },
+    {
+      name: 'Age',
+      type: 'float',
+    },
+    {
+      name: 'SibSp',
+      type: 'int',
+    },
+    {
+      name: 'Parch',
+      type: 'int',
+    },
+    {
+      name: 'Fare',
+      type: 'float',
+    },
+    {
+      name: 'Cabin',
+      type: 'string',
+    },
+    {
+      name: 'Embarked',
+      type: 'string',
+    },
+  ],
+  target_field: {
+    name: 'Survived',
+    type: 'int',
+  },
+};
 
 const Playground = () => {
+  const [targetColumn, setTargetColumn] = useState(dataSetExample.target_field.name);
+
   return (
     <div className="w-full">
       <div className="flex flex-1 flex-col">
@@ -35,117 +103,71 @@ const Playground = () => {
           </div>
         </div>
       </div>
-      <div className="w-full max-h-screen grid grid-cols-3 gap-4 grid-rows-1 p-4">
-        <Card className="w-full p-4">
-          <div className="w-full grid grid-cols-2 gap-2">
-            <div className="flex flex-col gap-2">
-              <Label>Select column to ignore:</Label>
-              <div className="w-full flex flex-wrap gap-2">
-                <span key={'col-1'} className="border py-2 px-4 rounded-md flex gap-2 items-center">
-                  {'Col-1'}
-                  <X
-                    size={16}
-                    className="text-red-500 cursor-pointer"
-                    // onClick={() => handleColumnRemove(col)}
-                  />
-                </span>
-              </div>
-              <Select onValueChange={() => {}} value="">
-                <SelectTrigger className="w-full mb-4">
-                  <SelectValue placeholder="Select columns" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem key={'col-1'} value={'col-1'}>
-                    {'Col-1'}
-                  </SelectItem>
-                  <SelectItem key={'col-2'} value={'col-2'}>
-                    {'Col-2'}
-                  </SelectItem>
-                  <SelectItem key={'col-3'} value={'col-3'}>
-                    {'Col-3'}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>Number of epochs:</Label>
-              <input type="number" className="w-full border py-2 px-4 rounded-md" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>Batch size:</Label>
-              <input type="number" className="w-full border py-2 px-4 rounded-md" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>Learning rate:</Label>
-              <input type="number" className="w-full border py-2 px-4 rounded-md" />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>Loss function:</Label>
-              <Select onValueChange={() => {}} value="">
-                <SelectTrigger className="w-full mb-4">
-                  <SelectValue placeholder="Select loss function" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem key={'mse'} value={'mse'}>
-                    {'Mean Squared Error'}
-                  </SelectItem>
-                  <SelectItem key={'mae'} value={'mae'}>
-                    {'Mean Absolute Error'}
-                  </SelectItem>
-                  <SelectItem key={'cross_entropy'} value={'cross_entropy'}>
-                    {'Cross Entropy'}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>Optimizer:</Label>
-              <Select onValueChange={() => {}} value="">
-                <SelectTrigger className="w-full mb-4">
-                  <SelectValue placeholder="Select optimizer" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem key={'sgd'} value={'sgd'}>
-                    {'Stochastic Gradient Descent'}
-                  </SelectItem>
-                  <SelectItem key={'adam'} value={'adam'}>
-                    {'Adam'}
-                  </SelectItem>
-                  <SelectItem key={'rmsprop'} value={'rmsprop'}>
-                    {'RMSprop'}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>Activation function:</Label>
-              <Select onValueChange={() => {}} value="">
-                <SelectTrigger className="w-full mb-4">
-                  <SelectValue placeholder="Select activation function" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem key={'relu'} value={'relu'}>
-                    {'ReLU'}
-                  </SelectItem>
-                  <SelectItem key={'sigmoid'} value={'sigmoid'}>
-                    {'Sigmoid'}
-                  </SelectItem>
-                  <SelectItem key={'tanh'} value={'tanh'}>
-                    {'Tanh'}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>Validation split:</Label>
-              <input type="number" className="w-full border py-2 px-4 rounded-md" />
-            </div>
-          </div>
-          <Button variant={'default'}>Continue</Button>
-        </Card>
+      <div className="relative w-full h-screen p-4 overflow-auto pb-20">
+        <main className="w-full h-full flex items-start justify-between ">
+          <Card className=" shadow-none w-[60%] flex flex-col">
+            <Formik
+              initialValues={{ name: '', age: '', height: '' }}
+              validationSchema={getDynamicSchema(dataSetExample.input_fields)}
+              onSubmit={(values, { setSubmitting }: FormikHelpers<any>) => {
+                console.log(values);
+                setSubmitting(false);
+              }}>
+              {({ handleSubmit }) => (
+                <Form onSubmit={handleSubmit}>
+                  <CardHeader className="py-3 px-4">
+                    <span className="font-semibold uppercase">Form</span>
+                  </CardHeader>
+                  <Separator />
+                  <CardContent className="items-start grid grid-cols-3 gap-2 p-4">
+                    {dataSetExample.input_fields.map((field, index) => (
+                      <div key={index} className="flex flex-col gap-2">
+                        <Label htmlFor={field.name}>{field.name}</Label>
+                        <Field
+                          name={field.name}
+                          type={field.type === 'string' ? 'text' : 'number'}
+                          as={Input}
+                          id={field.name}
+                          placeholder={field.name}
+                        />
+                        <ErrorMessage name={field.name} component="div" className="text-red-600" />
+                      </div>
+                    ))}
+                  </CardContent>
+                  {/* <Separator /> */}
+                  <CardFooter className="p-4 flex items-center justify-end">
+                    <Button variant={'default'} type="submit">
+                      Feed data
+                    </Button>
+                  </CardFooter>
+                </Form>
+              )}
+            </Formik>
+          </Card>
 
-        <Card className="h-fit p-4">Model</Card>
-        <Card className="h-fit p-4">Predictions</Card>
+          <MoveRight className="absolute left-[65%] top-28" />
+          <div className="h-full w-[30%] flex flex-col justify-between items-center">
+            <Card className="shadow-none w-full h-[50%]">
+              <CardHeader className="py-3 px-4">
+                <span className="font-semibold uppercase">Model</span>
+              </CardHeader>
+              <Separator />
+            </Card>
+            <MoveDown />
+            <Card className="shadow-none w-full h-[30%]">
+              <CardHeader className="py-3 px-4">
+                <span className="font-semibold uppercase">Prediction</span>
+              </CardHeader>
+              <Separator />
+              <CardContent className="p-4">
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor={targetColumn}>{targetColumn}</Label>
+                  <Input type="number" id={targetColumn} placeholder={targetColumn} disabled />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </main>
       </div>
     </div>
   );
