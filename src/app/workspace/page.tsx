@@ -32,24 +32,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import HelpMenu from '@/components/HelpMenu';
-import SettingsMenu from '@/components/SettingsMenu';
+import HelpMenu from '@/components/org/HelpMenu';
+import SettingsMenu from '@/components/org/SettingsMenu';
 import Loader from '@/components/Loader';
 import { LinkShare } from '@/components/ShareLink';
-import { Card } from '@/components/ui/card';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
-import { Dataset } from './components/data';
 import NotificationsCard from '@/components/org/Notifications';
 import moment from 'moment';
+import useDatasetStore from '@/store/workspace/workspaceDatasets';
 
 const UserDashboard: React.FC = () => {
+  const { addDataset, getDatasetsByWorkspaceId }: any = useDatasetStore();
+  const [datasets, setDataSets] = useState(getDatasetsByWorkspaceId(1));
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [workspace, setWorkspace] = useState<string>('Default Workspace');
-  const [filteredDataset, setFilteredDataset] = useState<typeof Dataset>(
-    Dataset.filter((dataset) => dataset.wid === 1),
-  );
 
   useEffect(() => {
     const workspaceParam = searchParams.get('wsn');
@@ -57,9 +54,10 @@ const UserDashboard: React.FC = () => {
       setWorkspace(workspaceParam);
     }
     const widParam = searchParams.get('wid');
+    const widNumber = parseInt(widParam ?? '', 10);
     if (widParam) {
-      const filtered = Dataset.filter((dataset) => dataset.wid === parseInt(widParam));
-      setFilteredDataset(filtered);
+      const filtered = getDatasetsByWorkspaceId(widNumber);
+      setDataSets(filtered);
     }
   }, [searchParams]);
 
@@ -154,7 +152,7 @@ const UserDashboard: React.FC = () => {
             </Dialog>
           </div>
           <div className="w-full grid grid-cols-3 gap-x-2 gap-y-2 px-2 pr-4 mt-4">
-            {filteredDataset.map((dataset, index) => (
+            {datasets.map((dataset: any, index: number) => (
               <div
                 className="h-[100px] shadow-sm flex items-start justify-between rounded-[.4rem] border  dark:bg-card"
                 key={index}>

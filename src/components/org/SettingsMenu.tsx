@@ -28,7 +28,7 @@ import { useTheme } from 'next-themes';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ReportAnIssue } from './org/report-issues';
+// import { ReportAnIssue } from './org/report-issues';
 import { toast } from 'sonner';
 
 interface SettingsMenuProps {

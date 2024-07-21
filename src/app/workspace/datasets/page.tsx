@@ -1,57 +1,26 @@
 'use client';
-import SettingsMenu from '@/components/SettingsMenu';
+import SettingsMenu from '@/components/org/SettingsMenu';
 import Chip from '@/components/chip';
 import NotificationsCard from '@/components/org/Notifications';
-import ViewDataTable from '@/components/processes/view';
+import ViewDataTable from '@/components/view';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Binary, CaseSensitive, File, Info, Rows, ShieldQuestion } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
-import VerticalBarChart from '../components/verticalChart';
-import HorizontalBarChart from '../components/horizontalChart';
-import { Columns, dummyData, insights, largeDataset, stats } from './components/data';
+import { useState, useEffect } from 'react';
+import VerticalBarChart from '@/components/workspace/verticalChart';
+import HorizontalBarChart from '@/components/workspace/horizontalChart';
 import DataCleaning from './components/DataClean';
 import { Separator } from '@/components/ui/separator';
-
-interface Version {
-  id: number;
-  timestamp: string;
-  description: string;
-  data: [];
-}
+import useDataStore, { Column, Insight, Stat } from '@/store/dataset/DatasetStore';
 
 const ProcessLayout = () => {
-  const [selectedChip, setSelectedChip] = useState(Columns[0]);
-
-  const [dataset, setDataset] = useState<any>(dummyData);
-  const [versions, setVersions] = useState<Version[]>([]);
-
-  const applyChanges = (newDataset: any) => {
-    setDataset(newDataset);
-    createVersion(`Applied changes on ${new Date().toLocaleString()}`);
-  };
-
-  const createVersion = (description: string) => {
-    const newVersion: Version = {
-      id: versions.length,
-      timestamp: new Date().toLocaleString(),
-      description,
-      data: dataset,
-    };
-    setVersions([...versions, newVersion]);
-  };
-
-  const restoreVersion = (id: number) => {
-    const version = versions.find((v) => v.id === id);
-    if (version) {
-      setDataset(version.data);
-    }
-  };
+  const { stats, columns, largeDataset, insights, dummyData }: any = useDataStore();
+  const [selectedChip, setSelectedChip] = useState(columns[0]);
 
   const filteredInsights =
     selectedChip.type === 'string'
-      ? insights.filter((insight) => insight.label === 'Count')
+      ? insights.filter((insight: Insight) => insight.label === 'Count')
       : insights;
 
   return (
@@ -76,7 +45,7 @@ const ProcessLayout = () => {
         </div>
         <div className="w-full flex items-start flex-col gap-10 px-4 pb-20">
           <div className="w-full flex gap-4">
-            {stats.map((stat) => (
+            {stats.map((stat: Stat) => (
               <div
                 key={stat.id}
                 className={`w-[30%] h-[120px] shadow-none dark:bg-card border rounded-[.4rem]`}>
@@ -84,7 +53,7 @@ const ProcessLayout = () => {
                   <CardTitle className={`text-sm font-medium text-${stat.color} uppercase`}>
                     {stat.title}
                   </CardTitle>
-                  <stat.icon size={20} className="" />
+                  {/* <stat.icon size={20} className="" /> */}
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold flex items-center gap-2">
@@ -96,7 +65,7 @@ const ProcessLayout = () => {
           </div>
           <Separator />
           <div className="flex gap-4 flex-wrap">
-            {Columns.map((column, index) => (
+            {columns.map((column: Column, index: number) => (
               <Chip
                 key={index}
                 leadingIcon={
@@ -135,7 +104,7 @@ const ProcessLayout = () => {
               </CardContent>
             </Card>
             <div className="w-[50%] grid grid-cols-2 grid-rows-5 gap-4">
-              {filteredInsights.map((card, index) => (
+              {filteredInsights.map((card: Insight, index: number) => (
                 <Card
                   key={index}
                   className="w-full shadow-none flex flex-col py-2 px-4 items-start justify-center ">
@@ -148,7 +117,7 @@ const ProcessLayout = () => {
             </div>
           </div>
           <Separator />
-          <DataCleaning dataset={dataset} applyChanges={applyChanges} />
+          <DataCleaning dataset={dummyData} />
         </div>
       </div>
     </div>

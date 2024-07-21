@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
 
-const AreaChart = () => {
+interface AreaChartProps {
+  xAxisData: string[];
+  yAxisData?: number[];
+}
+
+const AreaChart:React.FC<AreaChartProps> = ({xAxisData,yAxisData}) => {
   const option = {
     // title: {
     //   text: 'Area Chart Example',
@@ -12,7 +17,7 @@ const AreaChart = () => {
     xAxis: {
       type: 'category',
       boundaryGap: false,
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      data: xAxisData,
     },
     yAxis: {
       type: 'value',
@@ -23,7 +28,7 @@ const AreaChart = () => {
         type: 'line',
         stack: 'total',
         areaStyle: {},
-        data: [120, 200, 150, 80, 70, 110, 130],
+        data: yAxisData,
       },
     ],
   };

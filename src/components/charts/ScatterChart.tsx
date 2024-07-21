@@ -2,7 +2,11 @@ import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import { EChartsOption } from 'echarts';
 
-const ScatterPlot = () => {
+interface ScatterPlotChartProps {
+  data: any[];
+}
+
+const ScatterPlot: React.FC<ScatterPlotChartProps> = ({ data }) => {
   const option: EChartsOption = {
     // title: {
     //   text: 'Scatter Plot Example',
@@ -18,13 +22,7 @@ const ScatterPlot = () => {
     series: [
       {
         symbolSize: 10,
-        data: [
-          [10, 8],
-          [20, 15],
-          [30, 12],
-          [40, 25],
-          [50, 22],
-        ],
+        data: data,
         type: 'scatter',
       },
     ],
@@ -32,7 +30,7 @@ const ScatterPlot = () => {
 
   return (
     <div className="h-full w-full flex items-center justify-center">
-      <ReactECharts option={option}  className="h-full w-full" />
+      <ReactECharts option={option} className="h-full w-full" />
     </div>
   );
 };

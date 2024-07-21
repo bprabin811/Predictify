@@ -52,7 +52,7 @@ const MultiSelector: React.FC<MultiSelectorProps> = ({ options, isMultiple, onSe
       </div>
       <Select onValueChange={handleColumnSelect} value="">
         <SelectTrigger className="w-full mb-4">
-          <SelectValue placeholder="Select columns" />
+          <SelectValue placeholder="Select options" />
         </SelectTrigger>
         <SelectContent>
           {filteredOptions.map((item, index) => (

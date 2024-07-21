@@ -2,7 +2,7 @@
 import Loader from '@/components/Loader';
 import { Card } from '@/components/ui/card';
 import React, { useEffect, useState, Suspense } from 'react';
-import { SidebarComponent } from '../../components/sidebar-component';
+import { SidebarComponent } from '@/components/workspace/sidebar-component';
 import { navBarData } from './constants';
 
 const NavigationBar = () => {

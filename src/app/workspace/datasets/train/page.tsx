@@ -1,5 +1,5 @@
 'use client';
-import SettingsMenu from '@/components/SettingsMenu';
+import SettingsMenu from '@/components/org/SettingsMenu';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import ExamplesNav from './component/train-nav';

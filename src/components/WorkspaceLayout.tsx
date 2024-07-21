@@ -7,17 +7,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useRouter, usePathname } from 'next/navigation';
 import { Badge } from './ui/badge';
+import useWorkspaceStore from '@/store/workspace';
+
+interface Workspace {
+  id: number;
+  name: string;
+}
 
 const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
+  const { workspaces, addWorkspace, getWorkspaces, loading }: any = useWorkspaceStore();
   const router = useRouter();
   const pathname = usePathname();
   const [isProActive, setIsProActive] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const [workspaces, setWorkspaces] = useState([
-    { id: 1, name: 'Default Workspace' },
-    { id: 2, name: "Prabin's Workspace" },
-  ]);
   const [showInput, setShowInput] = useState(false);
   const [newWorkspaceName, setNewWorkspaceName] = useState('');
 
@@ -34,16 +37,13 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const handleAddNewWorkspace = () => {
-    const newWorkspace = {
-      id: workspaces.length + 1,
-      name: newWorkspaceName.trim() || 'Untitled Workspace',
-    };
-    setWorkspaces([...workspaces, newWorkspace]);
+    const newWorkspace = newWorkspaceName.trim() || 'Untitled Workspace';
+    addWorkspace(newWorkspace);
     setShowInput(false);
     setNewWorkspaceName('');
   };
 
-  const filteredWorkspaces = workspaces.filter((workspace) =>
+  const filteredWorkspaces = workspaces.filter((workspace: Workspace) =>
     workspace.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
@@ -95,7 +95,7 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                       />
                     </div>
                   )}
-                  {filteredWorkspaces.map((workspace) => (
+                  {filteredWorkspaces.map((workspace: Workspace) => (
                     <Button
                       key={workspace.id}
                       variant={'outline'}
@@ -106,7 +106,7 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                     </Button>
                   ))}
                 </ScrollArea>
-                {isProActive && (
+                {!isProActive && (
                   <Card x-chunk="dashboard-02-chunk-0" className=" relative">
                     <CardHeader className="p-2 pt-0 md:p-4">
                       <Button

@@ -1,6 +1,6 @@
 'use client';
 import Loader from '@/components/Loader';
-import SettingsMenu from '@/components/SettingsMenu';
+import SettingsMenu from '@/components/org/SettingsMenu';
 import NotificationsCard from '@/components/org/Notifications';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -18,15 +18,15 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense, useEffect, useState } from 'react';
-import SelectColumns from '../visualize/utils/SelectMultipleColumnsInXAndY';
 import SelectColumnsComponent from './component/ColumnSelect';
-import { dummyData } from '../components/data';
 import { FeatureTransformationTools } from './component/data';
-import ViewDataTable from '@/components/processes/view';
+import ViewDataTable from '@/components/view';
 import { Separator } from '@/components/ui/separator';
 import SelectMethods from './component/SelectEncodingTechnique';
+import useDataStore from '@/store/dataset/DatasetStore';
 
 const FeatureEngineering = () => {
+  const { dummyData }: any = useDataStore();
   const searchParams = useSearchParams();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');

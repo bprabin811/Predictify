@@ -1,4 +1,23 @@
-export const Dataset = [
+// src/store/useDatasetStore.ts
+import create from 'zustand';
+
+interface Dataset {
+  id: number;
+  name: string;
+  created_by: string;
+  created_at: string;
+  comments: string;
+  wid: number;
+}
+
+interface DatasetState {
+  datasets: Dataset[];
+  addDataset: (dataset: Omit<Dataset, 'id'>) => void;
+  getDatasetsByWorkspaceId: (wid: number) => Dataset[];
+}
+
+// Initial dataset
+const initialDatasets: Dataset[] = [
   {
     id: 1,
     name: 'Employee.csv',
@@ -72,3 +91,15 @@ export const Dataset = [
     wid: 2,
   },
 ];
+
+// Create the Zustand store
+const useDatasetStore = create<DatasetState>((set, get) => ({
+  datasets: initialDatasets,
+  addDataset: (dataset) =>
+    set((state) => ({
+      datasets: [...state.datasets, { ...dataset, id: state.datasets.length + 1 }],
+    })),
+  getDatasetsByWorkspaceId: (wid) => get().datasets.filter((dataset) => dataset.wid === wid),
+}));
+
+export default useDatasetStore;

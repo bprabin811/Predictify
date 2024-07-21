@@ -22,24 +22,48 @@ import {
 } from '@/components/ui/select';
 
 import NotificationsCard from '@/components/org/Notifications';
-import SettingsMenu from '@/components/SettingsMenu';
+import SettingsMenu from '@/components/org/SettingsMenu';
 import { Badge } from '@/components/ui/badge';
 import MultiSelector from '@/components/MultiSelector';
-import BarChart from './components/BarChart';
-import LineChart from './components/LineChart';
 import PreviewCharts from './utils/PreviewCharts';
-import { Card } from '@/components/ui/card';
+import { ChartsList } from '@/config/chart';
+import { toast } from 'sonner';
 
-const ChartDataset = [
-  {
-    key: 'bar',
-    label: 'Bar Chart',
-    component: BarChart,
-  },
+const dummy_charts = [
   {
     key: 'line',
-    label: 'Line Chart',
-    component: LineChart,
+    label: 'Line Chart of Population',
+    xAxisData: ['Jan', 'Feb', 'Mar'],
+    yAxisData: [10, 30, 20],
+  },
+  {
+    key: 'bar',
+    label: 'Bar Chart of Population',
+    xAxisData: ['Q1', 'Q2', 'Q3'],
+    yAxisData: [100, 150, 300],
+  },
+  {
+    key: 'area',
+    label: 'Area Chart',
+    xAxisData: ['Apples', 'Bananas', 'Cherries', 'Dates', 'Elderberries'],
+    yAxisData: [5, 20, 36, 10, 10],
+  },
+  {
+    key: 'area',
+    label: 'This week sales',
+    xAxisData: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    yAxisData: [120, 200, 150, 80, 70, 110, 130],
+  },
+  {
+    key: 'scatter',
+    label: 'Scatter Plot',
+    data: [
+      [10, 8],
+      [20, 15],
+      [30, 12],
+      [40, 25],
+      [50, 22],
+    ],
   },
 ];
 
@@ -49,32 +73,35 @@ const DataVisualize = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedChartType, setSelectedChartType] = useState('');
   const [xSelectedData, setXSelectedData] = useState<any[]>([]);
-  const [ySelectedData, setYSelectedData] = useState<any[]>([]);
-  const [dynamicCharts, setDynamicCharts] = useState<any[]>([]);
-
+  const [ySelectedData, setYSelectedData] = useState<string>('');
   const [viewOption, setViewOption] = useState<string>('grid');
+  const [chartsData, setChartsData] = useState(dummy_charts);
+
+  const optionList = ChartsList?.filter((chart) => selectedChartType === chart.key);
 
   const handleXselected = (values: any[]) => {
     setXSelectedData(values);
   };
 
-  const handleYselected = (values: any[]) => {
+  const handleYselected = (values: string) => {
     setYSelectedData(values);
   };
 
   const handleSave = () => {
-    const chartType = ChartDataset.find((chart) => chart.key === selectedChartType);
-    if (!chartType) return;
-
-    const newChart = {
+    if (selectedChartType === '' || xSelectedData.length === 0 || ySelectedData === '') {
+      return;
+    }
+    console.log({
       key: selectedChartType,
       label: chartTitle,
-      component: (
-        <chartType.component key={chartTitle} xAxisData={xSelectedData} yAxisData={ySelectedData} />
-      ),
-    };
+      xAxisData: xSelectedData,
+      yAxisData: ySelectedData,
+    });
 
-    setDynamicCharts([...dynamicCharts, newChart]);
+    toast('Your chart has been successfully created and added to the preview list.', {
+      position: 'top-right',
+      duration: 2000,
+    });
     setIsDialogOpen(false);
   };
 
@@ -101,7 +128,7 @@ const DataVisualize = () => {
             </div>
           </div>
         </div>
-        <div className="w-full min-h-screen flex flex-col">
+        <div className="w-full min-h-screen flex flex-col pb-20">
           <div className="w-full px-4 pt-8 pb-0 flex items-center justify-between">
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger>
@@ -122,9 +149,9 @@ const DataVisualize = () => {
                         <SelectValue placeholder="Select chart" />
                       </SelectTrigger>
                       <SelectContent position="popper">
-                        {ChartDataset.map((chart, index) => (
-                          <SelectItem key={index} value={chart.key}>
-                            {chart.label}
+                        {ChartsList.map((chart) => (
+                          <SelectItem key={chart.id} value={chart.key}>
+                            {chart.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -140,21 +167,23 @@ const DataVisualize = () => {
                     />
                   </div>
                   <div className="w-full">
-                    <Label htmlFor="xAxisData">xAxisData</Label>
+                    <Label htmlFor="xAxisData">Columns</Label>
                     <MultiSelector
                       options={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
                       isMultiple={true}
                       onSelected={handleXselected}
                     />
                   </div>
-                  <div className="w-full">
-                    <Label htmlFor="yAxisData">yAxisData</Label>
-                    <MultiSelector
-                      options={[120, 200, 150, 80, 70, 110, 130]}
-                      isMultiple={true}
-                      onSelected={handleYselected}
-                    />
-                  </div>
+                  {optionList?.map((chart) => (
+                    <div className="w-full" key={chart.id}>
+                      <Label htmlFor="yAxisData">Options</Label>
+                      <MultiSelector
+                        options={chart?.list}
+                        isMultiple={false}
+                        onSelected={handleYselected}
+                      />
+                    </div>
+                  ))}
                 </div>
                 <Button variant="default" type="submit" className="w-fit" onClick={handleSave}>
                   Save
@@ -186,18 +215,7 @@ const DataVisualize = () => {
               </Button>
             </div>
           </div>
-          {viewOption === 'grid' ? (
-            <PreviewCharts dynamicCharts={dynamicCharts} />
-          ) : (
-            <div className="p-4 flex flex-col gap-4">
-              {dynamicCharts.map((chart, index) => (
-                <Card key={index}>
-                  {/* <h3>{chart.label}</h3> */}
-                  {chart.component}
-                </Card>
-              ))}
-            </div>
-          )}
+          <PreviewCharts chartsData={chartsData} viewOption={viewOption} />
         </div>
       </div>
     </div>

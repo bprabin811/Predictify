@@ -8,24 +8,25 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { X } from 'lucide-react';
-import { dummyData as data } from './data';
 
-const dummyData: Record<any, any>[] = data;
+interface CorrelationMatrixProps {
+  dataset: any;
+}
 
-const CorrelationMatrix: React.FC = () => {
+const CorrelationMatrix: React.FC<CorrelationMatrixProps> = ({ dataset }: any) => {
   const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
   const [correlationMatrix, setCorrelationMatrix] = useState<
     Record<string, Record<string, number>>
   >({});
 
   useEffect(() => {
-    const numericColumns = Object.keys(dummyData[0])
-      .filter((key) => typeof dummyData[0][key] === 'number')
+    const numericColumns = Object.keys(dataset[0])
+      .filter((key) => typeof dataset[0][key] === 'number')
       .filter((key) => key.toLowerCase() !== 'id');
 
     setSelectedColumns(numericColumns);
 
-    const matrix = calculateCorrelationMatrix(dummyData, numericColumns);
+    const matrix = calculateCorrelationMatrix(dataset, numericColumns);
     setCorrelationMatrix(matrix);
   }, []);
 
@@ -34,7 +35,7 @@ const CorrelationMatrix: React.FC = () => {
       const updatedColumns = [...selectedColumns, value];
       setSelectedColumns(updatedColumns);
 
-      const matrix = calculateCorrelationMatrix(dummyData, updatedColumns);
+      const matrix = calculateCorrelationMatrix(dataset, updatedColumns);
       setCorrelationMatrix(matrix);
     }
   };
@@ -43,7 +44,7 @@ const CorrelationMatrix: React.FC = () => {
     const updatedColumns = selectedColumns.filter((col) => col !== value);
     setSelectedColumns(updatedColumns);
 
-    const matrix = calculateCorrelationMatrix(dummyData, updatedColumns);
+    const matrix = calculateCorrelationMatrix(dataset, updatedColumns);
     setCorrelationMatrix(matrix);
   };
 
@@ -151,7 +152,7 @@ const CorrelationMatrix: React.FC = () => {
           <SelectValue placeholder="Select columns" />
         </SelectTrigger>
         <SelectContent>
-          {Object.keys(dummyData[0])
+          {Object.keys(dataset[0])
             .filter((col) => !selectedColumns.includes(col))
             .map((col) => (
               <SelectItem key={col} value={col}>

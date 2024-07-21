@@ -39,9 +39,14 @@ const FormSchema = z.object({
 });
 
 const SettingsProfilePage = () => {
-  const handleThemeChange = (layout: string) => {
-    localStorage.setItem('layout', layout);
-  };
+  // const savedLayout = localStorage.getItem('layout');
+  // let layout = ['bottom'];
+  // if (savedLayout) {
+  //   const parsedLayout = JSON.parse(savedLayout);
+  //   if (Array.isArray(parsedLayout.items)) {
+  //     layout = parsedLayout.items;
+  //   }
+  // }
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

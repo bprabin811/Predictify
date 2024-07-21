@@ -1,13 +1,14 @@
 'use client';
 
 import { Link, MessageCircle } from 'lucide-react';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { Textarea } from '../ui/textarea';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+
+import { Dialog, DialogContent, DialogTrigger } from './ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { Textarea } from './ui/textarea';
+import { Label } from './ui/label';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
 
 export function ReportAnIssue() {
   return (
@@ -60,7 +61,7 @@ export function ReportAnIssue() {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="subject">Subject</Label>
-              <Input id="subject" placeholder="I need help with..." />
+              <Input id="subject" placeholder="I need help with.." />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="description">Description</Label>

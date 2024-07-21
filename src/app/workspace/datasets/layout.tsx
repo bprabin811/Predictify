@@ -19,7 +19,6 @@ import {
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { SidebarComponent } from '../components/sidebar-component';
 import { Card } from '@/components/ui/card';
 import { Suspense } from 'react';
 import Loader from '@/components/Loader';

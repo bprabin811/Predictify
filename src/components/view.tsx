@@ -38,7 +38,6 @@ import {
   ChevronRight,
   Search,
 } from 'lucide-react';
-import NavigationBar from '@/components/NavigationBar';
 
 // Generate columns dynamically from data keys
 const generateColumns = (data: any[]) => {

@@ -18,8 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import SettingsMenu from '@/components/SettingsMenu';
-import APIIntegrationDialog from '@/components/DeveloperAPI';
+
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
@@ -27,6 +26,8 @@ import Loader from '@/components/Loader';
 import { PresetShare } from '../components/share';
 import { PresetSave } from '../components/save';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import APIIntegrationDialog from '@/components/org/DeveloperAPI';
+import SettingsMenu from '@/components/org/SettingsMenu';
 
 interface FieldSchema {
   name: string;
