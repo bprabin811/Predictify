@@ -6,7 +6,7 @@ interface AreaChartProps {
   yAxisData?: number[];
 }
 
-const AreaChart:React.FC<AreaChartProps> = ({xAxisData,yAxisData}) => {
+const AreaChart: React.FC<AreaChartProps> = ({ xAxisData, yAxisData }) => {
   const option = {
     // title: {
     //   text: 'Area Chart Example',
@@ -29,6 +29,9 @@ const AreaChart:React.FC<AreaChartProps> = ({xAxisData,yAxisData}) => {
         stack: 'total',
         areaStyle: {},
         data: yAxisData,
+        itemStyle: {
+          color: '#ea580c',
+        },
       },
     ],
   };

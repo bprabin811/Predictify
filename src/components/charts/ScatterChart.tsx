@@ -24,6 +24,9 @@ const ScatterPlot: React.FC<ScatterPlotChartProps> = ({ data }) => {
         symbolSize: 10,
         data: data,
         type: 'scatter',
+        itemStyle: {
+          color: '#ea580c',
+        },
       },
     ],
   };

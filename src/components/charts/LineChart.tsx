@@ -29,6 +29,9 @@ const LineChart: React.FC<LineChartProps> = ({ xAxisData, yAxisData }) => {
         type: 'line',
         data: yAxisData,
         // data: [120, 200, 150, 80, 70, 110, 130],
+        itemStyle: {
+          color: '#ea580c',
+        },
       },
     ],
   };

@@ -29,6 +29,9 @@ const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({ data }) => {
         name: 'Value',
         type: 'bar',
         data: data.map((item) => item.value),
+        itemStyle: {
+          color: '#ea580c',
+        },
       },
     ],
   };

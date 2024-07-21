@@ -30,6 +30,9 @@ const VerticalBarChart: React.FC<VerticalBarChartProps> = ({ data }) => {
         name: 'Value',
         type: 'bar',
         data: data.map((item) => item.value),
+        itemStyle: {
+          color: '#ea580c',
+        },
       },
     ],
   };

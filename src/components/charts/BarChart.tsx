@@ -27,6 +27,9 @@ const BarChart: React.FC<BarChartProps> = ({ xAxisData, yAxisData }) => {
         type: 'bar',
         data: yAxisData,
         // data: [5, 20, 36, 10, 10],
+        itemStyle: {
+          color: '#ea580c',
+        },
       },
     ],
   };
