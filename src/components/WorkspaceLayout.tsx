@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Search, FolderPlus, Folder, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,6 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useRouter, usePathname } from 'next/navigation';
 import { Badge } from './ui/badge';
 import useWorkspaceStore from '@/store/workspace';
+// import TooltipComponent from './TooltipComponent';
 
 interface Workspace {
   id: number;
@@ -15,7 +16,8 @@ interface Workspace {
 }
 
 const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
-  const { workspaces, addWorkspace, getWorkspaces, loading }: any = useWorkspaceStore();
+  const { workspaces, addWorkspace, isLoading, isSuccess, getWorkspaces }: any =
+    useWorkspaceStore();
   const router = useRouter();
   const pathname = usePathname();
   const [isProActive, setIsProActive] = useState(true);
@@ -23,6 +25,10 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
 
   const [showInput, setShowInput] = useState(false);
   const [newWorkspaceName, setNewWorkspaceName] = useState('');
+
+  useEffect(() => {
+    getWorkspaces();
+  }, []);
 
   const handleAddWorkspace = () => {
     setShowInput(true);
@@ -73,9 +79,17 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
 
                 <div className="mt-4 flex items-center justify-between">
                   <h2 className="font-normal">CREATE WORKSPACE</h2>
-                  <Button variant={'ghost'}>
-                    <FolderPlus size={16} className="cursor-pointer" onClick={handleAddWorkspace} />
-                  </Button>
+                  {/* <TooltipComponent comment="Crate a workspace" isVisible={true}> */}
+                  {
+                    <Button variant={'ghost'}>
+                      <FolderPlus
+                        size={16}
+                        className="cursor-pointer"
+                        onClick={handleAddWorkspace}
+                      />
+                    </Button>
+                  }
+                  {/* </TooltipComponent> */}
                 </div>
                 <ScrollArea className="h-[50vh]">
                   {showInput && (

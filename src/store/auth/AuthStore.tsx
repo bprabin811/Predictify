@@ -38,7 +38,7 @@ const useAuthStore = create((set) => ({
     }
   },
 
-  verify: async (email:string,otp:string)=>{
+  verify: async (email: string, otp: string) => {
     set({ isLoading: true, isSuccess: false });
     try {
       const response = await axios.post(`http://localhost:8000/auth/verify-otp`, { email, otp });
@@ -50,19 +50,48 @@ const useAuthStore = create((set) => ({
     }
   },
 
-  setPassword: async(email:string, password:string)=>{
+  setPassword: async (email: string, password: string) => {
     set({ isLoading: true, isSuccess: false });
     try {
-      const response = await axios.post(`http://localhost:8000/auth/set-password`, { email, password });
+      const response = await axios.post(`http://localhost:8000/auth/set-password`, {
+        email,
+        password,
+      });
       set({ isLoading: false, isSuccess: true });
     } catch (error) {
       console.error('Set password error:', error);
       set({ isLoading: false, isSuccess: false });
       throw new Error('Failed to set password');
     }
-  }
+  },
 
-  
+  passwordResetRequest: async (email: string) => {
+    set({ isLoading: true, isSuccess: false });
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/auth/reset-password-request/?email=${encodeURIComponent(email)}`,
+      );
+      set({ isLoading: false, isSuccess: true });
+    } catch (error) {
+      console.error('Password reset request error:', error);
+      set({ isLoading: false, isSuccess: false });
+      throw new Error('Failed to request password reset');
+    }
+  },
+
+  passwordReset: async (key: string, password: string) => {
+    set({ isLoading: true, isSuccess: false });
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/auth/reset-password/?token=${key}&new_password=${password}`,
+      );
+      set({ isLoading: false, isSuccess: true });
+    } catch (error) {
+      console.error('Password reset error:', error);
+      set({ isLoading: false, isSuccess: false });
+      throw new Error('Failed to reset password');
+    }
+  },
 }));
 
 export default useAuthStore;

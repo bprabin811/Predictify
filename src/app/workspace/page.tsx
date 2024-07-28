@@ -41,8 +41,8 @@ import moment from 'moment';
 import useDatasetStore from '@/store/workspace/workspaceDatasets';
 
 const UserDashboard: React.FC = () => {
-  const { addDataset, getDatasetsByWorkspaceId }: any = useDatasetStore();
-  const [datasets, setDataSets] = useState(getDatasetsByWorkspaceId(1));
+  const { datasets, getDatasets, getDefaultDatasets }: any = useDatasetStore();
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -56,8 +56,9 @@ const UserDashboard: React.FC = () => {
     const widParam = searchParams.get('wid');
     const widNumber = parseInt(widParam ?? '', 10);
     if (widParam) {
-      const filtered = getDatasetsByWorkspaceId(widNumber);
-      setDataSets(filtered);
+      getDatasets(widNumber);
+    } else {
+      getDefaultDatasets();
     }
   }, [searchParams]);
 
@@ -152,7 +153,7 @@ const UserDashboard: React.FC = () => {
             </Dialog>
           </div>
           <div className="w-full grid grid-cols-3 gap-x-2 gap-y-2 px-2 pr-4 mt-4">
-            {datasets.map((dataset: any, index: number) => (
+            {datasets?.map((dataset: any, index: number) => (
               <div
                 className="h-[100px] shadow-sm flex items-start justify-between rounded-[.4rem] border  dark:bg-card"
                 key={index}>
@@ -160,14 +161,14 @@ const UserDashboard: React.FC = () => {
                   <FileSpreadsheet />
                 </div>
                 <div className="w-[85%] flex flex-col px-2 py-2 items-start">
-                  <div className="w-full flex items-center justify-between">
+                  <div className="w-full flex items-center justify-between ">
                     <Button
                       variant={'link'}
                       className="p-0 m-0"
                       onClick={() => {
-                        router.push(`/workspace/datasets?id=${dataset.id}&tab=ONE`);
+                        router.push(`/workspace/datasets?id=${dataset?.id}&tab=ONE`);
                       }}>
-                      {dataset.name}.csv
+                      {dataset.name}
                     </Button>
 
                     <DropdownMenu>
@@ -180,7 +181,7 @@ const UserDashboard: React.FC = () => {
                         <DropdownMenuItem
                           className="flex items-center gap-3"
                           onClick={() => {
-                            router.push(`/workspace/datasets?id=${dataset.id}&tab=ONE`);
+                            router.push(`/workspace/datasets?id=${dataset?.id}&tab=ONE`);
                           }}>
                           <EyeIcon size={15} />
                           View
@@ -205,9 +206,9 @@ const UserDashboard: React.FC = () => {
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
-                  <span className="text-xs">{dataset.comments}</span>
-                  <span className="text-muted-foreground text-xs">
-                    {moment(dataset.created_at).fromNow()}
+                  <span className="text-xs">{dataset?.description}</span>
+                  <span className="text-muted-foreground text-xs mt-2">
+                    {moment(dataset?.created_at).fromNow()}
                   </span>
                 </div>
               </div>
