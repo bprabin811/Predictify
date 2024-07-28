@@ -135,7 +135,7 @@ const LoginPage = () => {
                     <div
                       className="absolute right-2 top-10 cursor-pointer"
                       onClick={togglePasswordVisibility}>
-                      {showPassword ? <EyeOff /> : <Eye />}
+                      {showPassword ? <EyeOff size={16}/> : <Eye size={16}/>}
                     </div>
                     <ErrorMessage
                       name="password"

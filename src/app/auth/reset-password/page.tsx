@@ -107,9 +107,9 @@ const PasswordReset = () => {
                       className="border border-[#555]"
                     />
                     <div
-                      className="absolute right-2 top-7 cursor-pointer"
+                      className="absolute right-2 top-8 cursor-pointer"
                       onClick={togglePasswordVisibility}>
-                      {showPassword ? <EyeOff /> : <Eye />}
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                     </div>
                     <ErrorMessage
                       name="password"
