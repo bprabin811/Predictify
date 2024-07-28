@@ -18,6 +18,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
+import useAuthStore from '@/store/auth/AuthStore';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Please enter a valid email').required('Email is required'),
@@ -26,12 +27,13 @@ const LoginSchema = Yup.object().shape({
 
 const LoginPage = () => {
   const router = useRouter();
+  const { login, isLoading, isSuccess }: any = useAuthStore();
 
-  useEffect(() => {
-    if (sessionStorage.getItem('isLogin') === 'true') {
-      router.push('/workspace');
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   if (localStorage.getItem('token')) {
+  //     router.push('/workspace');
+  //   }
+  // }, [router]);
 
   return (
     <div className="h-screen w-screen flex items-center">
@@ -49,15 +51,20 @@ const LoginPage = () => {
             <Formik
               initialValues={{ email: '', password: '' }}
               validationSchema={LoginSchema}
-              onSubmit={(values) => {
-                // Simulate login success
-                sessionStorage.setItem('isLogin', 'true');
-                Cookies.set('isLogin', 'true', { expires: 1 });
-                toast('You have been logged in successfully.', {
-                  position: 'top-right',
-                  duration: 2000,
-                });
-                router.push('/workspace');
+              onSubmit={async (values) => {
+                try {
+                  await login(values.email, values.password);
+                  router.push('/workspace');
+                  toast.success('You have been logged in successfully.', {
+                    position: 'top-right',
+                    duration: 2000,
+                  });
+                } catch (error) {
+                  toast.error('Login failed. Please check your credential and try again.', {
+                    position: 'top-right',
+                    duration: 2000,
+                  });
+                }
               }}>
               {({ isSubmitting }) => (
                 <Form className="grid gap-4">
@@ -124,8 +131,8 @@ const LoginPage = () => {
                       className="text-red-500 text-sm"
                     />
                   </div>
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
-                    Continue
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? 'Logging in' : 'Continue'}
                   </Button>
                 </Form>
               )}

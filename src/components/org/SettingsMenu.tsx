@@ -40,13 +40,13 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({ isLabel }) => {
   const router = useRouter();
 
   const handleLogout = () => {
-    sessionStorage.clear();
-    Cookies.remove('isLogin');
+    localStorage.clear();
+    Cookies.remove('token');
     router.push('/auth/login');
-      toast('You have been logged out successfully.', {
-        position: 'top-right',
-        duration: 2000,
-      });
+    toast('You have been logged out successfully.', {
+      position: 'top-right',
+      duration: 2000,
+    });
   };
 
   return (

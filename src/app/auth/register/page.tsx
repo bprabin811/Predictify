@@ -18,6 +18,7 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { useToast } from '@/components/ui/use-toast';
 import Link from 'next/link';
 import { LockKeyhole, ShieldCheck } from 'lucide-react';
+import useAuthStore from '@/store/auth/AuthStore';
 
 const EmailSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -25,7 +26,7 @@ const EmailSchema = Yup.object().shape({
 });
 
 const VerificationSchema = Yup.object().shape({
-  code: Yup.string().required('Verification code is required'),
+  otp: Yup.string().required('Verification otp is required'),
 });
 
 const SignupSchema = Yup.object().shape({
@@ -40,7 +41,7 @@ const SignupSchema = Yup.object().shape({
 
 interface FormValues {
   email: string;
-  code: string;
+  otp: string;
   name: string;
   password: string;
 }
@@ -50,6 +51,7 @@ export default function SignupForm() {
   const pathname = usePathname();
   const [step, setStep] = useState<number>(1);
   const { toast } = useToast();
+  const { signup, verify, setPassword, isLoading, isSuccess }: any = useAuthStore();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -61,18 +63,22 @@ export default function SignupForm() {
     }
   }, []);
 
-  const handleSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
+  const handleSubmit = async (values: FormValues, actions: FormikHelpers<FormValues>) => {
     if (step === 1) {
       // Handle email submission
+      await signup(values.name, values.email);
       setStep(2);
       router.push(`${pathname}?step=2`);
       actions.setSubmitting(false);
     } else if (step === 2) {
-      // Handle verification code submission
+      // Handle verification otp submission
+      await verify(values.email, values.otp);
       setStep(3);
       router.push(`${pathname}?step=3`);
       actions.setSubmitting(false);
     } else if (step === 3) {
+      // Handle password submission
+      await setPassword(values.email, values.password);
       toast({
         title: 'You have been signed up successfully.',
         description: new Date().toString(),
@@ -104,7 +110,7 @@ export default function SignupForm() {
             </CardTitle>
             <span className="text-xl font-semibold">
               {step === 1 && 'Get started for free'}
-              {step === 2 && 'Enter the verification code sent to your email'}
+              {step === 2 && 'Enter the verification otp sent to your email'}
               {step === 3 && 'Create a secure password'}
             </span>
           </CardHeader>
@@ -112,7 +118,7 @@ export default function SignupForm() {
             <Formik
               initialValues={{
                 email: '',
-                code: '',
+                otp: '',
                 name: '',
                 password: '',
               }}
@@ -196,22 +202,18 @@ export default function SignupForm() {
                   {step === 2 && (
                     <>
                       <div className="grid gap-2">
-                        <Label htmlFor="code">Verification Code</Label>
+                        <Label htmlFor="otp">Verification Code</Label>
                         <Field
                           as={Input}
-                          id="code"
-                          name="code"
+                          id="otp"
+                          name="otp"
                           type="text"
-                          placeholder="Enter verification code"
+                          placeholder="Enter verification otp"
                           className="border border-[#555]"
                         />
-                        <ErrorMessage
-                          name="code"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
+                        <ErrorMessage name="otp" component="div" className="text-red-500 text-sm" />
                         <CardDescription className="text-xs flex items-center justify-start gap-2">
-                          <p>Check your email for the verification code.</p>{' '}
+                          <p>Check your email for the verification otp.</p>{' '}
                           <Button variant={'link'} className="m-0 p-0">
                             Resend
                           </Button>
