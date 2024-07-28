@@ -17,7 +17,7 @@ import {
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { useToast } from '@/components/ui/use-toast';
 import Link from 'next/link';
-import { LockKeyhole, ShieldCheck } from 'lucide-react';
+import { Eye, EyeOff, LockKeyhole, ShieldCheck } from 'lucide-react';
 import useAuthStore from '@/store/auth/AuthStore';
 
 const EmailSchema = Yup.object().shape({
@@ -52,6 +52,12 @@ export default function SignupForm() {
   const [step, setStep] = useState<number>(1);
   const { toast } = useToast();
   const { signup, verify, setPassword, isLoading, isSuccess }: any = useAuthStore();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -227,16 +233,22 @@ export default function SignupForm() {
 
                   {step === 3 && (
                     <>
-                      <div className="grid gap-2">
+                      <div className="grid gap-2 relative">
                         <Label htmlFor="password">Password</Label>
                         <Field
                           as={Input}
                           id="password"
                           name="password"
-                          type="password"
+                          type={showPassword ? 'text' : 'password'}
                           placeholder="Password"
                           className="border border-[#555]"
                         />
+
+                        <div
+                          className="absolute right-2 top-7 cursor-pointer"
+                          onClick={togglePasswordVisibility}>
+                          {showPassword ? <EyeOff /> : <Eye />}
+                        </div>
                         <ErrorMessage
                           name="password"
                           component="div"

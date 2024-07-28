@@ -19,6 +19,7 @@ import { toast } from 'sonner';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import useAuthStore from '@/store/auth/AuthStore';
 import Loader from '@/components/Loader';
+import { Eye, EyeOff } from 'lucide-react';
 
 const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -31,12 +32,17 @@ const SignupSchema = Yup.object().shape({
 });
 
 const PasswordReset = () => {
+  const { passwordReset, isLoading, isSuccess }: any = useAuthStore();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [key, setKey] = useState<string>('');
 
-  const { passwordReset, isLoading, isSuccess }: any = useAuthStore();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   useEffect(() => {
     const workspaceParam = searchParams.get('key');
@@ -89,17 +95,22 @@ const PasswordReset = () => {
                 }
               }}>
               {({ values }) => (
-                <Form className="flex flex-col gap-4">
+                <Form className="flex flex-col gap-4 relative">
                   <div className="grid gap-2">
                     <Label htmlFor="password">New Password</Label>
                     <Field
                       as={Input}
                       id="password"
                       name="password"
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       placeholder="Password"
                       className="border border-[#555]"
                     />
+                    <div
+                      className="absolute right-2 top-7 cursor-pointer"
+                      onClick={togglePasswordVisibility}>
+                      {showPassword ? <EyeOff /> : <Eye />}
+                    </div>
                     <ErrorMessage
                       name="password"
                       component="div"

@@ -16,9 +16,10 @@ import { Label } from '@/components/ui/label';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import useAuthStore from '@/store/auth/AuthStore';
+import { Eye, EyeOff } from 'lucide-react';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Please enter a valid email').required('Email is required'),
@@ -28,6 +29,12 @@ const LoginSchema = Yup.object().shape({
 const LoginPage = () => {
   const router = useRouter();
   const { login, isLoading, isSuccess }: any = useAuthStore();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   // useEffect(() => {
   //   if (localStorage.getItem('token')) {
@@ -110,7 +117,7 @@ const LoginPage = () => {
                     />
                     <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                   </div>
-                  <div className="grid gap-2">
+                  <div className="grid gap-2 relative">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="password">Password</Label>
                       <Link href="/auth/request-password" className="text-primary hover:underline">
@@ -121,10 +128,15 @@ const LoginPage = () => {
                       as={Input}
                       id="password"
                       name="password"
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       placeholder="Password"
-                      className="border border-[#555]"
+                      className="border border-[#555] "
                     />
+                    <div
+                      className="absolute right-2 top-10 cursor-pointer"
+                      onClick={togglePasswordVisibility}>
+                      {showPassword ? <EyeOff /> : <Eye />}
+                    </div>
                     <ErrorMessage
                       name="password"
                       component="div"
