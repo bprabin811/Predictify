@@ -87,7 +87,7 @@ const SelectColumnsComponent: React.FC<SelectColumnsProps> = ({ dataset, selecte
   };
 
   return (
-    <form onSubmit={formik.handleSubmit} className="w-full border rounded-[.4rem] dark:bg-card">
+    <form onSubmit={formik.handleSubmit} className="w-full border rounded-[.4rem] ">
       <CardHeader className="border-b py-3">
         <h2 className="font-semibold text-sm">SELECT COLUMNS</h2>
       </CardHeader>

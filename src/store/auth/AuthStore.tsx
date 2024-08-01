@@ -1,6 +1,10 @@
 import create from 'zustand';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { toast } from 'sonner';
+import { ApiRoutes } from '@/config/apiRoutes';
+
+const apiUrl = 'http://localhost:8000';
 
 const useAuthStore = create((set) => ({
   isLoggedIn: false,
@@ -13,55 +17,74 @@ const useAuthStore = create((set) => ({
     formData.append('username', username);
     formData.append('password', password);
     try {
-      const response = await axios.post(`http://localhost:8000/auth/login`, formData);
+      const response = await axios.post(`${apiUrl}/${ApiRoutes.login}`, formData);
       const token = response.data['access_token'];
       set({ isLoggedIn: true, token, isLoading: false, isSuccess: true });
 
       sessionStorage.setItem('token', token);
       Cookies.set('token', token, { expires: 7 });
-    } catch (error) {
-      console.error('Login error:', error);
+      toast.success(response.data.message);
+      return true;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.detail || 'Failed to login.';
       set({ isLoading: false, isSuccess: false });
-      throw new Error('Failed to login');
+      toast.error(errorMessage);
+      return false;
     }
   },
 
   signup: async (name: string, email: string) => {
     set({ isLoading: true, isSuccess: false });
     try {
-      const response = await axios.post(`http://localhost:8000/auth/signup`, { name, email });
+      const response = await axios.post(`${apiUrl}/${ApiRoutes.signup}`, {
+        name,
+        email,
+      });
       set({ isLoading: false, isSuccess: true });
-    } catch (error) {
-      console.error('Signup error:', error);
+      toast.success(response.data.message);
+      return true;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.detail || 'Signup failed. Please try again.';
       set({ isLoading: false, isSuccess: false });
-      throw new Error('Failed to signup');
+      toast.error(errorMessage);
+      return false;
     }
   },
 
   verify: async (email: string, otp: string) => {
     set({ isLoading: true, isSuccess: false });
     try {
-      const response = await axios.post(`http://localhost:8000/auth/verify-otp`, { email, otp });
+      const response = await axios.post(`${apiUrl}/${ApiRoutes.verify}`, {
+        email,
+        otp,
+      });
       set({ isLoading: false, isSuccess: true });
-    } catch (error) {
-      console.error('Verify error:', error);
+      toast.success(response.data.message);
+      return true;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.detail || 'Failed to verify, please try again.';
       set({ isLoading: false, isSuccess: false });
-      throw new Error('Failed to verify');
+      toast.error(errorMessage);
+      return false;
     }
   },
 
   setPassword: async (email: string, password: string) => {
     set({ isLoading: true, isSuccess: false });
     try {
-      const response = await axios.post(`http://localhost:8000/auth/set-password`, {
+      const response = await axios.post(`${apiUrl}/${ApiRoutes.setPassword}`, {
         email,
         password,
       });
       set({ isLoading: false, isSuccess: true });
-    } catch (error) {
-      console.error('Set password error:', error);
+      toast.success(response.data.message);
+      return true;
+    } catch (error: any) {
+      const errorMessage =
+        error?.response?.data?.detail || 'Failed to set password, please try again.';
       set({ isLoading: false, isSuccess: false });
-      throw new Error('Failed to set password');
+      toast.error(errorMessage);
+      return false;
     }
   },
 
@@ -69,13 +92,16 @@ const useAuthStore = create((set) => ({
     set({ isLoading: true, isSuccess: false });
     try {
       const response = await axios.post(
-        `http://localhost:8000/auth/reset-password-request/?email=${encodeURIComponent(email)}`,
+        `${apiUrl}/${ApiRoutes.passwordResetRequest}/?email=${encodeURIComponent(email)}`,
       );
       set({ isLoading: false, isSuccess: true });
-    } catch (error) {
-      console.error('Password reset request error:', error);
+      toast.success(response.data.message);
+      return true;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.detail || 'Failed to request password reset.';
       set({ isLoading: false, isSuccess: false });
-      throw new Error('Failed to request password reset');
+      toast.error(errorMessage);
+      return false;
     }
   },
 
@@ -83,13 +109,18 @@ const useAuthStore = create((set) => ({
     set({ isLoading: true, isSuccess: false });
     try {
       const response = await axios.post(
-        `http://localhost:8000/auth/reset-password/?token=${key}&new_password=${password}`,
+        `${apiUrl}/${ApiRoutes.passwordReset}/?token=${key}&new_password=${encodeURIComponent(
+          password,
+        )}`,
       );
       set({ isLoading: false, isSuccess: true });
-    } catch (error) {
-      console.error('Password reset error:', error);
+      toast.success(response.data.message);
+      return true;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.detail || 'Failed to reset password.';
       set({ isLoading: false, isSuccess: false });
-      throw new Error('Failed to reset password');
+      toast.error(errorMessage);
+      return false;
     }
   },
 }));

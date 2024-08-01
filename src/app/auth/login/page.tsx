@@ -59,23 +59,14 @@ const LoginPage = () => {
               initialValues={{ email: '', password: '' }}
               validationSchema={LoginSchema}
               onSubmit={async (values) => {
-                try {
-                  await login(values.email, values.password);
+                const success = await login(values.email, values.password);
+                if (success) {
                   router.push('/workspace');
-                  toast.success('You have been logged in successfully.', {
-                    position: 'top-right',
-                    duration: 2000,
-                  });
-                } catch (error) {
-                  toast.error('Login failed. Please check your credential and try again.', {
-                    position: 'top-right',
-                    duration: 2000,
-                  });
                 }
               }}>
               {({ isSubmitting }) => (
                 <Form className="grid gap-4">
-                  <Button variant="outline" className="w-full flex gap-2 text-gray-500">
+                  <Button variant="outline" className="w-full flex gap-2 text-gray-500 cursor-not-allowed" disabled>
                     <div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +126,7 @@ const LoginPage = () => {
                     <div
                       className="absolute right-2 top-10 cursor-pointer"
                       onClick={togglePasswordVisibility}>
-                      {showPassword ? <EyeOff size={16}/> : <Eye size={16}/>}
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                     </div>
                     <ErrorMessage
                       name="password"

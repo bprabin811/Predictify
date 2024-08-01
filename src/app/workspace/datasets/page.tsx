@@ -27,7 +27,7 @@ const ProcessLayout = () => {
     <div className="w-full">
       <div className="flex flex-1 gap-3 flex-col">
         <div className="flex-[7] flex flex-col gap-3">
-          <div className="flex h-[60px] w-full items-center justify-between border-b px-4 bg-[#fbfafa] dark:bg-card">
+          <div className="flex h-[60px] w-full items-center justify-between border-b px-4 bg-[#fbfafa] dark:bg-card ">
             <div className="h-[60px] flex z-40 font-semibold text-xl gap-4 items-center">
               <Link href="/">
                 <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
@@ -48,7 +48,7 @@ const ProcessLayout = () => {
             {stats.map((stat: Stat) => (
               <div
                 key={stat.id}
-                className={`w-[30%] h-[120px] shadow-none dark:bg-card border rounded-[.4rem]`}>
+                className={`w-[30%] h-[120px] shadow-none  border rounded-[.4rem]`}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className={`text-sm font-medium text-${stat.color} uppercase`}>
                     {stat.title}

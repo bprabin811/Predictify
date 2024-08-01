@@ -80,18 +80,9 @@ const PasswordReset = () => {
               initialValues={{ password: '' }}
               validationSchema={SignupSchema}
               onSubmit={async (values) => {
-                try {
-                  await passwordReset(key, values.password);
+                const success = await passwordReset(key, values.password);
+                if (success) {
                   router.push('/auth/login');
-                  toast.success('Password reset successfully.', {
-                    position: 'top-right',
-                    duration: 2000,
-                  });
-                } catch (error) {
-                  toast.error('Something went wrong please try again.', {
-                    position: 'top-right',
-                    duration: 2000,
-                  });
                 }
               }}>
               {({ values }) => (

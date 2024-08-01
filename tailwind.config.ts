@@ -12,12 +12,21 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
-        "2xl": "1400px",
+        "xl": "1400px",
       },
     },
+
+    screens: {
+      xxs: "300px", // Mobile
+      md: "768px", // Tablet
+      lg: "1024px", // Laptop
+      xl: "1400px", // Desktop
+    },
+
     extend: {
+
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -53,11 +62,27 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+
+      fontSize: {
+        10: "clamp(8px, 1.5vw, 10px)",
+        12: "clamp(10px, 1.5vw, 12px)",
+        14: "clamp(11px, 2vw, 14px)",
+        16: "clamp(12px, 2vw, 16px)",
+        18: "clamp(16px, 2vw, 18px)",
+        20: "clamp(16px, 2vw, 20px)",
+        24: "clamp(20px, 2vw, 24px)",
+        32: "clamp(26px, 2.5vw, 32px)",
+        36: "clamp(28px, 3vw, 36px)",
+        56: "clamp(40px, 4vw, 56px)",
       },
+      
+      borderRadius: {
+        xl:"var(--radius)",
+        lg: "calc(var(--radius) - 2px)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 6px)",
+      },
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

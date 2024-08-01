@@ -58,18 +58,7 @@ const PasswordReset = () => {
                   initialValues={{ email: '' }}
                   validationSchema={EmailSchema}
                   onSubmit={async (values) => {
-                    try {
-                      await passwordResetRequest(values.email);
-                      toast.success('Request sended successfully.', {
-                        position: 'top-right',
-                        duration: 2000,
-                      });
-                    } catch (error) {
-                      toast.error('Something went wrong, please try again.', {
-                        position: 'top-right',
-                        duration: 2000,
-                      });
-                    }
+                    await passwordResetRequest(values.email);
                   }}>
                   {({ values }) => (
                     <Form className="flex flex-col gap-4">
@@ -91,7 +80,7 @@ const PasswordReset = () => {
                       </div>
 
                       <Button type="submit" className="w-full" disabled={isLoading}>
-                        Request password
+                        {isLoading ? 'Submitting...' : 'Request password'}
                       </Button>
                     </Form>
                   )}

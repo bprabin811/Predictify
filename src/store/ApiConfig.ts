@@ -17,7 +17,7 @@ interface RequestOptions extends AxiosRequestConfig {
 }
 
 const config: Config = {
-  apiUrl: process.env.API_URL || 'http://localhost:8000',
+  apiUrl: process.env.NEXT_PUBLIC_API_URL || '',
   getToken: () => Cookies.get('token') || localStorage.getItem('token'),
 };
 

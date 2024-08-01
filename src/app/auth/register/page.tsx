@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@/components/ui/button';
@@ -49,11 +49,20 @@ interface FormValues {
 export default function SignupForm() {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [step, setStep] = useState<number>(1);
   const { toast } = useToast();
   const { signup, verify, setPassword, isLoading, isSuccess }: any = useAuthStore();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [userMail, setUserMail] = useState('');
+
+  useEffect(() => {
+    const userParam = searchParams.get('user');
+    if (userParam) {
+      setUserMail(userParam);
+    }
+  }, [searchParams]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -71,25 +80,25 @@ export default function SignupForm() {
 
   const handleSubmit = async (values: FormValues, actions: FormikHelpers<FormValues>) => {
     if (step === 1) {
-      // Handle email submission
-      await signup(values.name, values.email);
-      setStep(2);
-      router.push(`${pathname}?step=2`);
-      actions.setSubmitting(false);
+      const success = await signup(values.name, values.email);
+      if (success) {
+        setStep(2);
+        router.push(`${pathname}?step=2&user=${values.email}`);
+        actions.setSubmitting(false);
+      }
     } else if (step === 2) {
-      // Handle verification otp submission
-      await verify(values.email, values.otp);
-      setStep(3);
-      router.push(`${pathname}?step=3`);
-      actions.setSubmitting(false);
+      const success = await verify(userMail, values.otp);
+      if (success) {
+        setStep(3);
+        router.push(`${pathname}?step=3&user=${values.email || userMail}`);
+        actions.setSubmitting(false);
+      }
     } else if (step === 3) {
-      // Handle password submission
-      await setPassword(values.email, values.password);
-      toast({
-        title: 'You have been signed up successfully.',
-        description: new Date().toString(),
-      });
-      window.location.href = '/workspace';
+      const success = await setPassword(userMail, values.password);
+      if (success) {
+        actions.setSubmitting(false);
+        window.location.href = '/auth/login';
+      }
     }
   };
 
@@ -123,7 +132,7 @@ export default function SignupForm() {
           <CardContent>
             <Formik
               initialValues={{
-                email: '',
+                email: userMail,
                 otp: '',
                 name: '',
                 password: '',
@@ -136,7 +145,10 @@ export default function SignupForm() {
                 <Form className="grid gap-4">
                   {step === 1 && (
                     <>
-                      <Button variant="outline" className="w-full flex gap-2">
+                      <Button
+                        variant="outline"
+                        className="w-full flex gap-2 cursor-not-allowed"
+                        disabled>
                         <div>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -199,8 +211,8 @@ export default function SignupForm() {
                           className="text-red-500 text-sm"
                         />
                       </div>
-                      <Button type="submit" className="w-full">
-                        Continue
+                      <Button type="submit" className="w-full" disabled={isLoading}>
+                        {isLoading ? 'Submitting...' : 'Continue'}
                       </Button>
                     </>
                   )}
@@ -215,7 +227,8 @@ export default function SignupForm() {
                           name="otp"
                           type="text"
                           placeholder="Enter verification otp"
-                          className="border border-[#555]"
+                          className="border border-[#555] "
+                          maxLength={6}
                         />
                         <ErrorMessage name="otp" component="div" className="text-red-500 text-sm" />
                         <CardDescription className="text-xs flex items-center justify-start gap-2">
@@ -225,8 +238,11 @@ export default function SignupForm() {
                           </Button>
                         </CardDescription>
                       </div>
-                      <Button type="submit" className="w-full">
-                        Continue
+                      <Button
+                        type="submit"
+                        className="w-full"
+                        disabled={isLoading || values.otp.length != 6}>
+                        {isLoading ? 'Submitting...' : 'Continue'}
                       </Button>
                     </>
                   )}
@@ -305,8 +321,8 @@ export default function SignupForm() {
                         </CardDescription>
                       </div>
 
-                      <Button type="submit" className="w-full">
-                        Sign Up
+                      <Button type="submit" className="w-full" disabled={isLoading}>
+                        {isLoading ? 'Signing up' : 'Sign up'}
                       </Button>
                     </>
                   )}

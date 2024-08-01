@@ -69,7 +69,7 @@ const TrainPage = () => {
     <div className="w-full">
       <div className="flex flex-1 flex-col">
         <div className="flex flex-col gap-3">
-          <div className="flex h-[60px] w-full items-center justify-between border-b px-4 bg-[#fbfafa] dark:bg-card">
+          <div className="flex h-[60px] w-full items-center justify-between border-b px-4 bg-[#fbfafa] dark:bg-card ">
             <div className="h-[60px] flex z-40 font-semibold text-xl gap-4 items-center">
               <Link href="/">
                 <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
@@ -106,7 +106,7 @@ const TrainPage = () => {
                 } flex hover:bg-secondary cursor-pointer }`}
                 key={item?.key}
                 onClick={() => handleNavigation(item?.key)}>
-                <div className="w-[20%] m-4 bg-[#fbfafa] dark:bg-opacity-5 rounded-md flex items-center justify-center space-x-1 space-y-1">
+                <div className="w-[20%] m-4 bg-[#fbfafa] dark:bg-card dark:bg-opacity-5 rounded-md flex items-center justify-center space-x-1 space-y-1">
                   {item?.icon}
                 </div>
                 <div className="w-[80%] p-4 flex flex-col pl-0 ">

@@ -89,7 +89,7 @@ const Playground = () => {
     <div className="w-full">
       <div className="flex flex-1 flex-col">
         <div className="flex flex-col gap-3">
-          <div className="flex h-[60px] w-full items-center justify-between border-b px-4 bg-[#fbfafa] dark:bg-card">
+          <div className="flex h-[60px] w-full items-center justify-between border-b px-4 bg-[#fbfafa] dark:bg-card ">
             <div className="h-[60px] flex z-40 font-semibold text-xl gap-4 items-center">
               <Link href="/">
                 <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
