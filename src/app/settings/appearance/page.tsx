@@ -1,9 +1,8 @@
 'use client';
-import { useEffect, useState } from 'react'; // Added useState and useEffect for managing local storage and theme state
+import { useEffect, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Info } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -20,6 +19,7 @@ import {
 } from '@/components/ui/form';
 import AppearanceCard from './components/AppearanceCard';
 import { toast } from 'sonner';
+import AlertBox from '@/components/utils/AlertBox';
 
 const items = [
   {
@@ -64,17 +64,14 @@ const SettingsProfilePage = () => {
   }
 
   return (
-    <div className="space-y-6 px-2 pr-4">
-      <div className="mt-2">
-        <h3 className="text-lg font-medium">Appearance Settings</h3>
-        <p className="text-sm text-muted-foreground">
-          Upgrade your current plan at any time to unlock additional features and resources that
-          support your business growth.
-        </p>
-      </div>
-      <Separator />
+    <>
+      <h3 className="text-lg font-medium">Appearance Settings</h3>
+      <p className="text-sm text-muted-foreground">
+        Upgrade your current plan at any time to unlock additional features and resources that
+        support your business growth.
+      </p>
+      <Separator className="my-4" />
       <AppearanceCard />
-
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -127,15 +124,14 @@ const SettingsProfilePage = () => {
           </form>
         </Form>
       </div>
-      <Alert className="bg-red-50 dark:bg-orange-600 dark:bg-opacity-10">
-        <Info className="h-4 w-4" />
-        <AlertTitle>Information!</AlertTitle>
-        <AlertDescription>
-          The selected theme (light, dark, or system) will be applied throughout the entire
-          application. However, changes to the layout will only take effect within the workspace.
-        </AlertDescription>
-      </Alert>
-    </div>
+
+      <AlertBox
+        icon={<Info className="h-4 w-4" />}
+        title="Information"
+        description="The selected theme (light, dark, or system) will be applied throughout the entire
+          application. However, changes to the layout will only take effect within the workspace."
+      />
+    </>
   );
 };
 

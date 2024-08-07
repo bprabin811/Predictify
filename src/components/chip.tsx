@@ -11,9 +11,9 @@ interface ChipProps {
 const Chip: React.FC<ChipProps> = ({ label, onClick, selected, leadingIcon }) => (
   <Button
     variant={selected ? 'default' : 'outline'}
-    className={` ${
+    className={`${
       selected ? 'bg-primary border-[#4a4b4b] flex items-center gap-2' : 'flex items-center gap-2'
-    }` }
+    } text-xs` }
     onClick={onClick}>
     {leadingIcon}
     {label}

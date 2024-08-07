@@ -75,9 +75,9 @@ export default function ExamplesNav({ className, ...props }: ExamplesNavProps) {
   };
 
   return (
-    <div className="relative border-b">
+    <div className="w-full">
       <ScrollArea className="max-w-[600px] lg:max-w-none">
-        <div className={cn('mb-4 flex items-center gap-4', className)} {...props}>
+        <div className={cn(' flex items-center gap-4', className)} {...props}>
           {examples.map((example, index) => (
             <Button
               className="rounded-full"

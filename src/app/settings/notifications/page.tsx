@@ -2,7 +2,7 @@
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { BellRing, EyeOff, Receipt } from 'lucide-react';
+import { Bell, BellRing, EyeOff, Receipt } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { EyeClosedIcon } from '@radix-ui/react-icons';
 
@@ -24,6 +24,7 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
 import { toast } from '@/components/ui/use-toast';
+import AlertBox from '@/components/utils/AlertBox';
 
 const notificationsFormSchema = z.object({
   type: z.enum(['all', 'mentions', 'none'], {
@@ -63,23 +64,20 @@ export default function SettingsProfilePage() {
     });
   }
   return (
-    <div className="space-y-6 px-2 pr-4">
-      <div className="mt-2">
-        <h3 className="text-lg font-medium">Notification Settings</h3>
-        <p className="text-sm text-muted-foreground">
-          Upgrade your current plan at any time to unlock additional features and resources that
-          support your business growth.
-        </p>
-      </div>
-      <Separator />
-      <Alert className="bg-red-50 dark:bg-orange-600 dark:bg-opacity-10">
-        <Receipt className="h-4 w-4" />
-        <AlertTitle>Important Notice!</AlertTitle>
-        <AlertDescription>
-          Please note that pricing and billing terms are subject to change. Predictify reserves the
-          right to discontinue or modify pricing plans.
-        </AlertDescription>
-      </Alert>
+    <>
+      <h3 className="text-lg font-medium">Notification Settings</h3>
+      <p className="text-sm text-muted-foreground">
+        Upgrade your current plan at any time to unlock additional features and resources that
+        support your business growth.
+      </p>
+      <Separator className="my-4" />
+      <AlertBox
+        icon={<Bell className="h-4 w-4" />}
+        title="Alert"
+        description="Do not share your API key with others, or expose it in the browser or other client-side
+          code. In order to protect the security of your account, Predictify may also automatically
+          disable any API key that has leaked publicly."
+      />
       <div className="flex space-x-4 ">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -204,6 +202,6 @@ export default function SettingsProfilePage() {
           </form>
         </Form>
       </div>
-    </div>
+    </>
   );
 }

@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",
     "@kinde-oss/kinde-auth-nextjs": "^2.2.9",
+    "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -42,6 +43,7 @@
     "dotenv": "^16.4.5",
     "echarts": "^5.5.1",
     "echarts-for-react": "^3.0.2",
+    "echarts-stat": "^1.2.0",
     "formik": "^2.4.6",
     "highcharts": "^11.4.1",
     "highcharts-react-official": "^3.2.1",

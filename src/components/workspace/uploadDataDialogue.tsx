@@ -24,7 +24,11 @@ interface FormValues {
   file: File | null;
 }
 
-const UploadDatasetDialog: React.FC = () => {
+interface UploadDatasetDialogProps {
+  wid: number;
+}
+
+const UploadDatasetDialog: React.FC<UploadDatasetDialogProps> = (wid) => {
   const { postDataset, isLoading, isSuccess }: any = useDatasetStore();
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -45,8 +49,7 @@ const UploadDatasetDialog: React.FC = () => {
           header: true,
           complete: async (result) => {
             const jsonData = result.data;
-            await postDataset(values.name, values.description, jsonData, 0);
-            toast.success('Data uploaded successfully.');
+            await postDataset(values.name, values.description, jsonData, wid.wid);
           },
         });
       };

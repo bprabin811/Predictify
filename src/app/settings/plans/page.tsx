@@ -2,7 +2,7 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check, Receipt } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import AlertBox from '@/components/utils/AlertBox';
 
 const pricingPlans = [
   {
@@ -39,15 +39,13 @@ const pricingPlans = [
 
 export default function SettingsProfilePage() {
   return (
-    <div className="space-y-6 px-2 pr-4">
-      <div className="mt-2">
-        <h3 className="text-lg font-medium">Billing Plans</h3>
-        <p className="text-sm text-muted-foreground">
-          Upgrade your current plan at any time to unlock additional features and resources
-          that support your business growth.
-        </p>
-      </div>
-      <Separator />
+    <>
+      <h3 className="text-lg font-medium">Billing Plans</h3>
+      <p className="text-sm text-muted-foreground">
+        Upgrade your current plan at any time to unlock additional features and resources that
+        support your business growth.
+      </p>
+      <Separator className="my-4" />
       <div className="flex space-x-4 ">
         {pricingPlans.map((plan, index) => (
           <Card className="w-[350px] h-[500px] shadow-none" key={index}>
@@ -95,17 +93,15 @@ export default function SettingsProfilePage() {
           </Card>
         ))}
       </div>
-      <Alert className="bg-red-50 dark:bg-orange-600 dark:bg-opacity-10">
-        <Receipt className="h-4 w-4" />
-        <AlertTitle>Important Notice!</AlertTitle>
-        <AlertDescription>
-          Please note that pricing and billing terms are subject to change. Predictify reserves the
+      <AlertBox
+        icon={<Receipt className="h-4 w-4" />}
+        title="Important Notice!"
+        description="Please note that pricing and billing terms are subject to change. Predictify reserves the
           right to discontinue or modify pricing plans, features, or billing cycles at any time.
           Changes will be communicated via email or through our website. In the event of any
           changes, you will have the option to continue or cancel your subscription as per our terms
-          of service.
-        </AlertDescription>
-      </Alert>
-    </div>
+          of service."
+      />
+    </>
   );
 }

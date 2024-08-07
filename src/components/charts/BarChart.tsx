@@ -5,37 +5,66 @@ import { EChartsOption } from 'echarts';
 interface BarChartProps {
   xAxisData: string[];
   yAxisData?: number[];
+  xLabel?: string;
+  yLabel?: string;
+  plotoption?: string;
 }
 
-const BarChart: React.FC<BarChartProps> = ({ xAxisData, yAxisData }) => {
+const BarChart: React.FC<BarChartProps> = ({
+  xAxisData,
+  yAxisData,
+  xLabel,
+  yLabel,
+  plotoption,
+}) => {
   const option: EChartsOption = {
-    // title: {
-    //   text: 'Bar Chart Example',
-    // },
-    tooltip: {},
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow',
+      },
+    },
+    grid: {
+      left: '20%',
+      right: '20%',
+      bottom: '20%',
+      top: '20%',
+    },
     xAxis: {
       type: 'category',
       data: xAxisData,
-      // data: ['Apples', 'Bananas', 'Cherries', 'Dates', 'Elderberries'],
+      name: xLabel,
+      nameLocation: 'middle',
+      nameTextStyle: {
+        fontWeight: 'bold',
+        fontSize: 12,
+        padding: 10,
+      },
     },
     yAxis: {
       type: 'value',
+      name: yLabel ? yLabel + `(${plotoption})` : xLabel + `(${plotoption})`,
+      nameLocation: 'end',
+      nameTextStyle: {
+        fontWeight: 'bold',
+        fontSize: 12,
+        padding: 10,
+      },
     },
     series: [
       {
-        name: 'Fruits',
+        name: '',
         type: 'bar',
         data: yAxisData,
-        // data: [5, 20, 36, 10, 10],
         itemStyle: {
-          color: '#ea580c',
+          color: '#E11D4890',
         },
       },
     ],
   };
 
   return (
-    <div className="h-full w-full flex items-center justify-center">
+    <div className="h-full w-full flex items-center justify-center ">
       <ReactECharts option={option} className="h-full w-full" />
     </div>
   );

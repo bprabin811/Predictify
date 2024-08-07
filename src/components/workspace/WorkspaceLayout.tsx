@@ -31,8 +31,6 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
     getWorkspaces();
   }, []);
 
-  console.log(isLoading);
-
   const handleAddWorkspace = () => {
     setShowInput(true);
   };
@@ -45,9 +43,12 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
     router.push(`${pathname}?wid=${id}&wsn=${name}&`);
   };
 
-  const handleAddNewWorkspace = () => {
+  const handleAddNewWorkspace = async () => {
     const newWorkspace = newWorkspaceName.trim() || 'Untitled Workspace';
-    addWorkspace(newWorkspace);
+    const success = await addWorkspace(newWorkspace);
+    if (success) {
+      getWorkspaces();
+    }
     setShowInput(false);
     setNewWorkspaceName('');
   };
@@ -81,8 +82,8 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant={'ghost'} className="relative ">
-                    <FolderPlus size={16} className="cursor-pointer" onClick={handleAddWorkspace} />
+                  <Button variant={'ghost'} className="relative" onClick={handleAddWorkspace}>
+                    <FolderPlus size={16} className="cursor-pointer" />
                     {/* <span className="absolute animate-ping inline-flex duration-[5000] h-4 w-4 rounded-full bg-sky-400 opacity-75"></span> */}
                   </Button>
                 </TooltipTrigger>
@@ -126,7 +127,7 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
                     onClick={() => HandleWorkspaceName(workspace.id, workspace.name)}
                     className="p-2 mb-2 w-full flex items-center justify-start gap-4 rounded-md cursor-pointer">
                     <Folder size={16} />
-                    <h3 className="font-normal text-12">{workspace.name}</h3>
+                    <p className="font-normal text-12">{workspace.name}</p>
                   </Button>
                 ))
               )}

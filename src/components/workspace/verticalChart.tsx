@@ -8,15 +8,16 @@ interface ChartData {
 }
 
 interface VerticalBarChartProps {
-  data: ChartData[];
+  xLabel: any[];
+  yLabel: any[];
 }
 
-const VerticalBarChart: React.FC<VerticalBarChartProps> = ({ data }) => {
+const VerticalBarChart: React.FC<VerticalBarChartProps> = ({ xLabel, yLabel }) => {
   const option: EChartsOption = {
     tooltip: {},
     xAxis: {
       type: 'category',
-      data: data.map((item) => item.name),
+      data: xLabel,
       axisLabel: {
         rotate: 45,
         interval: 0,
@@ -29,9 +30,9 @@ const VerticalBarChart: React.FC<VerticalBarChartProps> = ({ data }) => {
       {
         name: 'Value',
         type: 'bar',
-        data: data.map((item) => item.value),
+        data: yLabel,
         itemStyle: {
-          color: '#ea580c',
+          color: '#E11D4890',
         },
       },
     ],

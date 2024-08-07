@@ -4,9 +4,18 @@ import ReactECharts from 'echarts-for-react';
 interface AreaChartProps {
   xAxisData: string[];
   yAxisData?: number[];
+  xLabel?: string;
+  yLabel?: string;
+  plotoption?: string;
 }
 
-const AreaChart: React.FC<AreaChartProps> = ({ xAxisData, yAxisData }) => {
+const AreaChart: React.FC<AreaChartProps> = ({
+  xAxisData,
+  yAxisData,
+  xLabel,
+  yLabel,
+  plotoption,
+}) => {
   const option = {
     // title: {
     //   text: 'Area Chart Example',
@@ -14,23 +23,43 @@ const AreaChart: React.FC<AreaChartProps> = ({ xAxisData, yAxisData }) => {
     tooltip: {
       trigger: 'axis',
     },
+    grid: {
+      left: '20%',
+      right: '20%',
+      bottom: '20%',
+      top: '20%',
+    },
     xAxis: {
       type: 'category',
       boundaryGap: false,
       data: xAxisData,
+      name: xLabel,
+      nameLocation: 'middle',
+      nameTextStyle: {
+        fontWeight: 'bold',
+        fontSize: 12,
+        padding: 10,
+      },
     },
     yAxis: {
       type: 'value',
+      name: yLabel ? yLabel + `(${plotoption})` : xLabel + `(${plotoption})`,
+      nameLocation: 'end',
+      nameTextStyle: {
+        fontWeight: 'bold',
+        fontSize: 12,
+        padding: 10,
+      },
     },
     series: [
       {
-        name: 'Example Series',
+        name: '',
         type: 'line',
         stack: 'total',
         areaStyle: {},
         data: yAxisData,
         itemStyle: {
-          color: '#ea580c',
+          color: '#E11D4890',
         },
       },
     ],

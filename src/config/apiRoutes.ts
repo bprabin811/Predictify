@@ -8,6 +8,11 @@ export const ApiRoutes={
     'passwordReset':'auth/reset-password',
     'logout':'auth/logout',
 
+
+
     //Workspaces
     'workspace':'/workspace/',
+
+    //charts
+    'charts':'/chart',
 }

@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useMemo } from 'react';
-import WorkSpaceLayout from '@/components/WorkspaceLayout';
 import { CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon } from '@radix-ui/react-icons';
 import {
   ColumnDef,
@@ -126,7 +125,7 @@ const ViewDataTable = ({ dataset }: any) => {
               <TableRow key={headerGroup.id} className="border-none py-3 ">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="py-3 bg-transparent uppercase">
+                    <TableHead key={header.id} className="p-3 bg-secondary text-14 w-fit text-nowrap">
                       {header.isPlaceholder ? null : (
                         <div className="flex items-center">
                           {flexRender(header.column.columnDef.header, header.getContext())}
@@ -157,9 +156,9 @@ const ViewDataTable = ({ dataset }: any) => {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className="cursor-pointer">
+                  className="cursor-pointer ">
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="text-start py-3">
+                    <TableCell key={cell.id} className="text-start p-3 text-12 w-fit">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -177,8 +176,8 @@ const ViewDataTable = ({ dataset }: any) => {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{' '}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {/* {table.getFilteredSelectedRowModel().rows.length} of{' '} */}
+          {table.getFilteredRowModel().rows.length} row(s)
         </div>
         <div className="space-x-2">
           <Button

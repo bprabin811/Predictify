@@ -5,32 +5,56 @@ import { EChartsOption } from 'echarts';
 interface LineChartProps {
   xAxisData: string[];
   yAxisData?: number[];
+  xLabel?: string;
+  yLabel?: string;
+  plotoption?: string;
 }
 
-const LineChart: React.FC<LineChartProps> = ({ xAxisData, yAxisData }) => {
+const LineChart: React.FC<LineChartProps> = ({
+  xAxisData,
+  yAxisData,
+  xLabel,
+  yLabel,
+  plotoption,
+}) => {
   const option: EChartsOption = {
-    // title: {
-    //   text: 'Line Chart Example',
-    // },
+    grid: {
+      left: '20%',
+      right: '20%',
+      bottom: '20%',
+      top: '20%',
+    },
     tooltip: {
       trigger: 'axis',
     },
     xAxis: {
       type: 'category',
       data: xAxisData,
-      // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      name: xLabel,
+      nameLocation: 'middle',
+      nameTextStyle: {
+        fontWeight: 'bold',
+        fontSize: 12,
+        padding: 10,
+      },
     },
     yAxis: {
       type: 'value',
+      name: yLabel ? yLabel + `(${plotoption})` : xLabel + `(${plotoption})`,
+      nameLocation: 'end',
+      nameTextStyle: {
+        fontWeight: 'bold',
+        fontSize: 12,
+        padding: 10,
+      },
     },
     series: [
       {
-        name: 'Example Series',
+        name: '',
         type: 'line',
         data: yAxisData,
-        // data: [120, 200, 150, 80, 70, 110, 130],
         itemStyle: {
-          color: '#ea580c',
+          color: '#E11D4890',
         },
       },
     ],

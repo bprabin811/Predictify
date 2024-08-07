@@ -14,11 +14,13 @@ import {
   Copy,
   Sparkles,
   EllipsisVertical,
+  Folder,
 } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -30,6 +32,10 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuPortal,
+  DropdownMenuSub,
 } from '@/components/ui/dropdown-menu';
 import HelpMenu from '@/components/org/HelpMenu';
 import SettingsMenu from '@/components/org/SettingsMenu';
@@ -42,11 +48,21 @@ import UploadDatasetDialog from '@/components/workspace/uploadDataDialogue';
 import WorkSpaceLayout from '@/components/workspace/WorkspaceLayout';
 import useWorkspaceStore from '@/store/workspace';
 import { Input } from '@/components/ui/input';
+import MoveDialog from '@/components/workspace/MoveData';
+import { ConfirmationAlert } from '@/components/utils/ConformationAlert';
 
 const UserDashboard: React.FC = () => {
-  const { datasets, getDatasets, getDefaultDatasets }: any = useDatasetStore();
+  const {
+    datasets,
+    getDatasets,
+    getDefaultDatasets,
+    deleteDataset,
+    duplicateDataset,
+    moveDataset,
+  }: any = useDatasetStore();
   const {
     workspace,
+    workspaces,
     updateWorkspace,
     getWorkspace,
     getWorkspaces,
@@ -100,11 +116,15 @@ const UserDashboard: React.FC = () => {
     }
   };
 
-  const handleDelete = () => {
-    deleteWorkspace(widNo);
-  };
+  // const handleDelete = () => {
+  //   deleteWorkspace(widNo);
+  // };
 
   const isEditableWorkspace = workspace !== 'Default Workspace';
+
+  const FilteredWorkspaces = workspaces.filter(
+    (workspace: any) => workspace.name !== workspaceName,
+  );
 
   return (
     <WorkSpaceLayout>
@@ -144,10 +164,15 @@ const UserDashboard: React.FC = () => {
                       <FilePenLine size={16} />
                       Rename
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="flex items-center gap-3" onClick={handleDelete}>
+                    {/* <DropdownMenuItem className="flex items-center gap-3" onClick={handleDelete}>
                       <Trash size={16} className="text-red-500" />
                       Delete
-                    </DropdownMenuItem>
+                    </DropdownMenuItem> */}
+                    <ConfirmationAlert
+                      handleConfirm={() => {
+                        deleteWorkspace(widNo);
+                      }}
+                    />
                   </DropdownMenuContent>
                 </DropdownMenu>
               )}
@@ -175,77 +200,9 @@ const UserDashboard: React.FC = () => {
             </div>
           </div>
           <div className="mt-4 w-full flex items-center justify-between px-2 pr-4">
-            {/* <Button
-              variant={'default'}
-              onClick={HandleModelTestButton}
-              className="p-2 flex items-center justify-start gap-4 border rounded-md cursor-pointer">
-              <Sparkles size={16} />
-              <h3 className="font-normal">Predict</h3>
-            </Button> */}
-
-            <UploadDatasetDialog />
+            <UploadDatasetDialog wid={widNo} />
           </div>
           <div className="w-full mt-10">
-            {/* {datasets?.map((dataset: any, index: number) => (
-              <div
-                className="h-[100px] w-[350px] shadow-sm flex items-start justify-between rounded-[.4rem] border  "
-                key={index}>
-                <div className="w-[15%] h-full  flex items-start py-4 justify-center ">
-                  <FileSpreadsheet />
-                </div>
-                <div className="w-[85%] flex flex-col px-2 py-2 items-start">
-                  <div className="w-full flex items-center justify-between ">
-                    <Button
-                      variant={'link'}
-                      className="p-0 m-0"
-                      onClick={() => {
-                        router.push(`/workspace/datasets?id=${dataset?.id}&tab=ONE`);
-                      }}>
-                      {dataset.name}
-                    </Button>
-
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant={'ghost'} className="py-0 px-2">
-                          <Ellipsis size={16} />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="flex flex-col">
-                        <DropdownMenuItem
-                          className="flex items-center gap-3"
-                          onClick={() => {
-                            router.push(`/workspace/datasets?id=${dataset?.id}&tab=ONE`);
-                          }}>
-                          <EyeIcon size={15} />
-                          View
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="flex items-center gap-3">
-                          <FilePenLine size={15} />
-                          Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="flex items-center gap-3">
-                          <Move size={15} />
-                          Move
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="flex items-center gap-3">
-                          <Copy size={15} />
-                          Duplicate
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="flex items-center gap-3">
-                          <Trash size={15} className="text-red-500" />
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                  <span className="text-xs">{dataset?.description}</span>
-                  <span className="text-muted-foreground text-xs mt-2">
-                    {moment(dataset?.created_at).fromNow()}
-                  </span>
-                </div>
-              </div>
-            ))} */}
             <table className="table-auto w-full">
               <thead>
                 <tr>
@@ -291,7 +248,7 @@ const UserDashboard: React.FC = () => {
                       onClick={() => {
                         router.push(`/workspace/datasets?id=${dataset?.id}&tab=ONE`);
                       }}>
-                      {''}
+                      {moment(dataset?.updated_at).fromNow()}
                     </td>
                     <td
                       className="py-2 px-4 border-b text-12 font-normal "
@@ -320,19 +277,36 @@ const UserDashboard: React.FC = () => {
                             <FilePenLine size={15} />
                             Edit
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="flex items-center gap-3">
-                            <Move size={15} />
-                            Move
-                          </DropdownMenuItem>
+                          {/* <MoveDialog datasetId={dataset?.id} /> */}
+                          <DropdownMenuSub>
+                            <DropdownMenuSubTrigger className="flex items-center gap-3">
+                              <Move size={15} />
+                              Move to
+                            </DropdownMenuSubTrigger>
+                            <DropdownMenuPortal>
+                              <DropdownMenuSubContent>
+                                {FilteredWorkspaces.map((item: any) => (
+                                  <DropdownMenuItem
+                                    key={item?.id}
+                                    onClick={() => moveDataset(dataset?.id, item?.id)}
+                                    className="flex gap-2 items-center">
+                                    <Folder size={16} />
+                                    <span>{item?.name}</span>
+                                  </DropdownMenuItem>
+                                ))}
+                              </DropdownMenuSubContent>
+                            </DropdownMenuPortal>
+                          </DropdownMenuSub>
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem className="flex items-center gap-3">
+                          <DropdownMenuItem
+                            className="flex items-center gap-3"
+                            onClick={() => {
+                              duplicateDataset(dataset?.id);
+                            }}>
                             <Copy size={15} />
                             Duplicate
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="flex items-center gap-3">
-                            <Trash size={15} className="text-red-500" />
-                            Delete
-                          </DropdownMenuItem>
+                          <ConfirmationAlert handleConfirm={() => deleteDataset(dataset?.id)} />
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </td>

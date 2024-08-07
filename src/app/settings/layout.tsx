@@ -48,18 +48,21 @@ interface SettingsLayoutProps {
 
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
-    <div className="flex h-screen w-screen">
-      <aside className="h-full w-[20%]">
-        <div className="flex z-40 font-semibold text-xl gap-4 h-[60px] items-center px-4 ">
+    <div className="flex h-screen w-screen flex-col">
+      <div className="flex w-full items-center justify-between border-b bg-[#fbfafa] dark:bg-card ">
+        <div className="h-[80px] z-40 font-semibold flex px-4 text-16 gap-4 items-center">
           <Link href="/">
             <div className="bg-[url('/light_logo.svg')] dark:bg-[url('/dark_logo.png')] bg-cover bg-center h-[24px] w-[24px]"></div>
           </Link>
-          Predictify<Badge>Beta</Badge>
+          Predictify<Badge className="py-0">Beta</Badge>{' '}
         </div>
-        <SidebarNav items={sidebarNavItems} />
-      </aside>
-      <ScrollArea className="h-full w-[80%]">{children}</ScrollArea>
-      
+      </div>
+      <div className="container flex">
+        <aside className="min-h-[80vh] w-[20%] border-r py-4 pr-4">
+          <SidebarNav items={sidebarNavItems} />
+        </aside>
+        <div className="h-full w-[80%] p-4">{children}</div>
+      </div>
     </div>
   );
 }

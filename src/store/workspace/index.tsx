@@ -9,7 +9,6 @@ interface State {
   workspaces: any[];
   isLoading: boolean;
   isSuccess: boolean;
-  addWorkspace: (name: string) => Promise<void>;
 }
 
 // Create the Zustand store
@@ -23,16 +22,16 @@ const useWorkspaceStore = create<State>((set, get) => ({
     set({ isLoading: true, isSuccess: false });
     try {
       const response = await request('post', ApiRoutes.workspace, { data: { name } });
-      const newWorkspace = response.data;
       set((state) => ({
-        workspaces: [...state.workspaces, newWorkspace],
         isLoading: false,
         isSuccess: true,
       }));
+      return true;
     } catch (error: any) {
       const errorMessage = error?.response?.data?.detail || 'Failed to add workspace.';
       set({ isLoading: false, isSuccess: false });
       toast.error(errorMessage);
+      return false;
     }
   },
 

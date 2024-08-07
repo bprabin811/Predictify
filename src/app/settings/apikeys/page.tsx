@@ -2,8 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Archive, Delete, Edit, Key, Plus, Trash } from 'lucide-react';
-
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import AlertBox from '@/components/utils/AlertBox';
 
 // Dummy API key data
 const apiKeyData = [
@@ -25,25 +24,21 @@ const apiKeyData = [
 
 export default function SettingsProfilePage() {
   return (
-    <div className="space-y-6 px-2 pr-4">
-      <div className="mt-2">
-        <h3 className="text-lg font-medium">API keys</h3>
-        <p className="text-sm text-muted-foreground">
-          This API key is used for all requests to the Predictify API. As an owner of this project,
-          you can view and manage all API keys in this project.
-        </p>
-      </div>
-      <Separator />
-
-      <Alert className="bg-red-50 dark:bg-opacity-5">
-        <Key className="h-4 w-4" />
-        <AlertTitle>Alert!</AlertTitle>
-        <AlertDescription>
-          Do not share your API key with others, or expose it in the browser or other client-side
+    <>
+      <h3 className="text-lg font-medium">API keys</h3>
+      <p className="text-sm text-muted-foreground">
+        This API key is used for all requests to the Predictify API. As an owner of this project,
+        you can view and manage all API keys in this project.
+      </p>
+      <Separator className="my-4" />
+      <AlertBox
+        icon={<Key className="h-4 w-4" />}
+        title="Alert"
+        description="Do not share your API key with others, or expose it in the browser or other client-side
           code. In order to protect the security of your account, Predictify may also automatically
-          disable any API key that has leaked publicly.
-        </AlertDescription>
-      </Alert>
+          disable any API key that has leaked publicly."
+      />
+
       <div className="w-full flex items-center justify-end">
         <Button variant={'outline'} className="flex gap-2 items-center">
           <Plus size={20} />
@@ -92,6 +87,6 @@ export default function SettingsProfilePage() {
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 }

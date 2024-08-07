@@ -2,16 +2,12 @@ import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import { EChartsOption } from 'echarts';
 
-interface ChartData {
-  name: string;
-  value: number;
-}
-
 interface HorizontalBarChartProps {
-  data: ChartData[];
+  xLabel: any[];
+  yLabel: any[];
 }
 
-const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({ data }) => {
+const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({ xLabel, yLabel }) => {
   const option: EChartsOption = {
     tooltip: {},
     xAxis: {
@@ -19,7 +15,7 @@ const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({ data }) => {
     },
     yAxis: {
       type: 'category',
-      data: data.map((item) => item.name),
+      data: xLabel,
       axisLabel: {
         interval: 0,
       },
@@ -28,9 +24,9 @@ const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({ data }) => {
       {
         name: 'Value',
         type: 'bar',
-        data: data.map((item) => item.value),
+        data: yLabel,
         itemStyle: {
-          color: '#ea580c',
+          color: '#E11D4890',
         },
       },
     ],

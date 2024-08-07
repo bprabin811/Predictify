@@ -19,7 +19,7 @@ const NavigationBar = () => {
   }, []);
 
   return (
-    <div className={`fixed ${layout === 'right' ? 'top-[20%] right-4' : 'bottom-4 left-4'}`}>
+    <div className={`z-50 fixed ${layout === 'right' ? 'top-[20%] right-4' : 'bottom-4 left-4'}`}>
       <Card className="dark:bg-gray-900">
         <Suspense fallback={<Loader />}>
           <SidebarComponent items={navBarData} layout={layout} />

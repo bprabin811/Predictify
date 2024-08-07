@@ -4,30 +4,56 @@ import { EChartsOption } from 'echarts';
 
 interface ScatterPlotChartProps {
   data: any[];
+  xLabel?: string;
+  yLabel?: string;
+  plotoption?: string;
 }
 
-const ScatterPlot: React.FC<ScatterPlotChartProps> = ({ data }) => {
-  const option: EChartsOption = {
-    // title: {
-    //   text: 'Scatter Plot Example',
-    // },
+const ScatterPlot: React.FC<ScatterPlotChartProps> = ({ data, xLabel, yLabel, plotoption }) => {
+  const option = {
+    tooltip: {
+      trigger: 'axis',
+    },
     xAxis: {
-      type: 'value',
-      name: 'X Axis',
+      // type: 'value',
+      // min: 'dataMin',
+      name: xLabel,
+      nameLocation: 'middle',
+      nameTextStyle: {
+        fontWeight: 'bold',
+        fontSize: 12,
+        padding: 10,
+      },
     },
     yAxis: {
-      type: 'value',
-      name: 'Y Axis',
+      // type: 'value', e'
+      // min: 'dataMin',
+      name: yLabel,
+      nameLocation: 'end',
+      nameTextStyle: {
+        fontWeight: 'bold',
+        fontSize: 12,
+        padding: 10,
+      },
     },
     series: [
       {
-        symbolSize: 10,
+        symbolSize: 20,
         data: data,
         type: 'scatter',
-        itemStyle: {
-          color: '#ea580c',
-        },
       },
+    ],
+    dataZoom: [
+      {
+        type: 'inside', // Enable zooming using the mouse wheel and dragging
+        xAxisIndex: 0, // Apply to the x-axis
+        yAxisIndex: 0, // Apply to the y-axis
+      },
+      // {
+      //   type: 'slider', // Enable zooming using a slider
+      //   xAxisIndex: 0, // Apply to the x-axis
+      //   yAxisIndex: 0, // Apply to the y-axis
+      // },
     ],
   };
 

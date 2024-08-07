@@ -24,6 +24,7 @@ import { Suspense } from 'react';
 import Loader from '@/components/Loader';
 import { navBarData } from './components/constants';
 import NavigationBar from './components/NavigationBar';
+import Topbar from '@/components/Datasets/Topbar';
 
 export const metadata: Metadata = {
   title: 'ML',
@@ -37,8 +38,9 @@ interface SettingsLayoutProps {
 
 export default function MLLayout({ children }: SettingsLayoutProps) {
   return (
-    <div className="w-screen h-screen flex items-center justify-center ">
-      <div className="h-[100vh] w-full ">{children}</div>
+    <div className="w-screen h-screen flex flex-col">
+      <Topbar />
+      <div>{children}</div>
       <NavigationBar />
     </div>
   );

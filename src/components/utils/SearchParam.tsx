@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-interface SearchParamProps {
-  key: string;
-}
-
-const SearchParam: React.FC<SearchParamProps> = ({ key }) => {
+const SearchParam = (key: string) => {
   const [data, setData] = useState<string | null>(null);
   const searchParams = useSearchParams();
 
