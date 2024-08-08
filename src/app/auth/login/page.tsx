@@ -61,12 +61,15 @@ const LoginPage = () => {
               onSubmit={async (values) => {
                 const success = await login(values.email, values.password);
                 if (success) {
-                  router.push('/workspace');
+                  router.push('/workspace?wsn=Default%20Workspace&');
                 }
               }}>
               {({ isSubmitting }) => (
                 <Form className="grid gap-4">
-                  <Button variant="outline" className="w-full flex gap-2 text-gray-500 cursor-not-allowed" disabled>
+                  <Button
+                    variant="outline"
+                    className="w-full flex gap-2 text-gray-500 cursor-not-allowed"
+                    disabled>
                     <div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

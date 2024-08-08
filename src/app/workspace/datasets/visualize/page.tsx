@@ -45,6 +45,7 @@ const DataVisualize = () => {
   const [viewOption, setViewOption] = useState<string>('grid');
 
   const dataset_id = SearchParam('id');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (dataset_id) {
@@ -72,6 +73,10 @@ const DataVisualize = () => {
     return false;
   };
 
+  const filteredCharts = charts.filter((chart: any) =>
+    chart.label.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+
   return (
     <div className="flex container flex-col">
       {isLoading && <Loader />}
@@ -82,10 +87,12 @@ const DataVisualize = () => {
               <Plus size={16} /> Create
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="rounded-md max-h-[80%] overflow-auto">
             <DialogHeader>
-              <DialogTitle>Create new chart</DialogTitle>
-              <DialogDescription>{"Click save when you're done."}</DialogDescription>
+              <DialogTitle className="text-start">Create new chart</DialogTitle>
+              <DialogDescription className="text-start">
+                {"Click save when you're done."}
+              </DialogDescription>
             </DialogHeader>
             <Formik
               initialValues={{
@@ -201,13 +208,15 @@ const DataVisualize = () => {
                             </SelectTrigger>
                             <SelectContent position="popper">
                               {checkType(values.column)
-                                ? chart.list.map((option, index) => (
-                                    <SelectItem key={index} value={option}>
-                                      {option}
-                                    </SelectItem>
-                                  ))
+                                ? chart.list
+                                    .filter((calc) => calc !== 'per-hundredths')
+                                    .map((option, index) => (
+                                      <SelectItem key={index} value={option} className="uppercase">
+                                        {option}
+                                      </SelectItem>
+                                    ))
                                 : chart.list.slice(0, 1).map((option, index) => (
-                                    <SelectItem key={index} value={option}>
+                                    <SelectItem key={index} value={option} className="uppercase">
                                       {option}
                                     </SelectItem>
                                   ))}
@@ -296,7 +305,7 @@ const DataVisualize = () => {
                               <SelectContent position="popper">
                                 {checkType(values.yAxis[0]) &&
                                   chart.list.slice(1).map((option, index) => (
-                                    <SelectItem key={index} value={option}>
+                                    <SelectItem key={index} value={option} className="uppercase">
                                       {option}
                                     </SelectItem>
                                   ))}
@@ -324,6 +333,8 @@ const DataVisualize = () => {
               type="text"
               className="pl-10 pr-4 py-1 w-full border rounded-md focus:outline-none focus:border-transparent font-normal"
               placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <Button
@@ -349,7 +360,13 @@ const DataVisualize = () => {
           </Button>
         </div>
       </div>
-      {isSuccess && <PreviewCharts chartsData={charts} viewOption={viewOption} />}
+      {isSuccess && (
+        <PreviewCharts
+          chartsData={filteredCharts}
+          viewOption={viewOption}
+          columnDetails={column_details}
+        />
+      )}
     </div>
   );
 };

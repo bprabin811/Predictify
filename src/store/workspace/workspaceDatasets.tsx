@@ -35,11 +35,17 @@ const useDatasetStore = create<DatasetState>((set, get) => ({
   isTableLoading: false,
   isTableSuccess: false,
 
-  postDataset: async (name: string, description: string, data: any, workspace_id: number) => {
+  postDataset: async (
+    name: string,
+    description: string,
+    data: any,
+    data_metadata: any,
+    workspace_id: number,
+  ) => {
     set({ isLoading: true, isSuccess: false });
     try {
       const response = await request('post', '/dataset/', {
-        data: { name, description, data, workspace_id },
+        data: { name, description, data, data_metadata, workspace_id },
       });
       const NewDataset = response.data;
       set((state) => ({

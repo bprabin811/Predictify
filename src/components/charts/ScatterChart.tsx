@@ -38,9 +38,12 @@ const ScatterPlot: React.FC<ScatterPlotChartProps> = ({ data, xLabel, yLabel, pl
     },
     series: [
       {
-        symbolSize: 20,
+        symbolSize: 10,
         data: data,
         type: 'scatter',
+        itemStyle: {
+          color: '#E11D4890',
+        },
       },
     ],
     dataZoom: [

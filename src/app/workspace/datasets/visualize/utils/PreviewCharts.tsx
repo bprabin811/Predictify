@@ -1,6 +1,7 @@
 import Loader from '@/components/Loader';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
+  Calculator,
   Copy,
   CornerDownRight,
   Download,
@@ -12,7 +13,7 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 import React, { Suspense } from 'react';
-import { ChartsList } from '@/config/chart';
+import { ChangeChars, ChartsList, PlotOptions } from '@/config/chart';
 import { ConfirmationAlert } from '@/components/utils/ConformationAlert';
 import {
   DropdownMenu,
@@ -30,11 +31,21 @@ import { Button } from '@/components/ui/button';
 interface ChartPreviewProps {
   chartsData: any[];
   viewOption: string;
+  columnDetails?: any[];
 }
 
 const componentMap = new Map(ChartsList.map(({ key, component }) => [key, component]));
 
-const PreviewCharts: React.FC<ChartPreviewProps> = ({ chartsData, viewOption }) => {
+const PreviewCharts: React.FC<ChartPreviewProps> = ({ chartsData, viewOption, columnDetails }) => {
+  const checkType = (selectedData: string) => {
+    const field = columnDetails.find((item: any) => item.name === selectedData);
+    if (field?.type === 'int' || field?.type === 'float') {
+      return true;
+    }
+    return false;
+  };
+
+  console.log(chartsData);
   return (
     <div className="h-full w-full pb-20">
       {chartsData.length > 0 ? (
@@ -72,38 +83,51 @@ const PreviewCharts: React.FC<ChartPreviewProps> = ({ chartsData, viewOption }) 
                         </DropdownMenuSubTrigger>
                         <DropdownMenuPortal>
                           <DropdownMenuSubContent>
-                            {/* {FilteredWorkspaces.map((item: any) => ( */}
-                            <DropdownMenuItem
-                              key={''}
-                              // onClick={() => moveDataset(dataset?.id, item?.id)}
-                              className="flex gap-2 items-center">
-                              {/* <Folder size={16} /> */}
-                              <span>{'hi'}</span>
-                            </DropdownMenuItem>
-                            {/* ))} */}
+                            {ChangeChars.filter(
+                              (chart) => chart.key === item?.key,
+                            )[0]?.chanage_to?.map((list: any) => (
+                              <DropdownMenuItem
+                                key={list?.key}
+                                // onClick={() => changeChart(dataset?.id, item?.id)}
+                                className="flex gap-2 items-center">
+                                {list?.icon}
+                                <span>{list?.name}</span>
+                              </DropdownMenuItem>
+                            ))}
                           </DropdownMenuSubContent>
                         </DropdownMenuPortal>
                       </DropdownMenuSub>
 
-                      <DropdownMenuSub>
-                        <DropdownMenuSubTrigger className="flex items-center gap-3">
-                          <List size={15} />
-                          Options
-                        </DropdownMenuSubTrigger>
-                        <DropdownMenuPortal>
-                          <DropdownMenuSubContent>
-                            {/* {FilteredWorkspaces.map((item: any) => ( */}
-                            <DropdownMenuItem
-                              key={''}
-                              // onClick={() => moveDataset(dataset?.id, item?.id)}
-                              className="flex gap-2 items-center">
-                              {/* <Folder size={16} /> */}
-                              <span>{'hi'}</span>
-                            </DropdownMenuItem>
-                            {/* ))} */}
-                          </DropdownMenuSubContent>
-                        </DropdownMenuPortal>
-                      </DropdownMenuSub>
+                      {(item?.key === 'bar' || item?.key === 'line' || item?.key === 'area') && (
+                        <DropdownMenuSub>
+                          <DropdownMenuSubTrigger className="flex items-center gap-3">
+                            <List size={15} />
+                            Options
+                          </DropdownMenuSubTrigger>
+                          <DropdownMenuPortal>
+                            <DropdownMenuSubContent>
+                              {PlotOptions.filter((chart) => chart.key === item?.key).map(
+                                (opt: any) =>
+                                  (checkType(item?.yAxis?.[0]) || checkType(item?.column)) &&
+                                  opt?.plot_options
+                                    ?.filter((selected) => selected !== item?.option)
+                                    .map((list: any) => (
+                                      <DropdownMenuItem
+                                        key={list}
+                                        // onClick={() => changeChart(dataset?.id, item?.id)}
+                                        className="flex gap-2 items-center">
+                                        <Calculator size={16} />
+                                        <span className="uppercase text-muted-foreground">
+                                          {list}
+                                        </span>
+                                      </DropdownMenuItem>
+                                    )),
+                              )}
+                            </DropdownMenuSubContent>
+                          </DropdownMenuPortal>
+                        </DropdownMenuSub>
+                      )}
+
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         className="flex items-center gap-3"

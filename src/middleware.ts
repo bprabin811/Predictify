@@ -1,5 +1,16 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+// import { jwtDecode } from 'jwt-decode';
+
+// function isTokenExpired(token) {
+//     try {
+//         const decoded = jwtDecode(token);
+//         const currentTime = Math.floor(Date.now() / 1000);
+//         return decoded.exp < currentTime;
+//     } catch (error) {
+//         return true;
+//     }
+// }
 
 export function middleware(request: NextRequest) {
     const accessToken = request.cookies.get('token');
@@ -24,8 +35,8 @@ export function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname.toLowerCase();
 
     // Redirect logged-in users away from public paths
-    if (loggedInUserNotAccessPath.includes(pathname) && accessToken) {
-        return NextResponse.redirect(new URL('/workspace', request.url));
+    if (loggedInUserNotAccessPath.includes(pathname) && accessToken ) {
+        return NextResponse.redirect(new URL('/workspace?wsn=Default%20Workspace&', request.url));
     }
 
 

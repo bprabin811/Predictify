@@ -91,6 +91,7 @@ const UserDashboard: React.FC = () => {
       getWorkspace(widNumber);
       setWidNo(widNumber);
     } else {
+      getWorkspace(0);
       getDefaultDatasets();
     }
   }, [searchParams, getDatasets, getWorkspace, getDefaultDatasets]);
@@ -115,10 +116,6 @@ const UserDashboard: React.FC = () => {
       getWorkspaces();
     }
   };
-
-  // const handleDelete = () => {
-  //   deleteWorkspace(widNo);
-  // };
 
   const isEditableWorkspace = workspace !== 'Default Workspace';
 
@@ -202,9 +199,9 @@ const UserDashboard: React.FC = () => {
           <div className="mt-4 w-full flex items-center justify-between px-2 pr-4">
             <UploadDatasetDialog wid={widNo} />
           </div>
-          <div className="w-full mt-10">
+          <div className="w-full mt-10 max-h-[60vh] overflow-scroll">
             <table className="table-auto w-full">
-              <thead>
+              <thead className="sticky top-0 bg-secondary dark:bg-card">
                 <tr>
                   <th className="py-3 px-4 border-b text-left text-10 uppercase tracking-wider font-semibold">
                     Dataset

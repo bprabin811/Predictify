@@ -40,7 +40,11 @@ const WorkSpaceLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const HandleWorkspaceName = (id: number, name: string) => {
-    router.push(`${pathname}?wid=${id}&wsn=${name}&`);
+    if (name === 'Default Workspace') {
+      router.push(`${pathname}?wsn=${name}&`);
+    } else {
+      router.push(`${pathname}?wid=${id}&wsn=${name}`);
+    }
   };
 
   const handleAddNewWorkspace = async () => {

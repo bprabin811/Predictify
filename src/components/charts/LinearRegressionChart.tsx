@@ -87,10 +87,16 @@ const LinearRegressionChart: React.FC<LinearRegressionChartChartProps> = ({
       {
         name: 'scatter',
         type: 'scatter',
+        itemStyle: {
+          color: '#E11D4890',
+        },
       },
       {
         name: 'line',
         type: 'line',
+        itemStyle: {
+          color: '#22744a',
+        },
         datasetIndex: 1,
         symbolSize: 0.1,
         symbol: 'circle',

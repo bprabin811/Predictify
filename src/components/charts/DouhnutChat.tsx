@@ -26,7 +26,7 @@ const Doughnut: React.FC<DoughnutChartProps> = ({ data, xLabel }) => {
       {
         name: xLabel,
         type: 'pie',
-        radius: ['40%', '70%'],
+        radius: ['20%', '50%'],
         avoidLabelOverlap: false,
         label: {
           show: false,

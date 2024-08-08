@@ -127,9 +127,6 @@ const SelectColumnsComponent: React.FC<SelectColumnsProps> = ({ dataset, selecte
               ))}
             </SelectContent>
           </Select>
-          {formik.touched.columns && formik.errors.columns ? (
-            <div className="text-red-500 text-xs">{formik.errors.columns}</div>
-          ) : null}
           <div className="flex items-center space-x-2">
             <Checkbox
               id="selectall"
